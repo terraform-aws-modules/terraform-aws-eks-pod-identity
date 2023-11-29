@@ -3,8 +3,12 @@
 ################################################################################
 
 # https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/aws.md#iam-policy
+
 data "aws_iam_policy_document" "external_dns" {
   count = var.create && var.attach_external_dns_policy ? 1 : 0
+
+  source_policy_documents   = var.source_policy_documents
+  override_policy_documents = var.override_policy_documents
 
   statement {
     actions   = ["route53:ChangeResourceRecordSets"]
@@ -22,12 +26,17 @@ data "aws_iam_policy_document" "external_dns" {
   }
 }
 
+locals {
+  external_dns_policy_name = coalesce(var.external_dns_policy_name, "${var.policy_name_prefix}ExternalDNS")
+}
+
 resource "aws_iam_policy" "external_dns" {
   count = var.create && var.attach_external_dns_policy ? 1 : 0
 
-  name_prefix = "${var.policy_name_prefix}External_DNS_Policy-"
-  path        = var.role_path
-  description = "External DNS policy to allow management of Route53 hosted zone records"
+  name        = var.use_name_prefix ? null : local.external_dns_policy_name
+  name_prefix = var.use_name_prefix ? "${local.external_dns_policy_name}-" : null
+  path        = var.path
+  description = "Permissions for External DNS"
   policy      = data.aws_iam_policy_document.external_dns[0].json
 
   tags = var.tags

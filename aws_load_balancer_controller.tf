@@ -3,8 +3,12 @@
 ################################################################################
 
 # https://github.com/kubernetes-sigs/aws-load-balancer-controller/blob/main/docs/install/iam_policy.json
+
 data "aws_iam_policy_document" "load_balancer_controller" {
-  count = var.create && var.attach_load_balancer_controller_policy ? 1 : 0
+  count = var.create && var.attach_aws_load_balancer_controller_policy ? 1 : 0
+
+  source_policy_documents   = var.source_policy_documents
+  override_policy_documents = var.override_policy_documents
 
   statement {
     actions   = ["iam:CreateServiceLinkedRole"]
@@ -259,10 +263,15 @@ data "aws_iam_policy_document" "load_balancer_controller" {
   }
 }
 
-resource "aws_iam_policy" "load_balancer_controller" {
-  count = var.create && var.attach_load_balancer_controller_policy ? 1 : 0
+locals {
+  aws_load_balancer_controller_policy_name = coalesce(var.aws_load_balancer_controller_policy_name, "${var.policy_name_prefix}LoadBalancerController")
+}
 
-  name_prefix = "${var.policy_name_prefix}AWSLoadBalancerController-"
+resource "aws_iam_policy" "load_balancer_controller" {
+  count = var.create && var.attach_aws_load_balancer_controller_policy ? 1 : 0
+
+  name        = var.use_name_prefix ? null : local.aws_load_balancer_controller_policy_name
+  name_prefix = var.use_name_prefix ? "${local.aws_load_balancer_controller_policy_name}-" : null
   path        = var.path
   description = "Permissions for AWS Load Balancer Controller"
   policy      = data.aws_iam_policy_document.load_balancer_controller[0].json
@@ -271,7 +280,7 @@ resource "aws_iam_policy" "load_balancer_controller" {
 }
 
 resource "aws_iam_role_policy_attachment" "load_balancer_controller" {
-  count = var.create && var.attach_load_balancer_controller_policy ? 1 : 0
+  count = var.create && var.attach_aws_load_balancer_controller_policy ? 1 : 0
 
   role       = aws_iam_role.this[0].name
   policy_arn = aws_iam_policy.load_balancer_controller[0].arn
@@ -283,8 +292,12 @@ resource "aws_iam_role_policy_attachment" "load_balancer_controller" {
 
 # https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.4/guide/targetgroupbinding/targetgroupbinding/#reference
 # https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.4/deploy/installation/#setup-iam-manually
+
 data "aws_iam_policy_document" "load_balancer_controller_targetgroup_only" {
-  count = var.create && var.attach_load_balancer_controller_targetgroup_binding_only_policy ? 1 : 0
+  count = var.create && var.attach_aws_load_balancer_controller_targetgroup_binding_only_policy ? 1 : 0
+
+  source_policy_documents   = var.source_policy_documents
+  override_policy_documents = var.override_policy_documents
 
   statement {
     actions = [
@@ -308,14 +321,19 @@ data "aws_iam_policy_document" "load_balancer_controller_targetgroup_only" {
       "elasticloadbalancing:DeregisterTargets",
     ]
 
-    resources = var.load_balancer_controller_targetgroup_arns
+    resources = var.aws_load_balancer_controller_targetgroup_arns
   }
 }
 
-resource "aws_iam_policy" "load_balancer_controller_targetgroup_only" {
-  count = var.create && var.attach_load_balancer_controller_targetgroup_binding_only_policy ? 1 : 0
+locals {
+  aws_load_balancer_controller_targetgroup_only_policy_name = coalesce(var.aws_load_balancer_controller_targetgroup_only_policy_name, "${var.policy_name_prefix}LoadBalancerControllerTargetGroupOnly")
+}
 
-  name_prefix = "${var.policy_name_prefix}AWSLoadBalancerControllerTargetGroupOnly-"
+resource "aws_iam_policy" "load_balancer_controller_targetgroup_only" {
+  count = var.create && var.attach_aws_load_balancer_controller_targetgroup_binding_only_policy ? 1 : 0
+
+  name        = var.use_name_prefix ? null : local.aws_load_balancer_controller_targetgroup_only_policy_name
+  name_prefix = var.use_name_prefix ? "${local.aws_load_balancer_controller_targetgroup_only_policy_name}-" : null
   path        = var.path
   description = "Permissions for AWS Load Balancer Controller with TargetGroup binding only"
   policy      = data.aws_iam_policy_document.load_balancer_controller_targetgroup_only[0].json
@@ -324,7 +342,7 @@ resource "aws_iam_policy" "load_balancer_controller_targetgroup_only" {
 }
 
 resource "aws_iam_role_policy_attachment" "load_balancer_controller_targetgroup_only" {
-  count = var.create && var.attach_load_balancer_controller_targetgroup_binding_only_policy ? 1 : 0
+  count = var.create && var.attach_aws_load_balancer_controller_targetgroup_binding_only_policy ? 1 : 0
 
   role       = aws_iam_role.this[0].name
   policy_arn = aws_iam_policy.load_balancer_controller_targetgroup_only[0].arn

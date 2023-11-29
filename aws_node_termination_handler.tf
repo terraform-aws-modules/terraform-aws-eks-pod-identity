@@ -5,7 +5,10 @@
 # https://github.com/aws/aws-node-termination-handler#5-create-an-iam-role-for-the-pods
 
 data "aws_iam_policy_document" "node_termination_handler" {
-  count = var.create && var.attach_node_termination_handler_policy ? 1 : 0
+  count = var.create && var.attach_aws_node_termination_handler_policy ? 1 : 0
+
+  source_policy_documents   = var.source_policy_documents
+  override_policy_documents = var.override_policy_documents
 
   statement {
     actions = [
@@ -24,14 +27,19 @@ data "aws_iam_policy_document" "node_termination_handler" {
       "sqs:ReceiveMessage",
     ]
 
-    resources = var.node_termination_handler_sqs_queue_arns
+    resources = var.aws_nodetermination_handler_sqs_queue_arns
   }
 }
 
-resource "aws_iam_policy" "node_termination_handler" {
-  count = var.create && var.attach_node_termination_handler_policy ? 1 : 0
+locals {
+  aws_node_termination_handler_policy_name = coalesce(var.aws_node_termination_handler_policy_name, "${var.policy_name_prefix}NodeTerminationHandler")
+}
 
-  name_prefix = "${var.policy_name_prefix}AWSNodeTerminationHandler-"
+resource "aws_iam_policy" "node_termination_handler" {
+  count = var.create && var.attach_aws_node_termination_handler_policy ? 1 : 0
+
+  name        = var.use_name_prefix ? null : local.aws_node_termination_handler_policy_name
+  name_prefix = var.use_name_prefix ? "${local.aws_node_termination_handler_policy_name}-" : null
   path        = var.path
   description = "Permissions for Node Termination Handler"
   policy      = data.aws_iam_policy_document.node_termination_handler[0].json
@@ -40,7 +48,7 @@ resource "aws_iam_policy" "node_termination_handler" {
 }
 
 resource "aws_iam_role_policy_attachment" "node_termination_handler" {
-  count = var.create && var.attach_node_termination_handler_policy ? 1 : 0
+  count = var.create && var.attach_aws_node_termination_handler_policy ? 1 : 0
 
   role       = aws_iam_role.this[0].name
   policy_arn = aws_iam_policy.node_termination_handler[0].arn

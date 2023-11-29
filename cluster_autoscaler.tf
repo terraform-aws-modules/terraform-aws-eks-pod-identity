@@ -3,8 +3,12 @@
 ################################################################################
 
 # https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/cloudprovider/aws/README.md
+
 data "aws_iam_policy_document" "cluster_autoscaler" {
   count = var.create && var.attach_cluster_autoscaler_policy ? 1 : 0
+
+  source_policy_documents   = var.source_policy_documents
+  override_policy_documents = var.override_policy_documents
 
   statement {
     actions = [
@@ -24,8 +28,8 @@ data "aws_iam_policy_document" "cluster_autoscaler" {
   }
 
   dynamic "statement" {
-    # TODO - remove *_ids at next breaking change
-    for_each = toset(coalescelist(var.cluster_autoscaler_cluster_ids, var.cluster_autoscaler_cluster_names))
+    for_each = toset(var.cluster_autoscaler_cluster_names)
+
     content {
       actions = [
         "autoscaling:SetDesiredCapacity",
@@ -43,12 +47,17 @@ data "aws_iam_policy_document" "cluster_autoscaler" {
   }
 }
 
+locals {
+  cluster_autoscaler_policy_name = coalesce(var.cluster_autoscaler_policy_name, "${var.policy_name_prefix}ClusterAutoscaler")
+}
+
 resource "aws_iam_policy" "cluster_autoscaler" {
   count = var.create && var.attach_cluster_autoscaler_policy ? 1 : 0
 
-  name_prefix = "${var.policy_name_prefix}Cluster_Autoscaler_Policy-"
-  path        = var.role_path
-  description = "Cluster autoscaler policy to allow examination and modification of EC2 Auto Scaling Groups"
+  name        = var.use_name_prefix ? null : local.cluster_autoscaler_policy_name
+  name_prefix = var.use_name_prefix ? "${local.cluster_autoscaler_policy_name}-" : null
+  path        = var.path
+  description = "Permissions for Cluster Autoscaler"
   policy      = data.aws_iam_policy_document.cluster_autoscaler[0].json
 
   tags = var.tags

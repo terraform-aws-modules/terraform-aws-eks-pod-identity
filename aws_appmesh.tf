@@ -6,7 +6,10 @@
 # https://raw.githubusercontent.com/aws/aws-app-mesh-controller-for-k8s/master/config/iam/controller-iam-policy.json
 
 data "aws_iam_policy_document" "appmesh_controller" {
-  count = var.create && var.attach_appmesh_controller_policy ? 1 : 0
+  count = var.create && var.attach_aws_appmesh_controller_policy ? 1 : 0
+
+  source_policy_documents   = var.source_policy_documents
+  override_policy_documents = var.override_policy_documents
 
   statement {
     actions = [
@@ -95,10 +98,15 @@ data "aws_iam_policy_document" "appmesh_controller" {
   }
 }
 
-resource "aws_iam_policy" "appmesh_controller" {
-  count = var.create && var.attach_appmesh_controller_policy ? 1 : 0
+locals {
+  appmesh_controller_policy_name = coalesce(var.appmesh_controller_policy_name, "${var.policy_name_prefix}AppMeshController")
+}
 
-  name_prefix = "${var.policy_name_prefix}AWSAppMeshController-"
+resource "aws_iam_policy" "appmesh_controller" {
+  count = var.create && var.attach_aws_appmesh_controller_policy ? 1 : 0
+
+  name        = var.use_name_prefix ? null : local.appmesh_controller_policy_name
+  name_prefix = var.use_name_prefix ? "${local.appmesh_controller_policy_name}-" : null
   path        = var.path
   description = "Permissions for AppMesh Controller"
   policy      = data.aws_iam_policy_document.appmesh_controller[0].json
@@ -107,7 +115,7 @@ resource "aws_iam_policy" "appmesh_controller" {
 }
 
 resource "aws_iam_role_policy_attachment" "appmesh_controller" {
-  count = var.create && var.attach_appmesh_controller_policy ? 1 : 0
+  count = var.create && var.attach_aws_appmesh_controller_policy ? 1 : 0
 
   role       = aws_iam_role.this[0].name
   policy_arn = aws_iam_policy.appmesh_controller[0].arn
@@ -121,7 +129,10 @@ resource "aws_iam_role_policy_attachment" "appmesh_controller" {
 # https://raw.githubusercontent.com/aws/aws-app-mesh-controller-for-k8s/master/config/iam/envoy-iam-policy.json
 
 data "aws_iam_policy_document" "appmesh_envoy_proxy" {
-  count = var.create && var.attach_appmesh_envoy_proxy_policy ? 1 : 0
+  count = var.create && var.attach_aws_appmesh_envoy_proxy_policy ? 1 : 0
+
+  source_policy_documents   = var.source_policy_documents
+  override_policy_documents = var.override_policy_documents
 
   statement {
     actions = [
@@ -139,10 +150,15 @@ data "aws_iam_policy_document" "appmesh_envoy_proxy" {
   }
 }
 
-resource "aws_iam_policy" "appmesh_envoy_proxy" {
-  count = var.create && var.attach_appmesh_envoy_proxy_policy ? 1 : 0
+locals {
+  appmesh_envoy_proxy_policy_name = coalesce(var.appmesh_envoy_proxy_policy_name, "${var.policy_name_prefix}AppMeshEnvoyProxy")
+}
 
-  name_prefix = "${var.policy_name_prefix}AppMesh_Envoy_Proxy-"
+resource "aws_iam_policy" "appmesh_envoy_proxy" {
+  count = var.create && var.attach_aws_appmesh_envoy_proxy_policy ? 1 : 0
+
+  name        = var.use_name_prefix ? null : local.appmesh_envoy_proxy_policy_name
+  name_prefix = var.use_name_prefix ? "${local.appmesh_envoy_proxy_policy_name}-" : null
   path        = var.path
   description = "Permissions for AppMesh Envoy Proxy"
   policy      = data.aws_iam_policy_document.appmesh_envoy_proxy[0].json
@@ -151,7 +167,7 @@ resource "aws_iam_policy" "appmesh_envoy_proxy" {
 }
 
 resource "aws_iam_role_policy_attachment" "appmesh_envoy_proxy" {
-  count = var.create && var.attach_appmesh_envoy_proxy_policy ? 1 : 0
+  count = var.create && var.attach_aws_appmesh_envoy_proxy_policy ? 1 : 0
 
   role       = aws_iam_role.this[0].name
   policy_arn = aws_iam_policy.appmesh_envoy_proxy[0].arn

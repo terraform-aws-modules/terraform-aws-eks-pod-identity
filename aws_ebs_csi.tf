@@ -5,7 +5,10 @@
 # https://github.com/kubernetes-sigs/aws-ebs-csi-driver/blob/master/docs/example-iam-policy.json
 
 data "aws_iam_policy_document" "ebs_csi" {
-  count = var.create && var.attach_ebs_csi_policy ? 1 : 0
+  count = var.create && var.attach_aws_ebs_csi_policy ? 1 : 0
+
+  source_policy_documents   = var.source_policy_documents
+  override_policy_documents = var.override_policy_documents
 
   statement {
     actions = [
@@ -153,7 +156,7 @@ data "aws_iam_policy_document" "ebs_csi" {
   }
 
   dynamic "statement" {
-    for_each = length(var.ebs_csi_kms_cmk_ids) > 0 ? [1] : []
+    for_each = length(var.aws_ebs_csi_kms_cmk_ids) > 0 ? [1] : []
     content {
       actions = [
         "kms:CreateGrant",
@@ -161,7 +164,7 @@ data "aws_iam_policy_document" "ebs_csi" {
         "kms:RevokeGrant",
       ]
 
-      resources = var.ebs_csi_kms_cmk_ids
+      resources = var.aws_ebs_csi_kms_cmk_ids
 
       condition {
         test     = "Bool"
@@ -172,7 +175,7 @@ data "aws_iam_policy_document" "ebs_csi" {
   }
 
   dynamic "statement" {
-    for_each = length(var.ebs_csi_kms_cmk_ids) > 0 ? [1] : []
+    for_each = length(var.aws_ebs_csi_kms_cmk_ids) > 0 ? [1] : []
     content {
       actions = [
         "kms:Encrypt",
@@ -182,15 +185,20 @@ data "aws_iam_policy_document" "ebs_csi" {
         "kms:DescribeKey",
       ]
 
-      resources = var.ebs_csi_kms_cmk_ids
+      resources = var.aws_ebs_csi_kms_cmk_ids
     }
   }
 }
 
-resource "aws_iam_policy" "ebs_csi" {
-  count = var.create && var.attach_ebs_csi_policy ? 1 : 0
+locals {
+  aws_ebs_csi_policy_name = coalesce(var.aws_ebs_csi_policy_name, "${var.policy_name_prefix}EBS_CSI")
+}
 
-  name_prefix = "${var.policy_name_prefix}AWSEBSCSI-"
+resource "aws_iam_policy" "ebs_csi" {
+  count = var.create && var.attach_aws_ebs_csi_policy ? 1 : 0
+
+  name        = var.use_name_prefix ? null : local.aws_ebs_csi_policy_name
+  name_prefix = var.use_name_prefix ? "${local.aws_ebs_csi_policy_name}-" : null
   path        = var.path
   description = "Permissions to manage EBS volumes via the container storage interface (CSI) driver"
   policy      = data.aws_iam_policy_document.ebs_csi[0].json
@@ -199,7 +207,7 @@ resource "aws_iam_policy" "ebs_csi" {
 }
 
 resource "aws_iam_role_policy_attachment" "ebs_csi" {
-  count = var.create && var.attach_ebs_csi_policy ? 1 : 0
+  count = var.create && var.attach_aws_ebs_csi_policy ? 1 : 0
 
   role       = aws_iam_role.this[0].name
   policy_arn = aws_iam_policy.ebs_csi[0].arn

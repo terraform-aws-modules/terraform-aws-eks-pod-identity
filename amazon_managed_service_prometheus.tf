@@ -2,9 +2,16 @@
 # Amazon Managed Service for Prometheus Policy
 ################################################################################
 
+locals {
+  amazon_managed_service_prometheus_policy_name = coalesce(var.amazon_managed_service_prometheus_policy_name, "${var.policy_name_prefix}ManagedServiceForPrometheus")
+}
+
 # https://docs.aws.amazon.com/prometheus/latest/userguide/set-up-irsa.html
 data "aws_iam_policy_document" "amazon_managed_service_prometheus" {
   count = var.create && var.attach_amazon_managed_service_prometheus_policy ? 1 : 0
+
+  source_policy_documents   = var.source_policy_documents
+  override_policy_documents = var.override_policy_documents
 
   statement {
     actions = [
@@ -22,7 +29,8 @@ data "aws_iam_policy_document" "amazon_managed_service_prometheus" {
 resource "aws_iam_policy" "amazon_managed_service_prometheus" {
   count = var.create && var.attach_amazon_managed_service_prometheus_policy ? 1 : 0
 
-  name_prefix = "${var.policy_name_prefix}AmazonManagedServiceForPrometheus-"
+  name        = var.use_name_prefix ? null : local.amazon_managed_service_prometheus_policy_name
+  name_prefix = var.use_name_prefix ? "${local.amazon_managed_service_prometheus_policy_name}-" : null
   path        = var.path
   description = "Permissions for Amazon Managed Service for Prometheus"
   policy      = data.aws_iam_policy_document.amazon_managed_service_prometheus[0].json

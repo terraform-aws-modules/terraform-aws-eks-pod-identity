@@ -2,10 +2,14 @@
 # AWS Gateway Controller Policy
 ################################################################################
 
+# https://github.com/aws/aws-application-networking-k8s/blob/v1.0.1/examples/recommended-inline-policy.json
+
 data "aws_iam_policy_document" "aws_gateway_controller" {
   count = var.create && var.attach_aws_gateway_controller_policy ? 1 : 0
 
-  # https://github.com/aws/aws-application-networking-k8s/blob/v1.0.1/examples/recommended-inline-policy.json
+  source_policy_documents   = var.source_policy_documents
+  override_policy_documents = var.override_policy_documents
+
   statement {
     actions = [
       "vpc-lattice:*",
@@ -46,10 +50,15 @@ data "aws_iam_policy_document" "aws_gateway_controller" {
   }
 }
 
+locals {
+  aws_gateway_controller_policy_name = coalesce(var.aws_gateway_controller_policy_name, "${var.policy_name_prefix}GatewayController")
+}
+
 resource "aws_iam_policy" "aws_gateway_controller" {
   count = var.create && var.attach_aws_gateway_controller_policy ? 1 : 0
 
-  name_prefix = "${var.policy_name_prefix}AWSGatewayController-"
+  name        = var.use_name_prefix ? null : local.aws_gateway_controller_policy_name
+  name_prefix = var.use_name_prefix ? "${local.aws_gateway_controller_policy_name}-" : null
   path        = var.path
   description = "Permissions for the AWS Gateway Controller"
   policy      = data.aws_iam_policy_document.aws_gateway_controller[0].json

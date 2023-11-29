@@ -4,8 +4,12 @@
 ################################################################################
 
 # https://github.com/vmware-tanzu/velero-plugin-for-aws#set-permissions-for-velero
+
 data "aws_iam_policy_document" "velero" {
   count = var.create && var.attach_velero_policy ? 1 : 0
+
+  source_policy_documents   = var.source_policy_documents
+  override_policy_documents = var.override_policy_documents
 
   statement {
     sid = "Ec2ReadWrite"
@@ -41,12 +45,17 @@ data "aws_iam_policy_document" "velero" {
   }
 }
 
+locals {
+  velero_policy_name = coalesce(var.velero_policy_name, "${var.policy_name_prefix}Velero")
+}
+
 resource "aws_iam_policy" "velero" {
   count = var.create && var.attach_velero_policy ? 1 : 0
 
-  name_prefix = "${var.policy_name_prefix}Velero_Policy-"
-  path        = var.role_path
-  description = "Provides Velero permissions to backup and restore cluster resources"
+  name        = var.use_name_prefix ? null : local.velero_policy_name
+  name_prefix = var.use_name_prefix ? "${local.velero_policy_name}-" : null
+  path        = var.path
+  description = "Permissions for Velero"
   policy      = data.aws_iam_policy_document.velero[0].json
 
   tags = var.tags

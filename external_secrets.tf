@@ -3,8 +3,12 @@
 ################################################################################
 
 # https://github.com/external-secrets/kubernetes-external-secrets#add-a-secret
+
 data "aws_iam_policy_document" "external_secrets" {
   count = var.create && var.attach_external_secrets_policy ? 1 : 0
+
+  source_policy_documents   = var.source_policy_documents
+  override_policy_documents = var.override_policy_documents
 
   statement {
     actions   = ["ssm:DescribeParameters"]
@@ -16,6 +20,7 @@ data "aws_iam_policy_document" "external_secrets" {
       "ssm:GetParameter",
       "ssm:GetParameters",
     ]
+
     resources = var.external_secrets_ssm_parameter_arns
   }
 
@@ -31,6 +36,7 @@ data "aws_iam_policy_document" "external_secrets" {
       "secretsmanager:DescribeSecret",
       "secretsmanager:ListSecretVersionIds",
     ]
+
     resources = var.external_secrets_secrets_manager_arns
   }
 
@@ -41,21 +47,25 @@ data "aws_iam_policy_document" "external_secrets" {
 
   dynamic "statement" {
     for_each = var.external_secrets_secrets_manager_create_permission ? [1] : []
+
     content {
       actions = [
         "secretsmanager:CreateSecret",
         "secretsmanager:PutSecretValue",
         "secretsmanager:TagResource",
       ]
+
       resources = var.external_secrets_secrets_manager_arns
     }
   }
 
   dynamic "statement" {
     for_each = var.external_secrets_secrets_manager_create_permission ? [1] : []
+
     content {
       actions   = ["secretsmanager:DeleteSecret"]
       resources = var.external_secrets_secrets_manager_arns
+
       condition {
         test     = "StringEquals"
         variable = "secretsmanager:ResourceTag/managed-by"
@@ -65,12 +75,17 @@ data "aws_iam_policy_document" "external_secrets" {
   }
 }
 
+locals {
+  external_secrets_policy_name = coalesce(var.external_secrets_policy_name, "${var.policy_name_prefix}ExternalSecrets")
+}
+
 resource "aws_iam_policy" "external_secrets" {
   count = var.create && var.attach_external_secrets_policy ? 1 : 0
 
-  name_prefix = "${var.policy_name_prefix}External_Secrets_Policy-"
-  path        = var.role_path
-  description = "Provides permissions to for External Secrets to retrieve secrets from AWS SSM and AWS Secrets Manager"
+  name        = var.use_name_prefix ? null : local.external_secrets_policy_name
+  name_prefix = var.use_name_prefix ? "${local.external_secrets_policy_name}-" : null
+  path        = var.path
+  description = "Permissions for External Secrets"
   policy      = data.aws_iam_policy_document.external_secrets[0].json
 
   tags = var.tags

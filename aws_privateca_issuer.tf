@@ -5,6 +5,9 @@
 data "aws_iam_policy_document" "aws_privateca_issuer" {
   count = var.create && var.attach_aws_privateca_issuer_policy ? 1 : 0
 
+  source_policy_documents   = var.source_policy_documents
+  override_policy_documents = var.override_policy_documents
+
   statement {
     actions = [
       "acm-pca:DescribeCertificateAuthority",
@@ -16,10 +19,15 @@ data "aws_iam_policy_document" "aws_privateca_issuer" {
   }
 }
 
+locals {
+  aws_privateca_issuer_policy_name = coalesce(var.aws_privateca_issuer_policy_name, "${var.policy_name_prefix}PrivateCAIssuer")
+}
+
 resource "aws_iam_policy" "aws_privateca_issuer" {
   count = var.create && var.attach_aws_privateca_issuer_policy ? 1 : 0
 
-  name_prefix = "${var.policy_name_prefix}AWSNodeTerminationHandler-"
+  name        = var.use_name_prefix ? null : local.aws_privateca_issuer_policy_name
+  name_prefix = var.use_name_prefix ? "${local.aws_privateca_issuer_policy_name}-" : null
   path        = var.path
   description = "Permissions for AWS Private CA Issuer"
   policy      = data.aws_iam_policy_document.aws_privateca_issuer[0].json
