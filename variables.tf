@@ -26,30 +26,6 @@ variable "enable_role_self_assume" {
   default     = false
 }
 
-variable "assume_role_condition_test" {
-  description = "Name of the [IAM condition operator](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html) to evaluate when assuming the role"
-  type        = string
-  default     = "StringEquals"
-}
-
-variable "enable_irsa" {
-  description = "Determines whether to enable IAM Roles for Service Accounts (IRSA). One or more `oidc_providers` is required when `true`"
-  type        = bool
-  default     = false
-}
-
-variable "oidc_providers" {
-  description = "Map of OIDC providers where each provider map should contain the `provider`, `provider_arn`, and `namespace_service_accounts`"
-  type        = any
-  default     = {}
-}
-
-variable "enable_pod_identity" {
-  description = "Determines whether to enable Pod Identity"
-  type        = bool
-  default     = true
-}
-
 ################################################################################
 # IAM Role
 ################################################################################
@@ -57,7 +33,7 @@ variable "enable_pod_identity" {
 variable "name" {
   description = "Name of IAM role"
   type        = string
-  default     = null
+  default     = ""
 }
 
 variable "use_name_prefix" {
@@ -112,10 +88,29 @@ variable "override_policy_documents" {
   default     = []
 }
 
+variable "policy_statements" {
+  description = "A map of IAM policy [statements](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document#statement) for custom permission usage"
+  type        = any
+  default     = {}
+}
+
 variable "policy_name_prefix" {
   description = "IAM policy name prefix"
   type        = string
   default     = "AmazonEKS_"
+}
+
+# Custom policy
+variable "attach_custom_policy" {
+  description = "Determines whether to attach the custom IAM policy to the role"
+  type        = bool
+  default     = false
+}
+
+variable "custom_policy_description" {
+  description = "Description of the custom IAM policy"
+  type        = string
+  default     = "Custom IAM Policy"
 }
 
 # Amazon Managed Service for Prometheus
@@ -229,32 +224,32 @@ variable "aws_gateway_controller_policy_name" {
 }
 
 # AWS Load Balancer Controller
-variable "attach_aws_load_balancer_controller_policy" {
+variable "attach_aws_lb_controller_policy" {
   description = "Determines whether to attach the AWS Load Balancer Controller policy to the role"
   type        = bool
   default     = false
 }
 
-variable "aws_load_balancer_controller_policy_name" {
+variable "aws_lb_controller_policy_name" {
   description = "Custom name of the AWS Load Balancer Controller IAM policy"
   type        = string
   default     = null
 }
 
 # AWS Load Balancer Controller TargetGroup Binding Only
-variable "attach_aws_load_balancer_controller_targetgroup_binding_only_policy" {
+variable "attach_aws_lb_controller_targetgroup_binding_only_policy" {
   description = "Determines whether to attach the AWS Load Balancer Controller policy for the TargetGroupBinding only"
   type        = bool
   default     = false
 }
 
-variable "aws_load_balancer_controller_targetgroup_only_policy_name" {
+variable "aws_lb_controller_targetgroup_only_policy_name" {
   description = "Custom name of the AWS Load Balancer Controller IAM policy for the TargetGroupBinding only"
   type        = string
   default     = null
 }
 
-variable "aws_load_balancer_controller_targetgroup_arns" {
+variable "aws_lb_controller_targetgroup_arns" {
   description = "List of Target groups ARNs using Load Balancer Controller"
   type        = list(string)
   default     = ["arn:aws:elasticloadbalancing:*:*:targetgroup/*/*"]

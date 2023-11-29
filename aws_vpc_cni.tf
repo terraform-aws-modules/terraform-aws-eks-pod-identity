@@ -6,7 +6,7 @@
 data "aws_iam_policy_document" "vpc_cni" {
   count = var.create && var.attach_aws_vpc_cni_policy ? 1 : 0
 
-  source_policy_documents   = var.source_policy_documents
+  source_policy_documents   = [data.aws_iam_policy_document.base[0].json]
   override_policy_documents = var.override_policy_documents
 
   # arn:${local.partition}:iam::aws:policy/AmazonEKS_CNI_Policy

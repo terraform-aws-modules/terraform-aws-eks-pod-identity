@@ -7,7 +7,7 @@
 data "aws_iam_policy_document" "node_termination_handler" {
   count = var.create && var.attach_aws_node_termination_handler_policy ? 1 : 0
 
-  source_policy_documents   = var.source_policy_documents
+  source_policy_documents   = [data.aws_iam_policy_document.base[0].json]
   override_policy_documents = var.override_policy_documents
 
   statement {

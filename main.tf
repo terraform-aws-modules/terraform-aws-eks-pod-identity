@@ -38,48 +38,16 @@ data "aws_iam_policy_document" "assume" {
     }
   }
 
-  dynamic "statement" {
-    for_each = { for k, v in var.oidc_providers : k => v if var.enable_irsa }
+  statement {
+    effect = "Allow"
+    actions = [
+      "sts:AssumeRole",
+      "sts:TagSession",
+    ]
 
-    content {
-      effect  = "Allow"
-      actions = ["sts:AssumeRoleWithWebIdentity"]
-
-      principals {
-        type        = "Federated"
-        identifiers = [statement.value.provider_arn]
-      }
-
-      condition {
-        test     = var.assume_role_condition_test
-        variable = "${replace(statement.value.provider_arn, "/^(.*provider/)/", "")}:sub"
-        values   = [for sa in statement.value.namespace_service_accounts : "system:serviceaccount:${sa}"]
-      }
-
-      # https://aws.amazon.com/premiumsupport/knowledge-center/eks-troubleshoot-oidc-and-irsa/?nc1=h_ls
-      condition {
-        test     = var.assume_role_condition_test
-        variable = "${replace(statement.value.provider_arn, "/^(.*provider/)/", "")}:aud"
-        values   = ["sts.amazonaws.com"]
-      }
-
-    }
-  }
-
-  dynamic "statement" {
-    for_each = var.enable_pod_identity ? [1] : []
-
-    content {
-      effect = "Allow"
-      actions = [
-        "sts:AssumeRole",
-        "sts:TagSession",
-      ]
-
-      principals {
-        type        = "Service"
-        identifiers = ["pods.eks.amazonaws.com"]
-      }
+    principals {
+      type        = "Service"
+      identifiers = ["pods.eks.amazonaws.com"]
     }
   }
 }
@@ -109,4 +77,81 @@ resource "aws_iam_role_policy_attachment" "this" {
 
   role       = aws_iam_role.this[0].name
   policy_arn = each.value
+}
+
+################################################################################
+# Base IAM Policy Document
+################################################################################
+
+data "aws_iam_policy_document" "base" {
+  count = var.create ? 1 : 0
+
+  source_policy_documents = var.source_policy_documents
+  # Override will happen on each final document
+  # Here, it is only applicable for the custom policy document to avoid duplicate statements
+  override_policy_documents = var.attach_custom_policy ? var.override_policy_documents : []
+
+  dynamic "statement" {
+    for_each = var.policy_statements
+
+    content {
+      sid           = try(statement.value.sid, null)
+      actions       = try(statement.value.actions, null)
+      not_actions   = try(statement.value.not_actions, null)
+      effect        = try(statement.value.effect, null)
+      resources     = try(statement.value.resources, null)
+      not_resources = try(statement.value.not_resources, null)
+
+      dynamic "principals" {
+        for_each = try(statement.value.principals, [])
+
+        content {
+          type        = principals.value.type
+          identifiers = principals.value.identifiers
+        }
+      }
+
+      dynamic "not_principals" {
+        for_each = try(statement.value.not_principals, [])
+
+        content {
+          type        = not_principals.value.type
+          identifiers = not_principals.value.identifiers
+        }
+      }
+
+      dynamic "condition" {
+        for_each = try(statement.value.conditions, [])
+
+        content {
+          test     = condition.value.test
+          values   = condition.value.values
+          variable = condition.value.variable
+        }
+      }
+    }
+  }
+}
+
+################################################################################
+# Custom IAM Policy
+################################################################################
+
+resource "aws_iam_policy" "custom" {
+  count = var.create && var.attach_custom_policy ? 1 : 0
+
+  name        = var.use_name_prefix ? null : var.name
+  name_prefix = var.use_name_prefix ? "${var.name}-" : null
+  path        = var.path
+  description = var.custom_policy_description
+  policy      = data.aws_iam_policy_document.base[0].json
+
+  tags = var.tags
+}
+
+resource "aws_iam_role_policy_attachment" "custom" {
+  count = var.create && var.attach_custom_policy ? 1 : 0
+
+  role       = aws_iam_role.this[0].name
+  policy_arn = aws_iam_policy.custom[0].arn
 }

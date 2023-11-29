@@ -52,14 +52,15 @@ No modules.
 | [aws_iam_policy.aws_privateca_issuer](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.cert_manager](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.cluster_autoscaler](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
+| [aws_iam_policy.custom](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.ebs_csi](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.efs_csi](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.external_dns](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.external_secrets](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.fsx_lustre_csi](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.karpenter_controller](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
-| [aws_iam_policy.load_balancer_controller](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
-| [aws_iam_policy.load_balancer_controller_targetgroup_only](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
+| [aws_iam_policy.lb_controller](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
+| [aws_iam_policy.lb_controller_targetgroup_only](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.node_termination_handler](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.velero](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.vpc_cni](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
@@ -72,14 +73,15 @@ No modules.
 | [aws_iam_role_policy_attachment.aws_privateca_issuer](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.cert_manager](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.cluster_autoscaler](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_role_policy_attachment.custom](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.ebs_csi](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.efs_csi](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.external_dns](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.external_secrets](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.fsx_lustre_csi](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.karpenter_controller](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
-| [aws_iam_role_policy_attachment.load_balancer_controller](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
-| [aws_iam_role_policy_attachment.load_balancer_controller_targetgroup_only](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_role_policy_attachment.lb_controller](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_role_policy_attachment.lb_controller_targetgroup_only](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.node_termination_handler](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.velero](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
@@ -91,6 +93,7 @@ No modules.
 | [aws_iam_policy_document.assume](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.aws_gateway_controller](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.aws_privateca_issuer](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.base](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.cert_manager](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.cluster_autoscaler](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.ebs_csi](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
@@ -99,8 +102,8 @@ No modules.
 | [aws_iam_policy_document.external_secrets](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.fsx_lustre_csi](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.karpenter_controller](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.load_balancer_controller](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.load_balancer_controller_targetgroup_only](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.lb_controller](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.lb_controller_targetgroup_only](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.node_termination_handler](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.velero](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.vpc_cni](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
@@ -115,7 +118,6 @@ No modules.
 | <a name="input_amazon_managed_service_prometheus_workspace_arns"></a> [amazon\_managed\_service\_prometheus\_workspace\_arns](#input\_amazon\_managed\_service\_prometheus\_workspace\_arns) | List of AMP Workspace ARNs to read and write metrics | `list(string)` | <pre>[<br>  "*"<br>]</pre> | no |
 | <a name="input_appmesh_controller_policy_name"></a> [appmesh\_controller\_policy\_name](#input\_appmesh\_controller\_policy\_name) | Custom name of the AppMesh Controller IAM policy | `string` | `null` | no |
 | <a name="input_appmesh_envoy_proxy_policy_name"></a> [appmesh\_envoy\_proxy\_policy\_name](#input\_appmesh\_envoy\_proxy\_policy\_name) | Custom name of the AppMesh Envoy Proxy IAM policy | `string` | `null` | no |
-| <a name="input_assume_role_condition_test"></a> [assume\_role\_condition\_test](#input\_assume\_role\_condition\_test) | Name of the [IAM condition operator](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html) to evaluate when assuming the role | `string` | `"StringEquals"` | no |
 | <a name="input_attach_amazon_managed_service_prometheus_policy"></a> [attach\_amazon\_managed\_service\_prometheus\_policy](#input\_attach\_amazon\_managed\_service\_prometheus\_policy) | Determines whether to attach the Amazon Managed Service for Prometheus IAM policy to the role | `bool` | `false` | no |
 | <a name="input_attach_aws_appmesh_controller_policy"></a> [attach\_aws\_appmesh\_controller\_policy](#input\_attach\_aws\_appmesh\_controller\_policy) | Determines whether to attach the AppMesh Controller policy to the role | `bool` | `false` | no |
 | <a name="input_attach_aws_appmesh_envoy_proxy_policy"></a> [attach\_aws\_appmesh\_envoy\_proxy\_policy](#input\_attach\_aws\_appmesh\_envoy\_proxy\_policy) | Determines whether to attach the AppMesh Envoy Proxy policy to the role | `bool` | `false` | no |
@@ -124,13 +126,14 @@ No modules.
 | <a name="input_attach_aws_efs_csi_policy"></a> [attach\_aws\_efs\_csi\_policy](#input\_attach\_aws\_efs\_csi\_policy) | Determines whether to attach the EFS CSI IAM policy to the role | `bool` | `false` | no |
 | <a name="input_attach_aws_fsx_lustre_csi_policy"></a> [attach\_aws\_fsx\_lustre\_csi\_policy](#input\_attach\_aws\_fsx\_lustre\_csi\_policy) | Determines whether to attach the FSx for Lustre CSI Driver IAM policy to the role | `bool` | `false` | no |
 | <a name="input_attach_aws_gateway_controller_policy"></a> [attach\_aws\_gateway\_controller\_policy](#input\_attach\_aws\_gateway\_controller\_policy) | Determines whether to attach the AWS Gateway Controller IAM policy to the role | `bool` | `false` | no |
-| <a name="input_attach_aws_load_balancer_controller_policy"></a> [attach\_aws\_load\_balancer\_controller\_policy](#input\_attach\_aws\_load\_balancer\_controller\_policy) | Determines whether to attach the AWS Load Balancer Controller policy to the role | `bool` | `false` | no |
-| <a name="input_attach_aws_load_balancer_controller_targetgroup_binding_only_policy"></a> [attach\_aws\_load\_balancer\_controller\_targetgroup\_binding\_only\_policy](#input\_attach\_aws\_load\_balancer\_controller\_targetgroup\_binding\_only\_policy) | Determines whether to attach the AWS Load Balancer Controller policy for the TargetGroupBinding only | `bool` | `false` | no |
+| <a name="input_attach_aws_lb_controller_policy"></a> [attach\_aws\_lb\_controller\_policy](#input\_attach\_aws\_lb\_controller\_policy) | Determines whether to attach the AWS Load Balancer Controller policy to the role | `bool` | `false` | no |
+| <a name="input_attach_aws_lb_controller_targetgroup_binding_only_policy"></a> [attach\_aws\_lb\_controller\_targetgroup\_binding\_only\_policy](#input\_attach\_aws\_lb\_controller\_targetgroup\_binding\_only\_policy) | Determines whether to attach the AWS Load Balancer Controller policy for the TargetGroupBinding only | `bool` | `false` | no |
 | <a name="input_attach_aws_node_termination_handler_policy"></a> [attach\_aws\_node\_termination\_handler\_policy](#input\_attach\_aws\_node\_termination\_handler\_policy) | Determines whether to attach the Node Termination Handler policy to the role | `bool` | `false` | no |
 | <a name="input_attach_aws_privateca_issuer_policy"></a> [attach\_aws\_privateca\_issuer\_policy](#input\_attach\_aws\_privateca\_issuer\_policy) | Determines whether to attach the AWS Private CA Issuer IAM policy to the role | `bool` | `false` | no |
 | <a name="input_attach_aws_vpc_cni_policy"></a> [attach\_aws\_vpc\_cni\_policy](#input\_attach\_aws\_vpc\_cni\_policy) | Determines whether to attach the VPC CNI IAM policy to the role | `bool` | `false` | no |
 | <a name="input_attach_cert_manager_policy"></a> [attach\_cert\_manager\_policy](#input\_attach\_cert\_manager\_policy) | Determines whether to attach the Cert Manager IAM policy to the role | `bool` | `false` | no |
 | <a name="input_attach_cluster_autoscaler_policy"></a> [attach\_cluster\_autoscaler\_policy](#input\_attach\_cluster\_autoscaler\_policy) | Determines whether to attach the Cluster Autoscaler IAM policy to the role | `bool` | `false` | no |
+| <a name="input_attach_custom_policy"></a> [attach\_custom\_policy](#input\_attach\_custom\_policy) | Determines whether to attach the custom IAM policy to the role | `bool` | `false` | no |
 | <a name="input_attach_external_dns_policy"></a> [attach\_external\_dns\_policy](#input\_attach\_external\_dns\_policy) | Determines whether to attach the External DNS IAM policy to the role | `bool` | `false` | no |
 | <a name="input_attach_external_secrets_policy"></a> [attach\_external\_secrets\_policy](#input\_attach\_external\_secrets\_policy) | Determines whether to attach the External Secrets policy to the role | `bool` | `false` | no |
 | <a name="input_attach_karpenter_controller_policy"></a> [attach\_karpenter\_controller\_policy](#input\_attach\_karpenter\_controller\_policy) | Determines whether to attach the Karpenter Controller policy to the role | `bool` | `false` | no |
@@ -141,9 +144,9 @@ No modules.
 | <a name="input_aws_fsx_lustre_csi_policy_name"></a> [aws\_fsx\_lustre\_csi\_policy\_name](#input\_aws\_fsx\_lustre\_csi\_policy\_name) | Custom name of the FSx for Lustre CSI Driver IAM policy | `string` | `null` | no |
 | <a name="input_aws_fsx_lustre_csi_service_role_arns"></a> [aws\_fsx\_lustre\_csi\_service\_role\_arns](#input\_aws\_fsx\_lustre\_csi\_service\_role\_arns) | Service role ARNs to allow FSx for Lustre CSI create and manage FSX for Lustre service linked roles | `list(string)` | <pre>[<br>  "arn:aws:iam::*:role/aws-service-role/s3.data-source.lustre.fsx.amazonaws.com/*"<br>]</pre> | no |
 | <a name="input_aws_gateway_controller_policy_name"></a> [aws\_gateway\_controller\_policy\_name](#input\_aws\_gateway\_controller\_policy\_name) | Custom name of the AWS Gateway Controller IAM policy | `string` | `null` | no |
-| <a name="input_aws_load_balancer_controller_policy_name"></a> [aws\_load\_balancer\_controller\_policy\_name](#input\_aws\_load\_balancer\_controller\_policy\_name) | Custom name of the AWS Load Balancer Controller IAM policy | `string` | `null` | no |
-| <a name="input_aws_load_balancer_controller_targetgroup_arns"></a> [aws\_load\_balancer\_controller\_targetgroup\_arns](#input\_aws\_load\_balancer\_controller\_targetgroup\_arns) | List of Target groups ARNs using Load Balancer Controller | `list(string)` | <pre>[<br>  "arn:aws:elasticloadbalancing:*:*:targetgroup/*/*"<br>]</pre> | no |
-| <a name="input_aws_load_balancer_controller_targetgroup_only_policy_name"></a> [aws\_load\_balancer\_controller\_targetgroup\_only\_policy\_name](#input\_aws\_load\_balancer\_controller\_targetgroup\_only\_policy\_name) | Custom name of the AWS Load Balancer Controller IAM policy for the TargetGroupBinding only | `string` | `null` | no |
+| <a name="input_aws_lb_controller_policy_name"></a> [aws\_lb\_controller\_policy\_name](#input\_aws\_lb\_controller\_policy\_name) | Custom name of the AWS Load Balancer Controller IAM policy | `string` | `null` | no |
+| <a name="input_aws_lb_controller_targetgroup_arns"></a> [aws\_lb\_controller\_targetgroup\_arns](#input\_aws\_lb\_controller\_targetgroup\_arns) | List of Target groups ARNs using Load Balancer Controller | `list(string)` | <pre>[<br>  "arn:aws:elasticloadbalancing:*:*:targetgroup/*/*"<br>]</pre> | no |
+| <a name="input_aws_lb_controller_targetgroup_only_policy_name"></a> [aws\_lb\_controller\_targetgroup\_only\_policy\_name](#input\_aws\_lb\_controller\_targetgroup\_only\_policy\_name) | Custom name of the AWS Load Balancer Controller IAM policy for the TargetGroupBinding only | `string` | `null` | no |
 | <a name="input_aws_node_termination_handler_policy_name"></a> [aws\_node\_termination\_handler\_policy\_name](#input\_aws\_node\_termination\_handler\_policy\_name) | Custom name of the Node Termination Handler IAM policy | `string` | `null` | no |
 | <a name="input_aws_nodetermination_handler_sqs_queue_arns"></a> [aws\_nodetermination\_handler\_sqs\_queue\_arns](#input\_aws\_nodetermination\_handler\_sqs\_queue\_arns) | List of SQS ARNs that contain node termination events | `list(string)` | <pre>[<br>  "*"<br>]</pre> | no |
 | <a name="input_aws_privateca_issuer_acmca_arns"></a> [aws\_privateca\_issuer\_acmca\_arns](#input\_aws\_privateca\_issuer\_acmca\_arns) | List of ACM Private CA ARNs to issue certificates from | `list(string)` | <pre>[<br>  "arn:aws:acm-pca:*:*:certificate-authority/*"<br>]</pre> | no |
@@ -157,9 +160,8 @@ No modules.
 | <a name="input_cluster_autoscaler_policy_name"></a> [cluster\_autoscaler\_policy\_name](#input\_cluster\_autoscaler\_policy\_name) | Custom name of the Cluster Autoscaler IAM policy | `string` | `null` | no |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Name of the EKS cluster | `string` | `""` | no |
 | <a name="input_create"></a> [create](#input\_create) | Determines whether resources will be created (affects all resources) | `bool` | `true` | no |
+| <a name="input_custom_policy_description"></a> [custom\_policy\_description](#input\_custom\_policy\_description) | Description of the custom IAM policy | `string` | `"Custom IAM Policy"` | no |
 | <a name="input_description"></a> [description](#input\_description) | IAM Role description | `string` | `null` | no |
-| <a name="input_enable_irsa"></a> [enable\_irsa](#input\_enable\_irsa) | Determines whether to enable IAM Roles for Service Accounts (IRSA). One or more `oidc_providers` is required when `true` | `bool` | `false` | no |
-| <a name="input_enable_pod_identity"></a> [enable\_pod\_identity](#input\_enable\_pod\_identity) | Determines whether to enable Pod Identity | `bool` | `true` | no |
 | <a name="input_enable_role_self_assume"></a> [enable\_role\_self\_assume](#input\_enable\_role\_self\_assume) | Determines whether to allow the role to be [assume itself](https://aws.amazon.com/blogs/security/announcing-an-update-to-iam-role-trust-policy-behavior/) | `bool` | `false` | no |
 | <a name="input_external_dns_hosted_zone_arns"></a> [external\_dns\_hosted\_zone\_arns](#input\_external\_dns\_hosted\_zone\_arns) | Route53 hosted zone ARNs to allow External DNS to manage records | `list(string)` | <pre>[<br>  "arn:aws:route53:::hostedzone/*"<br>]</pre> | no |
 | <a name="input_external_dns_policy_name"></a> [external\_dns\_policy\_name](#input\_external\_dns\_policy\_name) | Custom name of the External DNS IAM policy | `string` | `null` | no |
@@ -171,12 +173,12 @@ No modules.
 | <a name="input_karpenter_ami_ssm_parameter_arns"></a> [karpenter\_ami\_ssm\_parameter\_arns](#input\_karpenter\_ami\_ssm\_parameter\_arns) | List of SSM Parameter ARNs that contain AMI IDs launched by Karpenter | `list(string)` | <pre>[<br>  "arn:aws:ssm:*:*:parameter/aws/service/*"<br>]</pre> | no |
 | <a name="input_karpenter_controller_policy_name"></a> [karpenter\_controller\_policy\_name](#input\_karpenter\_controller\_policy\_name) | Custom name of the Karpenter Controller IAM policy | `string` | `null` | no |
 | <a name="input_max_session_duration"></a> [max\_session\_duration](#input\_max\_session\_duration) | Maximum CLI/API session duration in seconds between 3600 and 43200 | `number` | `null` | no |
-| <a name="input_name"></a> [name](#input\_name) | Name of IAM role | `string` | `null` | no |
-| <a name="input_oidc_providers"></a> [oidc\_providers](#input\_oidc\_providers) | Map of OIDC providers where each provider map should contain the `provider`, `provider_arn`, and `namespace_service_accounts` | `any` | `{}` | no |
+| <a name="input_name"></a> [name](#input\_name) | Name of IAM role | `string` | `""` | no |
 | <a name="input_override_policy_documents"></a> [override\_policy\_documents](#input\_override\_policy\_documents) | List of IAM policy documents that are merged together into the exported document | `list(string)` | `[]` | no |
 | <a name="input_path"></a> [path](#input\_path) | Path of IAM role | `string` | `"/"` | no |
 | <a name="input_permissions_boundary_arn"></a> [permissions\_boundary\_arn](#input\_permissions\_boundary\_arn) | Permissions boundary ARN to use for IAM role | `string` | `null` | no |
 | <a name="input_policy_name_prefix"></a> [policy\_name\_prefix](#input\_policy\_name\_prefix) | IAM policy name prefix | `string` | `"AmazonEKS_"` | no |
+| <a name="input_policy_statements"></a> [policy\_statements](#input\_policy\_statements) | A map of IAM policy [statements](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document#statement) for custom permission usage | `any` | `{}` | no |
 | <a name="input_source_policy_documents"></a> [source\_policy\_documents](#input\_source\_policy\_documents) | List of IAM policy documents that are merged together into the exported document | `list(string)` | `[]` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to add to all resources | `map(string)` | `{}` | no |
 | <a name="input_use_name_prefix"></a> [use\_name\_prefix](#input\_use\_name\_prefix) | Determines whether the role name and policy name(s) are used as a prefix | `string` | `true` | no |

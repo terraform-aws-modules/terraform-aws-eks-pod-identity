@@ -7,7 +7,7 @@
 data "aws_iam_policy_document" "external_dns" {
   count = var.create && var.attach_external_dns_policy ? 1 : 0
 
-  source_policy_documents   = var.source_policy_documents
+  source_policy_documents   = [data.aws_iam_policy_document.base[0].json]
   override_policy_documents = var.override_policy_documents
 
   statement {

@@ -8,7 +8,7 @@
 data "aws_iam_policy_document" "appmesh_controller" {
   count = var.create && var.attach_aws_appmesh_controller_policy ? 1 : 0
 
-  source_policy_documents   = var.source_policy_documents
+  source_policy_documents   = [data.aws_iam_policy_document.base[0].json]
   override_policy_documents = var.override_policy_documents
 
   statement {
@@ -131,7 +131,7 @@ resource "aws_iam_role_policy_attachment" "appmesh_controller" {
 data "aws_iam_policy_document" "appmesh_envoy_proxy" {
   count = var.create && var.attach_aws_appmesh_envoy_proxy_policy ? 1 : 0
 
-  source_policy_documents   = var.source_policy_documents
+  source_policy_documents   = [data.aws_iam_policy_document.base[0].json]
   override_policy_documents = var.override_policy_documents
 
   statement {
