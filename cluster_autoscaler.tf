@@ -27,22 +27,18 @@ data "aws_iam_policy_document" "cluster_autoscaler" {
     resources = ["*"]
   }
 
-  dynamic "statement" {
-    for_each = toset(var.cluster_autoscaler_cluster_names)
+  statement {
+    actions = [
+      "autoscaling:SetDesiredCapacity",
+      "autoscaling:TerminateInstanceInAutoScalingGroup"
+    ]
 
-    content {
-      actions = [
-        "autoscaling:SetDesiredCapacity",
-        "autoscaling:TerminateInstanceInAutoScalingGroup"
-      ]
+    resources = ["*"]
 
-      resources = ["*"]
-
-      condition {
-        test     = "StringEquals"
-        variable = "autoscaling:ResourceTag/kubernetes.io/cluster/${statement.value}"
-        values   = ["owned"]
-      }
+    condition {
+      test     = "StringEquals"
+      variable = "autoscaling:ResourceTag/eks-cluster-arn"
+      values   = ["$${aws:PrincipalTag/eks-cluster-arn}"]
     }
   }
 }

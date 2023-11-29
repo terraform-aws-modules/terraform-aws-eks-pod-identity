@@ -10,20 +10,14 @@ variable "tags" {
   default     = {}
 }
 
-variable "cluster_name" {
-  description = "Name of the EKS cluster"
-  type        = string
-  default     = ""
-}
-
 ################################################################################
 # IAM Role Trust Policy
 ################################################################################
 
-variable "enable_role_self_assume" {
-  description = "Determines whether to allow the role to be [assume itself](https://aws.amazon.com/blogs/security/announcing-an-update-to-iam-role-trust-policy-behavior/)"
-  type        = bool
-  default     = false
+variable "trust_policy_statements" {
+  description = "A list of IAM policy [statements](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document#statement) for the role trust policy"
+  type        = list(any)
+  default     = []
 }
 
 ################################################################################
@@ -172,8 +166,8 @@ variable "aws_ebs_csi_policy_name" {
   default     = null
 }
 
-variable "aws_ebs_csi_kms_cmk_ids" {
-  description = "KMS CMK IDs to allow EBS CSI to manage encrypted volumes"
+variable "aws_ebs_csi_kms_arns" {
+  description = "KMS key ARNs to allow EBS CSI to manage encrypted volumes"
   type        = list(string)
   default     = []
 }
@@ -274,7 +268,7 @@ variable "aws_node_termination_handler_policy_name" {
   default     = null
 }
 
-variable "aws_nodetermination_handler_sqs_queue_arns" {
+variable "aws_node_termination_handler_sqs_queue_arns" {
   description = "List of SQS ARNs that contain node termination events"
   type        = list(string)
   default     = ["*"]
@@ -356,12 +350,6 @@ variable "cluster_autoscaler_policy_name" {
   default     = null
 }
 
-variable "cluster_autoscaler_cluster_names" {
-  description = "List of cluster names to appropriately scope permissions within the Cluster Autoscaler IAM policy"
-  type        = list(string)
-  default     = []
-}
-
 # External DNS
 variable "attach_external_dns_policy" {
   description = "Determines whether to attach the External DNS IAM policy to the role"
@@ -419,13 +407,13 @@ variable "external_secrets_secrets_manager_create_permission" {
 }
 
 # Karpenter controller
-variable "attach_karpenter_controller_policy" {
+variable "attach_karpenter_policy" {
   description = "Determines whether to attach the Karpenter Controller policy to the role"
   type        = bool
   default     = false
 }
 
-variable "karpenter_controller_policy_name" {
+variable "karpenter_policy_name" {
   description = "Custom name of the Karpenter Controller IAM policy"
   type        = string
   default     = null
@@ -434,7 +422,19 @@ variable "karpenter_controller_policy_name" {
 variable "karpenter_ami_ssm_parameter_arns" {
   description = "List of SSM Parameter ARNs that contain AMI IDs launched by Karpenter"
   type        = list(string)
-  default     = ["arn:aws:ssm:*:*:parameter/aws/service/*"]
+  default     = []
+}
+
+variable "karpenter_sqs_arns" {
+  description = "List of SQS ARNs that contain node termination events"
+  type        = list(string)
+  default     = []
+}
+
+variable "karpenter_node_iam_role_arns" {
+  description = "List of IAM role ARNs that are used by Karpenter to launch nodes"
+  type        = list(string)
+  default     = []
 }
 
 # Velero

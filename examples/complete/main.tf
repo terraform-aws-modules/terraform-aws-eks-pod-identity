@@ -22,8 +22,6 @@ module "custom_pod_identity" {
 
   name = local.name
 
-  enable_role_self_assume = true
-
   attach_custom_policy      = true
   source_policy_documents   = [data.aws_iam_policy_document.source.json]
   override_policy_documents = [data.aws_iam_policy_document.override.json]
@@ -63,7 +61,6 @@ module "cluster_autoscaler_pod_identity" {
   name = "cluster-autoscaler"
 
   attach_cluster_autoscaler_policy = true
-  cluster_autoscaler_cluster_names = ["my-cluster"]
 
   tags = local.tags
 }
@@ -123,13 +120,12 @@ module "aws_fsx_lustre_csi_pod_identity" {
   tags = local.tags
 }
 
-module "karpenter_controller_pod_identity" {
+module "karpenter_pod_identity" {
   source = "../../"
 
-  name = "karpenter-controller"
+  name = "karpenter"
 
-  attach_karpenter_controller_policy = true
-  cluster_name                       = "my-cluster"
+  attach_karpenter_policy = true
 
   tags = local.tags
 }

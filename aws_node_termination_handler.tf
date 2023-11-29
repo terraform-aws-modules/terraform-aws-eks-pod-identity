@@ -27,7 +27,7 @@ data "aws_iam_policy_document" "node_termination_handler" {
       "sqs:ReceiveMessage",
     ]
 
-    resources = var.aws_nodetermination_handler_sqs_queue_arns
+    resources = var.aws_node_termination_handler_sqs_queue_arns
   }
 }
 

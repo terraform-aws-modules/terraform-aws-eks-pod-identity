@@ -4,8 +4,8 @@
 
 # https://github.com/aws/karpenter/blob/v0.32.2/website/content/en/docs/upgrading/v1beta1-controller-policy.json
 
-data "aws_iam_policy_document" "karpenter_controller" {
-  count = var.create && var.attach_karpenter_controller_policy ? 1 : 0
+data "aws_iam_policy_document" "karpenter" {
+  count = var.create && var.attach_karpenter_policy ? 1 : 0
 
   source_policy_documents   = [data.aws_iam_policy_document.base[0].json]
   override_policy_documents = var.override_policy_documents
@@ -44,8 +44,8 @@ data "aws_iam_policy_document" "karpenter_controller" {
 
     condition {
       test     = "StringEquals"
-      variable = "aws:RequestTag/kubernetes.io/cluster/${var.cluster_name}"
-      values   = ["owned"]
+      variable = "aws:RequestTag/eks-cluster-arn"
+      values   = ["$${aws:PrincipalTag/eks-cluster-arn}"]
     }
 
     condition {
@@ -66,11 +66,10 @@ data "aws_iam_policy_document" "karpenter_controller" {
     ]
     actions = ["ec2:CreateTags"]
 
-
     condition {
       test     = "StringEquals"
-      variable = "aws:RequestTag/kubernetes.io/cluster/${var.cluster_name}"
-      values   = ["owned"]
+      variable = "aws:RequestTag/eks-cluster-arn"
+      values   = ["$${aws:PrincipalTag/eks-cluster-arn}"]
     }
 
     condition {
@@ -97,8 +96,8 @@ data "aws_iam_policy_document" "karpenter_controller" {
 
     condition {
       test     = "StringEquals"
-      variable = "aws:RequestTag/kubernetes.io/cluster/${var.cluster_name}"
-      values   = ["owned"]
+      variable = "aws:RequestTag/eks-cluster-arn"
+      values   = ["$${aws:PrincipalTag/eks-cluster-arn}"]
     }
 
     condition {
@@ -131,8 +130,8 @@ data "aws_iam_policy_document" "karpenter_controller" {
 
     condition {
       test     = "StringEquals"
-      variable = "aws:RequestTag/kubernetes.io/cluster/${var.cluster_name}"
-      values   = ["owned"]
+      variable = "aws:RequestTag/eks-cluster-arn"
+      values   = ["$${aws:PrincipalTag/eks-cluster-arn}"]
     }
 
     condition {
@@ -160,7 +159,7 @@ data "aws_iam_policy_document" "karpenter_controller" {
 
   statement {
     sid       = "AllowSSMReadActions"
-    resources = var.karpenter_ami_ssm_parameter_arns
+    resources = coalescelist(var.karpenter_ami_ssm_parameter_arns, ["arn:${local.partition}:ssm:*:*:parameter/aws/service/*"])
     actions   = ["ssm:GetParameter"]
   }
 
@@ -172,7 +171,7 @@ data "aws_iam_policy_document" "karpenter_controller" {
 
   statement {
     sid       = "AllowInterruptionQueueActions"
-    resources = ["arn:aws:sqs:*:${local.account_id}:${var.cluster_name}"]
+    resources = coalescelist(var.karpenter_sqs_arns, ["arn:${local.partition}:sqs:*:${local.account_id}:*"])
     actions = [
       "sqs:DeleteMessage",
       "sqs:GetQueueAttributes",
@@ -183,7 +182,7 @@ data "aws_iam_policy_document" "karpenter_controller" {
 
   statement {
     sid       = "AllowPassingInstanceRole"
-    resources = ["arn:${local.partition}:iam::*:role/KarpenterNodeRole-${var.cluster_name}"]
+    resources = coalescelist(var.karpenter_node_iam_role_arns, ["arn:${local.partition}:iam::*:role/*"])
     actions   = ["iam:PassRole"]
 
     condition {
@@ -200,8 +199,8 @@ data "aws_iam_policy_document" "karpenter_controller" {
 
     condition {
       test     = "StringEquals"
-      variable = "aws:RequestTag/kubernetes.io/cluster/${var.cluster_name}"
-      values   = ["owned"]
+      variable = "aws:RequestTag/eks-cluster-arn"
+      values   = ["$${aws:PrincipalTag/eks-cluster-arn}"]
     }
   }
 
@@ -212,14 +211,14 @@ data "aws_iam_policy_document" "karpenter_controller" {
 
     condition {
       test     = "StringEquals"
-      variable = "aws:ResourceTag/kubernetes.io/cluster/${var.cluster_name}"
-      values   = ["owned"]
+      variable = "aws:ResourceTag/eks-cluster-arn"
+      values   = ["$${aws:PrincipalTag/eks-cluster-arn}"]
     }
 
     condition {
       test     = "StringEquals"
-      variable = "aws:RequestTag/kubernetes.io/cluster/${var.cluster_name}"
-      values   = ["owned"]
+      variable = "aws:RequestTag/eks-cluster-arn"
+      values   = ["$${aws:PrincipalTag/eks-cluster-arn}"]
     }
 
     condition {
@@ -246,8 +245,8 @@ data "aws_iam_policy_document" "karpenter_controller" {
 
     condition {
       test     = "StringEquals"
-      variable = "aws:ResourceTag/kubernetes.io/cluster/${var.cluster_name}"
-      values   = ["owned"]
+      variable = "aws:ResourceTag/eks-cluster-arn"
+      values   = ["$${aws:PrincipalTag/eks-cluster-arn}"]
     }
 
     condition {
@@ -265,30 +264,30 @@ data "aws_iam_policy_document" "karpenter_controller" {
 
   statement {
     sid       = "AllowAPIServerEndpointDiscovery"
-    resources = ["arn:${local.partition}:eks:*:${local.account_id}:cluster/${var.cluster_name}"]
+    resources = ["arn:${local.partition}:eks:*:${local.account_id}:cluster/*"]
     actions   = ["eks:DescribeCluster"]
   }
 }
 
 locals {
-  karpenter_controller_policy_name = coalesce(var.karpenter_controller_policy_name, "${var.policy_name_prefix}KarpenterController")
+  karpenter_policy_name = coalesce(var.karpenter_policy_name, "${var.policy_name_prefix}KarpenterController")
 }
 
-resource "aws_iam_policy" "karpenter_controller" {
-  count = var.create && var.attach_karpenter_controller_policy ? 1 : 0
+resource "aws_iam_policy" "karpenter" {
+  count = var.create && var.attach_karpenter_policy ? 1 : 0
 
-  name        = var.use_name_prefix ? null : local.karpenter_controller_policy_name
-  name_prefix = var.use_name_prefix ? "${local.karpenter_controller_policy_name}-" : null
+  name        = var.use_name_prefix ? null : local.karpenter_policy_name
+  name_prefix = var.use_name_prefix ? "${local.karpenter_policy_name}-" : null
   path        = var.path
   description = "Permissions for Karpenter controller"
-  policy      = data.aws_iam_policy_document.karpenter_controller[0].json
+  policy      = data.aws_iam_policy_document.karpenter[0].json
 
   tags = var.tags
 }
 
-resource "aws_iam_role_policy_attachment" "karpenter_controller" {
-  count = var.create && var.attach_karpenter_controller_policy ? 1 : 0
+resource "aws_iam_role_policy_attachment" "karpenter" {
+  count = var.create && var.attach_karpenter_policy ? 1 : 0
 
   role       = aws_iam_role.this[0].name
-  policy_arn = aws_iam_policy.karpenter_controller[0].arn
+  policy_arn = aws_iam_policy.karpenter[0].arn
 }

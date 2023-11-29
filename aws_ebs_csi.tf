@@ -156,7 +156,8 @@ data "aws_iam_policy_document" "ebs_csi" {
   }
 
   dynamic "statement" {
-    for_each = length(var.aws_ebs_csi_kms_cmk_ids) > 0 ? [1] : []
+    for_each = length(var.aws_ebs_csi_kms_arns) > 0 ? [1] : []
+
     content {
       actions = [
         "kms:CreateGrant",
@@ -164,7 +165,7 @@ data "aws_iam_policy_document" "ebs_csi" {
         "kms:RevokeGrant",
       ]
 
-      resources = var.aws_ebs_csi_kms_cmk_ids
+      resources = var.aws_ebs_csi_kms_arns
 
       condition {
         test     = "Bool"
@@ -175,7 +176,8 @@ data "aws_iam_policy_document" "ebs_csi" {
   }
 
   dynamic "statement" {
-    for_each = length(var.aws_ebs_csi_kms_cmk_ids) > 0 ? [1] : []
+    for_each = length(var.aws_ebs_csi_kms_arns) > 0 ? [1] : []
+
     content {
       actions = [
         "kms:Encrypt",
@@ -185,7 +187,7 @@ data "aws_iam_policy_document" "ebs_csi" {
         "kms:DescribeKey",
       ]
 
-      resources = var.aws_ebs_csi_kms_cmk_ids
+      resources = var.aws_ebs_csi_kms_arns
     }
   }
 }
