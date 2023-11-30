@@ -6,12 +6,339 @@ Terraform module which creates AWS EKS Pod Identity roles.
 
 See [`examples`](https://github.com/clowdhaus/terraform-aws-eks-pod-identity/tree/main/examples) directory for working examples to reference:
 
+### Custom IAM Role
+
+You can attach custom permissions/policies in a number of different ways
+
 ```hcl
-module "eks_pod_identity" {
-  source = "clowdhaus/eks-pod-identity/aws"
+module "custom_pod_identity" {
+  source = "terraform-aws-modules/eks-pod-identity/aws"
+
+  name = "custom"
+
+  trust_policy_statements = [
+    {
+      sid       = "Test"
+      actions   = ["sts:AssumeRole"]
+      resources = ["arn:aws:iam::1234567890:role/Test*"]
+    }
+  ]
+
+  attach_custom_policy      = true
+  source_policy_documents   = [data.aws_iam_policy_document.source.json]
+  override_policy_documents = [data.aws_iam_policy_document.override.json]
+
+  policy_statements = [
+    {
+      sid       = "S3"
+      actions   = ["s3:List*"]
+      resources = ["*"]
+    }
+  ]
+
+  additional_policy_arns = {
+    AmazonEKS_CNI_Policy = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
+    additional           = aws_iam_policy.additional.arn
+  }
 
   tags = {
-    Terraform   = "true"
+    Environment = "dev"
+  }
+}
+```
+
+### [AWS Gateway Controller](https://github.com/aws/aws-application-networking-k8s)
+
+```hcl
+module "aws_gateway_controller_pod_identity" {
+  source = "terraform-aws-modules/eks-pod-identity/aws"
+
+  name = "aws-gateway-controller"
+
+  attach_aws_gateway_controller_policy = true
+
+  tags = {
+    Environment = "dev"
+  }
+}
+```
+
+### [Cert Manager](https://github.com/cert-manager/cert-manager)
+
+```hcl
+module "cert_manager_pod_identity" {
+  source = "terraform-aws-modules/eks-pod-identity/aws"
+
+  name = "cert-manager"
+
+  attach_cert_manager_policy    = true
+  cert_manager_hosted_zone_arns = ["arn:aws:route53:::hostedzone/IClearlyMadeThisUp"]
+
+  tags = {
+    Environment = "dev"
+  }
+}
+```
+
+### [Cluster Autoscaler](https://github.com/kubernetes/autoscaler)
+
+```hcl
+module "cluster_autoscaler_pod_identity" {
+  source = "terraform-aws-modules/eks-pod-identity/aws"
+
+  name = "cluster-autoscaler"
+
+  attach_cluster_autoscaler_policy = true
+
+  tags = {
+    Environment = "dev"
+  }
+}
+```
+
+### [AWS EBS CSI Driver](https://github.com/kubernetes-sigs/aws-ebs-csi-driver)
+
+```hcl
+module "aws_ebs_csi_pod_identity" {
+  source = "terraform-aws-modules/eks-pod-identity/aws"
+
+  name = "aws-ebs-csi"
+
+  attach_aws_ebs_csi_policy = true
+
+  tags = {
+    Environment = "dev"
+  }
+}
+```
+
+### [AWS EFS CSI Driver](https://github.com/kubernetes-sigs/aws-efs-csi-driver)
+
+```hcl
+module "aws_efs_csi_pod_identity" {
+  source = "terraform-aws-modules/eks-pod-identity/aws"
+
+  name = "aws-efs-csi"
+
+  attach_aws_efs_csi_policy = true
+
+  tags = {
+    Environment = "dev"
+  }
+}
+```
+
+### [External DNS](https://github.com/kubernetes-sigs/external-dns)
+
+```hcl
+module "external_dns_pod_identity" {
+  source = "terraform-aws-modules/eks-pod-identity/aws"
+
+  name = "external-dns"
+
+  attach_external_dns_policy    = true
+  external_dns_hosted_zone_arns = ["arn:aws:route53:::hostedzone/IClearlyMadeThisUp"]
+
+  tags = {
+    Environment = "dev"
+  }
+}
+```
+
+### [External Secrets](https://github.com/external-secrets/external-secrets)
+
+```hcl
+module "external_secrets_pod_identity" {
+  source = "terraform-aws-modules/eks-pod-identity/aws"
+
+  name = "external-secrets"
+
+  attach_external_secrets_policy                     = true
+  external_secrets_ssm_parameter_arns                = ["arn:aws:ssm:*:*:parameter/foo"]
+  external_secrets_secrets_manager_arns              = ["arn:aws:secretsmanager:*:*:secret:bar"]
+  external_secrets_kms_key_arns                      = ["arn:aws:kms:*:*:key/1234abcd-12ab-34cd-56ef-1234567890ab"]
+  external_secrets_secrets_manager_create_permission = false
+
+  tags = {
+    Environment = "dev"
+  }
+}
+```
+
+### [AWS FSx for Lustre CSI Driver](https://github.com/kubernetes-sigs/aws-fsx-csi-driver)
+
+```hcl
+module "aws_fsx_lustre_csi_pod_identity" {
+  source = "terraform-aws-modules/eks-pod-identity/aws"
+
+  name = "aws-fsx-lustre-csi"
+
+  attach_aws_fsx_lustre_csi_policy = true
+
+  tags = {
+    Environment = "dev"
+  }
+}
+```
+
+### [Karpenter Controller](https://github.com/aws/karpenter)
+
+```hcl
+module "karpenter_pod_identity" {
+  source = "terraform-aws-modules/eks-pod-identity/aws"
+
+  name = "karpenter"
+
+  attach_karpenter_policy = true
+
+  tags = {
+    Environment = "dev"
+  }
+}
+```
+
+### [AWS Load Balancer Controller](https://github.com/kubernetes-sigs/aws-load-balancer-controller)
+
+```hcl
+module "aws_lb_controller_pod_identity" {
+  source = "terraform-aws-modules/eks-pod-identity/aws"
+
+  name = "aws-lbc"
+
+  attach_aws_lb_controller_policy = true
+
+  tags = {
+    Environment = "dev"
+  }
+}
+```
+
+### [AWS Load Balancer Controller - Target Group Binding Only](https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.6/deploy/installation/#option-b-attach-iam-policies-to-nodes)
+
+```hcl
+module "aws_lb_controller_targetgroup_binding_only_pod_identity" {
+  source = "terraform-aws-modules/eks-pod-identity/aws"
+
+  name = "aws-lbc-targetgroup-binding-only"
+
+  attach_aws_lb_controller_targetgroup_binding_only_policy = true
+
+  tags = {
+    Environment = "dev"
+  }
+}
+```
+
+### [AwS AppMesh Controller](https://github.com/aws/aws-app-mesh-controller-for-k8s)
+
+```hcl
+module "aws_appmesh_controller_pod_identity" {
+  source = "terraform-aws-modules/eks-pod-identity/aws"
+
+  name = "aws-appmesh-controller"
+
+  attach_aws_appmesh_controller_policy = true
+
+  tags = {
+    Environment = "dev"
+  }
+}
+```
+
+### [AwS AppMesh Envoy Proxy](https://github.com/aws/aws-app-mesh-controller-for-k8s)
+
+```hcl
+module "aws_appmesh_envoy_proxy_pod_identity" {
+  source = "terraform-aws-modules/eks-pod-identity/aws"
+
+  name = "aws-appmesh-envoy-proxy"
+
+  attach_aws_appmesh_envoy_proxy_policy = true
+
+  tags = {
+    Environment = "dev"
+  }
+}
+```
+
+### [Amazon Managed Service for Prometheus](https://docs.aws.amazon.com/prometheus/latest/userguide/AMP-collector-how-to.html)
+
+```hcl
+module "amazon_managed_service_prometheus_pod_identity" {
+  source = "terraform-aws-modules/eks-pod-identity/aws"
+
+  name = "amazon-managed-service-prometheus"
+
+  attach_amazon_managed_service_prometheus_policy = true
+
+  tags = {
+    Environment = "dev"
+  }
+}
+```
+
+### [AWS Node Termination Handler](https://github.com/aws/aws-node-termination-handler)
+
+```hcl
+module "aws_node_termination_handler_pod_identity" {
+  source = "terraform-aws-modules/eks-pod-identity/aws"
+
+  name = "aws-node-termination-handler"
+
+  attach_aws_node_termination_handler_policy = true
+
+  tags = {
+    Environment = "dev"
+  }
+}
+```
+
+### [Velero](https://github.com/vmware-tanzu/velero)
+
+```hcl
+module "velero_pod_identity" {
+  source = "terraform-aws-modules/eks-pod-identity/aws"
+
+  name = "velero"
+
+  attach_velero_policy  = true
+  velero_s3_bucket_arns = ["arn:aws:s3:::velero-backups"]
+
+  tags = {
+    Environment = "dev"
+  }
+}
+```
+
+### [AWS VPC CNI - IPv4](https://github.com/aws/amazon-vpc-cni-k8s)
+
+```hcl
+module "aws_vpc_cni_ipv4_pod_identity" {
+  source = "terraform-aws-modules/eks-pod-identity/aws"
+
+  name = "aws-vpc-cni-ipv4"
+
+  attach_aws_vpc_cni_policy = true
+  aws_vpc_cni_enable_ipv4   = true
+
+  tags = {
+    Environment = "dev"
+  }
+}
+```
+
+### [AWS VPC CNI - IPv6](https://github.com/aws/amazon-vpc-cni-k8s)
+
+```hcl
+module "aws_vpc_cni_ipv6_pod_identity" {
+  source = "terraform-aws-modules/eks-pod-identity/aws"
+
+  name = "aws-vpc-cni-ipv6"
+
+  attach_aws_vpc_cni_policy = true
+  aws_vpc_cni_enable_ipv6   = true
+
+  tags = {
     Environment = "dev"
   }
 }
@@ -177,10 +504,10 @@ No modules.
 | <a name="input_path"></a> [path](#input\_path) | Path of IAM role | `string` | `"/"` | no |
 | <a name="input_permissions_boundary_arn"></a> [permissions\_boundary\_arn](#input\_permissions\_boundary\_arn) | Permissions boundary ARN to use for IAM role | `string` | `null` | no |
 | <a name="input_policy_name_prefix"></a> [policy\_name\_prefix](#input\_policy\_name\_prefix) | IAM policy name prefix | `string` | `"AmazonEKS_"` | no |
-| <a name="input_policy_statements"></a> [policy\_statements](#input\_policy\_statements) | A map of IAM policy [statements](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document#statement) for custom permission usage | `any` | `{}` | no |
+| <a name="input_policy_statements"></a> [policy\_statements](#input\_policy\_statements) | A list of IAM policy [statements](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document#statement) for custom permission usage | `any` | `[]` | no |
 | <a name="input_source_policy_documents"></a> [source\_policy\_documents](#input\_source\_policy\_documents) | List of IAM policy documents that are merged together into the exported document | `list(string)` | `[]` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to add to all resources | `map(string)` | `{}` | no |
-| <a name="input_trust_policy_statements"></a> [trust\_policy\_statements](#input\_trust\_policy\_statements) | A list of IAM policy [statements](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document#statement) for the role trust policy | `list(any)` | `[]` | no |
+| <a name="input_trust_policy_statements"></a> [trust\_policy\_statements](#input\_trust\_policy\_statements) | A list of IAM policy [statements](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document#statement) for the role trust policy | `any` | `[]` | no |
 | <a name="input_use_name_prefix"></a> [use\_name\_prefix](#input\_use\_name\_prefix) | Determines whether the role name and policy name(s) are used as a prefix | `string` | `true` | no |
 | <a name="input_velero_policy_name"></a> [velero\_policy\_name](#input\_velero\_policy\_name) | Custom name of the Velero IAM policy | `string` | `null` | no |
 | <a name="input_velero_s3_bucket_arns"></a> [velero\_s3\_bucket\_arns](#input\_velero\_s3\_bucket\_arns) | List of S3 Bucket ARNs that Velero needs access to in order to backup and restore cluster resources | `list(string)` | <pre>[<br>  "*"<br>]</pre> | no |

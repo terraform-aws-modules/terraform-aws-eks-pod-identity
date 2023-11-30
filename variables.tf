@@ -16,7 +16,7 @@ variable "tags" {
 
 variable "trust_policy_statements" {
   description = "A list of IAM policy [statements](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document#statement) for the role trust policy"
-  type        = list(any)
+  type        = any
   default     = []
 }
 
@@ -83,9 +83,9 @@ variable "override_policy_documents" {
 }
 
 variable "policy_statements" {
-  description = "A map of IAM policy [statements](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document#statement) for custom permission usage"
+  description = "A list of IAM policy [statements](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document#statement) for custom permission usage"
   type        = any
-  default     = {}
+  default     = []
 }
 
 variable "policy_name_prefix" {
