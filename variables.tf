@@ -400,8 +400,8 @@ variable "external_secrets_kms_key_arns" {
   default     = ["arn:aws:kms:*:*:key/*"]
 }
 
-variable "external_secrets_secrets_manager_create_permission" {
-  description = "Determins whether External Secrets may use secretsmanager:CreateSecret"
+variable "external_secrets_create_permission" {
+  description = "Determines whether External Secrets has permission to create/delete secrets"
   type        = bool
   default     = false
 }

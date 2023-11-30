@@ -153,11 +153,11 @@ module "external_secrets_pod_identity" {
 
   name = "external-secrets"
 
-  attach_external_secrets_policy                     = true
-  external_secrets_ssm_parameter_arns                = ["arn:aws:ssm:*:*:parameter/foo"]
-  external_secrets_secrets_manager_arns              = ["arn:aws:secretsmanager:*:*:secret:bar"]
-  external_secrets_kms_key_arns                      = ["arn:aws:kms:*:*:key/1234abcd-12ab-34cd-56ef-1234567890ab"]
-  external_secrets_secrets_manager_create_permission = false
+  attach_external_secrets_policy        = true
+  external_secrets_ssm_parameter_arns   = ["arn:aws:ssm:*:*:parameter/foo"]
+  external_secrets_secrets_manager_arns = ["arn:aws:secretsmanager:*:*:secret:bar"]
+  external_secrets_kms_key_arns         = ["arn:aws:kms:*:*:key/1234abcd-12ab-34cd-56ef-1234567890ab"]
+  external_secrets_create_permission    = false
 
   tags = {
     Environment = "dev"
@@ -489,10 +489,10 @@ No modules.
 | <a name="input_description"></a> [description](#input\_description) | IAM Role description | `string` | `null` | no |
 | <a name="input_external_dns_hosted_zone_arns"></a> [external\_dns\_hosted\_zone\_arns](#input\_external\_dns\_hosted\_zone\_arns) | Route53 hosted zone ARNs to allow External DNS to manage records | `list(string)` | <pre>[<br>  "arn:aws:route53:::hostedzone/*"<br>]</pre> | no |
 | <a name="input_external_dns_policy_name"></a> [external\_dns\_policy\_name](#input\_external\_dns\_policy\_name) | Custom name of the External DNS IAM policy | `string` | `null` | no |
+| <a name="input_external_secrets_create_permission"></a> [external\_secrets\_create\_permission](#input\_external\_secrets\_create\_permission) | Determines whether External Secrets has permission to create/delete secrets | `bool` | `false` | no |
 | <a name="input_external_secrets_kms_key_arns"></a> [external\_secrets\_kms\_key\_arns](#input\_external\_secrets\_kms\_key\_arns) | List of KMS Key ARNs that are used by Secrets Manager that contain secrets to mount using External Secrets | `list(string)` | <pre>[<br>  "arn:aws:kms:*:*:key/*"<br>]</pre> | no |
 | <a name="input_external_secrets_policy_name"></a> [external\_secrets\_policy\_name](#input\_external\_secrets\_policy\_name) | Custom name of the External Secrets IAM policy | `string` | `null` | no |
 | <a name="input_external_secrets_secrets_manager_arns"></a> [external\_secrets\_secrets\_manager\_arns](#input\_external\_secrets\_secrets\_manager\_arns) | List of Secrets Manager ARNs that contain secrets to mount using External Secrets | `list(string)` | <pre>[<br>  "arn:aws:secretsmanager:*:*:secret:*"<br>]</pre> | no |
-| <a name="input_external_secrets_secrets_manager_create_permission"></a> [external\_secrets\_secrets\_manager\_create\_permission](#input\_external\_secrets\_secrets\_manager\_create\_permission) | Determins whether External Secrets may use secretsmanager:CreateSecret | `bool` | `false` | no |
 | <a name="input_external_secrets_ssm_parameter_arns"></a> [external\_secrets\_ssm\_parameter\_arns](#input\_external\_secrets\_ssm\_parameter\_arns) | List of Systems Manager Parameter ARNs that contain secrets to mount using External Secrets | `list(string)` | <pre>[<br>  "arn:aws:ssm:*:*:parameter/*"<br>]</pre> | no |
 | <a name="input_karpenter_ami_ssm_parameter_arns"></a> [karpenter\_ami\_ssm\_parameter\_arns](#input\_karpenter\_ami\_ssm\_parameter\_arns) | List of SSM Parameter ARNs that contain AMI IDs launched by Karpenter | `list(string)` | `[]` | no |
 | <a name="input_karpenter_node_iam_role_arns"></a> [karpenter\_node\_iam\_role\_arns](#input\_karpenter\_node\_iam\_role\_arns) | List of IAM role ARNs that are used by Karpenter to launch nodes | `list(string)` | `[]` | no |
