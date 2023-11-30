@@ -2,6 +2,9 @@
 
 Terraform module which creates AWS EKS Pod Identity roles.
 
+## :warning: Still under development and not recommended for production use :warning:
+
+
 ## Usage
 
 See [`examples`](https://github.com/clowdhaus/terraform-aws-eks-pod-identity/tree/main/examples) directory for working examples to reference:
