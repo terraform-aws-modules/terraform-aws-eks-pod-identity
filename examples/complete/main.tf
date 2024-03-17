@@ -120,16 +120,6 @@ module "aws_fsx_lustre_csi_pod_identity" {
   tags = local.tags
 }
 
-module "karpenter_pod_identity" {
-  source = "../../"
-
-  name = "karpenter"
-
-  attach_karpenter_policy = true
-
-  tags = local.tags
-}
-
 module "aws_lb_controller_pod_identity" {
   source = "../../"
 

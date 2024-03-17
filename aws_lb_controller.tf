@@ -17,7 +17,7 @@ data "aws_iam_policy_document" "lb_controller" {
     condition {
       test     = "StringEquals"
       variable = "iam:AWSServiceName"
-      values   = ["elasticloadbalancing.${local.dns_suffix}"]
+      values   = ["elasticloadbalancing.amazonaws.com"]
     }
   }
 

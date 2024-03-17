@@ -56,11 +56,11 @@ data "aws_iam_policy_document" "appmesh_controller" {
     actions = [
       "iam:CreateServiceLinkedRole"
     ]
-    resources = ["arn:${local.partition}:iam::*:role/aws-service-role/appmesh.${local.dns_suffix}/AWSServiceRoleForAppMesh"]
+    resources = ["arn:${local.partition}:iam::*:role/aws-service-role/appmesh.amazonaws.com/AWSServiceRoleForAppMesh"]
     condition {
       test     = "StringLike"
       variable = "iam:AWSServiceName"
-      values   = ["appmesh.${local.dns_suffix}"]
+      values   = ["appmesh.amazonaws.com"]
     }
   }
 

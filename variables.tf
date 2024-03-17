@@ -406,37 +406,6 @@ variable "external_secrets_create_permission" {
   default     = false
 }
 
-# Karpenter controller
-variable "attach_karpenter_policy" {
-  description = "Determines whether to attach the Karpenter Controller policy to the role"
-  type        = bool
-  default     = false
-}
-
-variable "karpenter_policy_name" {
-  description = "Custom name of the Karpenter Controller IAM policy"
-  type        = string
-  default     = null
-}
-
-variable "karpenter_ami_ssm_parameter_arns" {
-  description = "List of SSM Parameter ARNs that contain AMI IDs launched by Karpenter"
-  type        = list(string)
-  default     = []
-}
-
-variable "karpenter_sqs_arns" {
-  description = "List of SQS ARNs that contain node termination events"
-  type        = list(string)
-  default     = []
-}
-
-variable "karpenter_node_iam_role_arns" {
-  description = "List of IAM role ARNs that are used by Karpenter to launch nodes"
-  type        = list(string)
-  default     = []
-}
-
 # Velero
 variable "attach_velero_policy" {
   description = "Determines whether to attach the Velero IAM policy to the role"
