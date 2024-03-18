@@ -61,9 +61,7 @@ data "aws_iam_policy_document" "ebs_csi" {
     condition {
       test     = "StringLike"
       variable = "aws:RequestTag/ebs.csi.aws.com/cluster"
-      values = [
-        true
-      ]
+      values   = ["true"]
     }
   }
 
@@ -79,24 +77,13 @@ data "aws_iam_policy_document" "ebs_csi" {
   }
 
   statement {
-    actions   = ["ec2:CreateVolume"]
-    resources = ["*"]
-
-    condition {
-      test     = "StringLike"
-      variable = "aws:RequestTag/kubernetes.io/cluster/*"
-      values   = ["owned"]
-    }
-  }
-
-  statement {
     actions   = ["ec2:DeleteVolume"]
     resources = ["*"]
 
     condition {
       test     = "StringLike"
       variable = "ec2:ResourceTag/ebs.csi.aws.com/cluster"
-      values   = [true]
+      values   = ["true"]
     }
   }
 
@@ -108,17 +95,6 @@ data "aws_iam_policy_document" "ebs_csi" {
       test     = "StringLike"
       variable = "ec2:ResourceTag/CSIVolumeName"
       values   = ["*"]
-    }
-  }
-
-  statement {
-    actions   = ["ec2:DeleteVolume"]
-    resources = ["*"]
-
-    condition {
-      test     = "StringLike"
-      variable = "ec2:ResourceTag/kubernetes.io/cluster/*"
-      values   = ["owned"]
     }
   }
 
@@ -151,7 +127,7 @@ data "aws_iam_policy_document" "ebs_csi" {
     condition {
       test     = "StringLike"
       variable = "ec2:ResourceTag/ebs.csi.aws.com/cluster"
-      values   = [true]
+      values   = ["true"]
     }
   }
 

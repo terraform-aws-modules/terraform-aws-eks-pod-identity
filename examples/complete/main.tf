@@ -61,6 +61,7 @@ module "cluster_autoscaler_pod_identity" {
   name = "cluster-autoscaler"
 
   attach_cluster_autoscaler_policy = true
+  cluster_autoscaler_cluster_names = ["foo"]
 
   tags = local.tags
 }
@@ -71,6 +72,7 @@ module "aws_ebs_csi_pod_identity" {
   name = "aws-ebs-csi"
 
   attach_aws_ebs_csi_policy = true
+  aws_ebs_csi_kms_arns      = ["arn:aws:kms:*:*:key/1234abcd-12ab-34cd-56ef-1234567890ab"]
 
   tags = local.tags
 }
@@ -105,7 +107,7 @@ module "external_secrets_pod_identity" {
   external_secrets_ssm_parameter_arns   = ["arn:aws:ssm:*:*:parameter/foo"]
   external_secrets_secrets_manager_arns = ["arn:aws:secretsmanager:*:*:secret:bar"]
   external_secrets_kms_key_arns         = ["arn:aws:kms:*:*:key/1234abcd-12ab-34cd-56ef-1234567890ab"]
-  external_secrets_create_permission    = false
+  external_secrets_create_permission    = true
 
   tags = local.tags
 }
@@ -115,7 +117,8 @@ module "aws_fsx_lustre_csi_pod_identity" {
 
   name = "aws-fsx-lustre-csi"
 
-  attach_aws_fsx_lustre_csi_policy = true
+  attach_aws_fsx_lustre_csi_policy     = true
+  aws_fsx_lustre_csi_service_role_arns = ["arn:aws:iam::*:role/aws-service-role/s3.data-source.lustre.fsx.amazonaws.com/*"]
 
   tags = local.tags
 }
@@ -136,6 +139,7 @@ module "aws_lb_controller_targetgroup_binding_only_pod_identity" {
   name = "aws-lbc-targetgroup-binding-only"
 
   attach_aws_lb_controller_targetgroup_binding_only_policy = true
+  aws_lb_controller_targetgroup_arns                       = ["arn:aws:elasticloadbalancing:*:*:targetgroup/foo/bar"]
 
   tags = local.tags
 }
@@ -165,7 +169,8 @@ module "amazon_managed_service_prometheus_pod_identity" {
 
   name = "amazon-managed-service-prometheus"
 
-  attach_amazon_managed_service_prometheus_policy = true
+  attach_amazon_managed_service_prometheus_policy  = true
+  amazon_managed_service_prometheus_workspace_arns = ["arn:aws:prometheus:*:*:workspace/foo"]
 
   tags = local.tags
 }
@@ -175,7 +180,19 @@ module "aws_node_termination_handler_pod_identity" {
 
   name = "aws-node-termination-handler"
 
-  attach_aws_node_termination_handler_policy = true
+  attach_aws_node_termination_handler_policy  = true
+  aws_node_termination_handler_sqs_queue_arns = ["arn:aws:sqs:*:*:eks-node-termination-handler"]
+
+  tags = local.tags
+}
+
+module "aws_privateca_issuer_pod_identity" {
+  source = "../../"
+
+  name = "aws-privateca-issuer"
+
+  attach_aws_privateca_issuer_policy = true
+  aws_privateca_issuer_acmca_arns    = ["arn:aws:acm-pca:*:*:certificate-authority/foo"]
 
   tags = local.tags
 }
@@ -185,8 +202,9 @@ module "velero_pod_identity" {
 
   name = "velero"
 
-  attach_velero_policy  = true
-  velero_s3_bucket_arns = ["arn:aws:s3:::velero-backups"]
+  attach_velero_policy   = true
+  velero_s3_bucket_arns  = ["arn:aws:s3:::velero-backups"]
+  velero_s3_bucket_paths = ["arn:aws:s3:::velero-backups/example/*"]
 
   tags = local.tags
 }

@@ -46,6 +46,7 @@ data "aws_iam_policy_document" "lb_controller" {
       "elasticloadbalancing:DescribeTargetGroupAttributes",
       "elasticloadbalancing:DescribeTargetHealth",
       "elasticloadbalancing:DescribeTags",
+      "elasticloadbalancing:DescribeTrustStores",
     ]
     resources = ["*"]
   }
@@ -136,7 +137,6 @@ data "aws_iam_policy_document" "lb_controller" {
 
   statement {
     actions = [
-      "elasticloadbalancing:AddTags",
       "elasticloadbalancing:CreateLoadBalancer",
       "elasticloadbalancing:CreateTargetGroup",
     ]
@@ -151,7 +151,6 @@ data "aws_iam_policy_document" "lb_controller" {
 
   statement {
     actions = [
-      "elasticloadbalancing:AddTags",
       "elasticloadbalancing:CreateListener",
       "elasticloadbalancing:DeleteListener",
       "elasticloadbalancing:CreateRule",
@@ -290,8 +289,7 @@ resource "aws_iam_role_policy_attachment" "lb_controller" {
 # AWS Load Balancer Controller TargetGroup Binding Only Policy
 ################################################################################
 
-# https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.4/guide/targetgroupbinding/targetgroupbinding/#reference
-# https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.4/deploy/installation/#setup-iam-manually
+# https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.7/deploy/installation/#option-b-attach-iam-policies-to-nodes
 
 data "aws_iam_policy_document" "lb_controller_targetgroup_only" {
   count = var.create && var.attach_aws_lb_controller_targetgroup_binding_only_policy ? 1 : 0
@@ -301,11 +299,9 @@ data "aws_iam_policy_document" "lb_controller_targetgroup_only" {
 
   statement {
     actions = [
+      "ec2:DescribeVpcs",
       "ec2:DescribeSecurityGroups",
       "ec2:DescribeInstances",
-      "ec2:DescribeVpcs",
-      "ec2:AuthorizeSecurityGroupIngress",
-      "ec2:RevokeSecurityGroupIngress",
       "elasticloadbalancing:DescribeTargetGroups",
       "elasticloadbalancing:DescribeTargetHealth",
     ]

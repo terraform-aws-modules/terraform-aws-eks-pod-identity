@@ -20,95 +20,19 @@ data "aws_iam_policy_document" "vpc_cni" {
 
     content {
       actions = [
+        "ec2:AssignPrivateIpAddresses",
+        "ec2:AttachNetworkInterface",
+        "ec2:CreateNetworkInterface",
+        "ec2:DeleteNetworkInterface",
         "ec2:DescribeInstances",
         "ec2:DescribeTags",
         "ec2:DescribeNetworkInterfaces",
         "ec2:DescribeInstanceTypes",
+        "ec2:DetachNetworkInterface",
+        "ec2:ModifyNetworkInterfaceAttribute",
+        "ec2:UnassignPrivateIpAddresses",
       ]
       resources = ["*"]
-    }
-  }
-
-  dynamic "statement" {
-    for_each = var.aws_vpc_cni_enable_ipv4 ? [1] : []
-
-    content {
-      actions   = ["ec2:CreateNetworkInterface"]
-      resources = ["arn:${local.partition}:ec2:*:*:network-interface/*"]
-
-      condition {
-        test     = "StringEquals"
-        variable = "aws:RequestTag/eks-cluster-arn"
-        values   = ["$${aws:PrincipalTag/eks-cluster-arn}"]
-      }
-    }
-  }
-
-  dynamic "statement" {
-    for_each = var.aws_vpc_cni_enable_ipv4 ? [1] : []
-
-    content {
-      actions = ["ec2:CreateNetworkInterface"]
-      resources = [
-        "arn:${local.partition}:ec2:*:*:subnet/*",
-        "arn:${local.partition}:ec2:*:*:security-group/*"
-      ]
-
-      condition {
-        test     = "ArnLike"
-        variable = "ec2:Vpc"
-        values   = ["arn:aws:ec2:*:*:vpc/*"]
-      }
-    }
-  }
-
-  dynamic "statement" {
-    for_each = var.aws_vpc_cni_enable_ipv4 ? [1] : []
-
-    content {
-      actions = [
-        "ec2:DeleteNetworkInterface",
-        "ec2:UnassignPrivateIpAddresses",
-        "ec2:AssignPrivateIpAddresses",
-        "ec2:AttachNetworkInterface",
-        "ec2:DetachNetworkInterface",
-        "ec2:ModifyNetworkInterfaceAttribute",
-      ]
-      resources = ["arn:${local.partition}:ec2:*:*:network-interface/*"]
-
-      condition {
-        test     = "StringEquals"
-        variable = "aws:ResourceTag/eks-cluster-arn"
-        values   = ["$${aws:PrincipalTag/eks-cluster-arn}"]
-      }
-    }
-  }
-
-  dynamic "statement" {
-    for_each = var.aws_vpc_cni_enable_ipv4 ? [1] : []
-
-    content {
-      actions = [
-        "ec2:AttachNetworkInterface",
-        "ec2:DetachNetworkInterface",
-        "ec2:ModifyNetworkInterfaceAttribute",
-      ]
-      resources = ["arn:${local.partition}:ec2:*:*:instance/*"]
-
-      condition {
-        test     = "StringEquals"
-        variable = "aws:ResourceTag/eks-cluster-arn"
-        values   = ["$${aws:PrincipalTag/eks-cluster-arn}"]
-      }
-    }
-  }
-
-  dynamic "statement" {
-    for_each = var.aws_vpc_cni_enable_ipv4 ? [1] : []
-
-    content {
-      actions   = ["ec2:ModifyNetworkInterfaceAttribute"]
-      resources = ["arn:${local.partition}:ec2:*:*:security-group/*"]
     }
   }
 

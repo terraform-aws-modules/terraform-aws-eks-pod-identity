@@ -33,7 +33,7 @@ data "aws_iam_policy_document" "velero" {
       "s3:AbortMultipartUpload",
       "s3:ListMultipartUploadParts",
     ]
-    resources = [for bucket in var.velero_s3_bucket_arns : "${bucket}/*"]
+    resources = var.velero_s3_bucket_paths
   }
 
   statement {
@@ -41,7 +41,7 @@ data "aws_iam_policy_document" "velero" {
     actions = [
       "s3:ListBucket",
     ]
-    resources = var.velero_s3_bucket_arns
+    resources = coalescelist(var.velero_s3_bucket_arns, ["arn:${local.partition}:s3:::*"])
   }
 }
 

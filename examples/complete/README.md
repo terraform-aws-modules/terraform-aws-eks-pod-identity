@@ -19,14 +19,14 @@ Note that this example may create resources which will incur monetary charges on
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.30 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.30 |
 
 ## Modules
 
@@ -42,6 +42,7 @@ Note that this example may create resources which will incur monetary charges on
 | <a name="module_aws_lb_controller_pod_identity"></a> [aws\_lb\_controller\_pod\_identity](#module\_aws\_lb\_controller\_pod\_identity) | ../../ | n/a |
 | <a name="module_aws_lb_controller_targetgroup_binding_only_pod_identity"></a> [aws\_lb\_controller\_targetgroup\_binding\_only\_pod\_identity](#module\_aws\_lb\_controller\_targetgroup\_binding\_only\_pod\_identity) | ../../ | n/a |
 | <a name="module_aws_node_termination_handler_pod_identity"></a> [aws\_node\_termination\_handler\_pod\_identity](#module\_aws\_node\_termination\_handler\_pod\_identity) | ../../ | n/a |
+| <a name="module_aws_privateca_issuer_pod_identity"></a> [aws\_privateca\_issuer\_pod\_identity](#module\_aws\_privateca\_issuer\_pod\_identity) | ../../ | n/a |
 | <a name="module_aws_vpc_cni_ipv4_pod_identity"></a> [aws\_vpc\_cni\_ipv4\_pod\_identity](#module\_aws\_vpc\_cni\_ipv4\_pod\_identity) | ../../ | n/a |
 | <a name="module_aws_vpc_cni_ipv6_pod_identity"></a> [aws\_vpc\_cni\_ipv6\_pod\_identity](#module\_aws\_vpc\_cni\_ipv6\_pod\_identity) | ../../ | n/a |
 | <a name="module_cert_manager_pod_identity"></a> [cert\_manager\_pod\_identity](#module\_cert\_manager\_pod\_identity) | ../../ | n/a |

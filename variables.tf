@@ -120,6 +120,12 @@ variable "amazon_managed_service_prometheus_policy_name" {
   default     = null
 }
 
+variable "amazon_managed_service_prometheus_workspace_arns" {
+  description = "List of AMP Workspace ARNs to read and write metrics"
+  type        = list(string)
+  default     = []
+}
+
 # AWS Appmesh Controller
 variable "attach_aws_appmesh_controller_policy" {
   description = "Determines whether to attach the AppMesh Controller policy to the role"
@@ -201,7 +207,7 @@ variable "aws_fsx_lustre_csi_policy_name" {
 variable "aws_fsx_lustre_csi_service_role_arns" {
   description = "Service role ARNs to allow FSx for Lustre CSI create and manage FSX for Lustre service linked roles"
   type        = list(string)
-  default     = ["arn:aws:iam::*:role/aws-service-role/s3.data-source.lustre.fsx.amazonaws.com/*"]
+  default     = []
 }
 
 # AWS Gateway Controller
@@ -246,13 +252,7 @@ variable "aws_lb_controller_targetgroup_only_policy_name" {
 variable "aws_lb_controller_targetgroup_arns" {
   description = "List of Target groups ARNs using Load Balancer Controller"
   type        = list(string)
-  default     = ["arn:aws:elasticloadbalancing:*:*:targetgroup/*/*"]
-}
-
-variable "amazon_managed_service_prometheus_workspace_arns" {
-  description = "List of AMP Workspace ARNs to read and write metrics"
-  type        = list(string)
-  default     = ["*"]
+  default     = []
 }
 
 # AWS Node termination handler
@@ -271,7 +271,7 @@ variable "aws_node_termination_handler_policy_name" {
 variable "aws_node_termination_handler_sqs_queue_arns" {
   description = "List of SQS ARNs that contain node termination events"
   type        = list(string)
-  default     = ["*"]
+  default     = []
 }
 
 # AWS Private CA Issuer
@@ -290,7 +290,7 @@ variable "aws_privateca_issuer_policy_name" {
 variable "aws_privateca_issuer_acmca_arns" {
   description = "List of ACM Private CA ARNs to issue certificates from"
   type        = list(string)
-  default     = ["arn:aws:acm-pca:*:*:certificate-authority/*"]
+  default     = []
 }
 
 # AWS VPC CNI
@@ -334,7 +334,7 @@ variable "cert_manager_policy_name" {
 variable "cert_manager_hosted_zone_arns" {
   description = "Route53 hosted zone ARNs to allow Cert manager to manage records"
   type        = list(string)
-  default     = ["arn:aws:route53:::hostedzone/*"]
+  default     = []
 }
 
 # Cluster autoscaler
@@ -348,6 +348,12 @@ variable "cluster_autoscaler_policy_name" {
   description = "Custom name of the Cluster Autoscaler IAM policy"
   type        = string
   default     = null
+}
+
+variable "cluster_autoscaler_cluster_names" {
+  description = "List of cluster names to appropriately scope permissions within the Cluster Autoscaler IAM policy"
+  type        = list(string)
+  default     = []
 }
 
 # External DNS
@@ -366,7 +372,7 @@ variable "external_dns_policy_name" {
 variable "external_dns_hosted_zone_arns" {
   description = "Route53 hosted zone ARNs to allow External DNS to manage records"
   type        = list(string)
-  default     = ["arn:aws:route53:::hostedzone/*"]
+  default     = []
 }
 
 # External Secrets
@@ -385,19 +391,19 @@ variable "external_secrets_policy_name" {
 variable "external_secrets_ssm_parameter_arns" {
   description = "List of Systems Manager Parameter ARNs that contain secrets to mount using External Secrets"
   type        = list(string)
-  default     = ["arn:aws:ssm:*:*:parameter/*"]
+  default     = []
 }
 
 variable "external_secrets_secrets_manager_arns" {
   description = "List of Secrets Manager ARNs that contain secrets to mount using External Secrets"
   type        = list(string)
-  default     = ["arn:aws:secretsmanager:*:*:secret:*"]
+  default     = []
 }
 
 variable "external_secrets_kms_key_arns" {
   description = "List of KMS Key ARNs that are used by Secrets Manager that contain secrets to mount using External Secrets"
   type        = list(string)
-  default     = ["arn:aws:kms:*:*:key/*"]
+  default     = []
 }
 
 variable "external_secrets_create_permission" {
@@ -420,7 +426,13 @@ variable "velero_policy_name" {
 }
 
 variable "velero_s3_bucket_arns" {
-  description = "List of S3 Bucket ARNs that Velero needs access to in order to backup and restore cluster resources"
+  description = "List of S3 Bucket ARNs that Velero needs access to list"
   type        = list(string)
-  default     = ["*"]
+  default     = []
+}
+
+variable "velero_s3_bucket_paths" {
+  description = "List of S3 Bucket paths that Velero needs access to in order to backup and restore cluster resources"
+  type        = list(string)
+  default     = []
 }

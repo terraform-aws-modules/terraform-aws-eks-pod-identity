@@ -11,7 +11,7 @@ See [`examples`](https://github.com/clowdhaus/terraform-aws-eks-pod-identity/tre
 
 ### Custom IAM Role
 
-You can attach custom permissions/policies in a number of different ways
+You can attach custom permissions/policies in a number of different ways:
 
 ```hcl
 module "custom_pod_identity" {
@@ -92,6 +92,7 @@ module "cluster_autoscaler_pod_identity" {
   name = "cluster-autoscaler"
 
   attach_cluster_autoscaler_policy = true
+  cluster_autoscaler_cluster_names = ["foo"]
 
   tags = {
     Environment = "dev"
@@ -108,6 +109,7 @@ module "aws_ebs_csi_pod_identity" {
   name = "aws-ebs-csi"
 
   attach_aws_ebs_csi_policy = true
+  aws_ebs_csi_kms_arns      = ["arn:aws:kms:*:*:key/1234abcd-12ab-34cd-56ef-1234567890ab"]
 
   tags = {
     Environment = "dev"
@@ -160,7 +162,7 @@ module "external_secrets_pod_identity" {
   external_secrets_ssm_parameter_arns   = ["arn:aws:ssm:*:*:parameter/foo"]
   external_secrets_secrets_manager_arns = ["arn:aws:secretsmanager:*:*:secret:bar"]
   external_secrets_kms_key_arns         = ["arn:aws:kms:*:*:key/1234abcd-12ab-34cd-56ef-1234567890ab"]
-  external_secrets_create_permission    = false
+  external_secrets_create_permission    = true
 
   tags = {
     Environment = "dev"
@@ -176,7 +178,8 @@ module "aws_fsx_lustre_csi_pod_identity" {
 
   name = "aws-fsx-lustre-csi"
 
-  attach_aws_fsx_lustre_csi_policy = true
+  attach_aws_fsx_lustre_csi_policy     = true
+  aws_fsx_lustre_csi_service_role_arns = ["arn:aws:iam::*:role/aws-service-role/s3.data-source.lustre.fsx.amazonaws.com/*"]
 
   tags = {
     Environment = "dev"
@@ -209,6 +212,7 @@ module "aws_lb_controller_targetgroup_binding_only_pod_identity" {
   name = "aws-lbc-targetgroup-binding-only"
 
   attach_aws_lb_controller_targetgroup_binding_only_policy = true
+  aws_lb_controller_targetgroup_arns                       = ["arn:aws:elasticloadbalancing:*:*:targetgroup/foo/bar"]
 
   tags = {
     Environment = "dev"
@@ -256,7 +260,8 @@ module "amazon_managed_service_prometheus_pod_identity" {
 
   name = "amazon-managed-service-prometheus"
 
-  attach_amazon_managed_service_prometheus_policy = true
+  attach_amazon_managed_service_prometheus_policy  = true
+  amazon_managed_service_prometheus_workspace_arns = ["arn:aws:prometheus:*:*:workspace/foo"]
 
   tags = {
     Environment = "dev"
@@ -272,7 +277,24 @@ module "aws_node_termination_handler_pod_identity" {
 
   name = "aws-node-termination-handler"
 
-  attach_aws_node_termination_handler_policy = true
+  attach_aws_node_termination_handler_policy  = true
+  aws_node_termination_handler_sqs_queue_arns = ["arn:aws:sqs:*:*:eks-node-termination-handler"]
+
+  tags = {
+    Environment = "dev"
+  }
+}
+```
+### [AWS Private CA Issuer](https://github.com/cert-manager/aws-privateca-issuer)
+
+```hcl
+module "aws_privateca_issuer_pod_identity" {
+  source = "terraform-aws-modules/eks-pod-identity/aws"
+
+  name = "aws-privateca-issuer"
+
+  attach_aws_privateca_issuer_policy = true
+  aws_privateca_issuer_acmca_arns    = ["arn:aws:acm-pca:*:*:certificate-authority/foo"]
 
   tags = {
     Environment = "dev"
@@ -288,8 +310,9 @@ module "velero_pod_identity" {
 
   name = "velero"
 
-  attach_velero_policy  = true
-  velero_s3_bucket_arns = ["arn:aws:s3:::velero-backups"]
+  attach_velero_policy   = true
+  velero_s3_bucket_arns  = ["arn:aws:s3:::velero-backups"]
+  velero_s3_bucket_paths = ["arn:aws:s3:::velero-backups/example/*"]
 
   tags = {
     Environment = "dev"
@@ -342,14 +365,14 @@ Examples codified under the [`examples`](https://github.com/clowdhaus/terraform-
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.30 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.30 |
 
 ## Modules
 
@@ -425,7 +448,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_additional_policy_arns"></a> [additional\_policy\_arns](#input\_additional\_policy\_arns) | ARNs of additional policies to attach to the IAM role | `map(string)` | `{}` | no |
 | <a name="input_amazon_managed_service_prometheus_policy_name"></a> [amazon\_managed\_service\_prometheus\_policy\_name](#input\_amazon\_managed\_service\_prometheus\_policy\_name) | Custom name of the Amazon Managed Service for Prometheus IAM policy | `string` | `null` | no |
-| <a name="input_amazon_managed_service_prometheus_workspace_arns"></a> [amazon\_managed\_service\_prometheus\_workspace\_arns](#input\_amazon\_managed\_service\_prometheus\_workspace\_arns) | List of AMP Workspace ARNs to read and write metrics | `list(string)` | <pre>[<br>  "*"<br>]</pre> | no |
+| <a name="input_amazon_managed_service_prometheus_workspace_arns"></a> [amazon\_managed\_service\_prometheus\_workspace\_arns](#input\_amazon\_managed\_service\_prometheus\_workspace\_arns) | List of AMP Workspace ARNs to read and write metrics | `list(string)` | `[]` | no |
 | <a name="input_appmesh_controller_policy_name"></a> [appmesh\_controller\_policy\_name](#input\_appmesh\_controller\_policy\_name) | Custom name of the AppMesh Controller IAM policy | `string` | `null` | no |
 | <a name="input_appmesh_envoy_proxy_policy_name"></a> [appmesh\_envoy\_proxy\_policy\_name](#input\_appmesh\_envoy\_proxy\_policy\_name) | Custom name of the AppMesh Envoy Proxy IAM policy | `string` | `null` | no |
 | <a name="input_attach_amazon_managed_service_prometheus_policy"></a> [attach\_amazon\_managed\_service\_prometheus\_policy](#input\_attach\_amazon\_managed\_service\_prometheus\_policy) | Determines whether to attach the Amazon Managed Service for Prometheus IAM policy to the role | `bool` | `false` | no |
@@ -451,31 +474,32 @@ No modules.
 | <a name="input_aws_ebs_csi_policy_name"></a> [aws\_ebs\_csi\_policy\_name](#input\_aws\_ebs\_csi\_policy\_name) | Custom name of the EBS CSI IAM policy | `string` | `null` | no |
 | <a name="input_aws_efs_csi_policy_name"></a> [aws\_efs\_csi\_policy\_name](#input\_aws\_efs\_csi\_policy\_name) | Custom name of the EFS CSI IAM policy | `string` | `null` | no |
 | <a name="input_aws_fsx_lustre_csi_policy_name"></a> [aws\_fsx\_lustre\_csi\_policy\_name](#input\_aws\_fsx\_lustre\_csi\_policy\_name) | Custom name of the FSx for Lustre CSI Driver IAM policy | `string` | `null` | no |
-| <a name="input_aws_fsx_lustre_csi_service_role_arns"></a> [aws\_fsx\_lustre\_csi\_service\_role\_arns](#input\_aws\_fsx\_lustre\_csi\_service\_role\_arns) | Service role ARNs to allow FSx for Lustre CSI create and manage FSX for Lustre service linked roles | `list(string)` | <pre>[<br>  "arn:aws:iam::*:role/aws-service-role/s3.data-source.lustre.fsx.amazonaws.com/*"<br>]</pre> | no |
+| <a name="input_aws_fsx_lustre_csi_service_role_arns"></a> [aws\_fsx\_lustre\_csi\_service\_role\_arns](#input\_aws\_fsx\_lustre\_csi\_service\_role\_arns) | Service role ARNs to allow FSx for Lustre CSI create and manage FSX for Lustre service linked roles | `list(string)` | `[]` | no |
 | <a name="input_aws_gateway_controller_policy_name"></a> [aws\_gateway\_controller\_policy\_name](#input\_aws\_gateway\_controller\_policy\_name) | Custom name of the AWS Gateway Controller IAM policy | `string` | `null` | no |
 | <a name="input_aws_lb_controller_policy_name"></a> [aws\_lb\_controller\_policy\_name](#input\_aws\_lb\_controller\_policy\_name) | Custom name of the AWS Load Balancer Controller IAM policy | `string` | `null` | no |
-| <a name="input_aws_lb_controller_targetgroup_arns"></a> [aws\_lb\_controller\_targetgroup\_arns](#input\_aws\_lb\_controller\_targetgroup\_arns) | List of Target groups ARNs using Load Balancer Controller | `list(string)` | <pre>[<br>  "arn:aws:elasticloadbalancing:*:*:targetgroup/*/*"<br>]</pre> | no |
+| <a name="input_aws_lb_controller_targetgroup_arns"></a> [aws\_lb\_controller\_targetgroup\_arns](#input\_aws\_lb\_controller\_targetgroup\_arns) | List of Target groups ARNs using Load Balancer Controller | `list(string)` | `[]` | no |
 | <a name="input_aws_lb_controller_targetgroup_only_policy_name"></a> [aws\_lb\_controller\_targetgroup\_only\_policy\_name](#input\_aws\_lb\_controller\_targetgroup\_only\_policy\_name) | Custom name of the AWS Load Balancer Controller IAM policy for the TargetGroupBinding only | `string` | `null` | no |
 | <a name="input_aws_node_termination_handler_policy_name"></a> [aws\_node\_termination\_handler\_policy\_name](#input\_aws\_node\_termination\_handler\_policy\_name) | Custom name of the Node Termination Handler IAM policy | `string` | `null` | no |
-| <a name="input_aws_node_termination_handler_sqs_queue_arns"></a> [aws\_node\_termination\_handler\_sqs\_queue\_arns](#input\_aws\_node\_termination\_handler\_sqs\_queue\_arns) | List of SQS ARNs that contain node termination events | `list(string)` | <pre>[<br>  "*"<br>]</pre> | no |
-| <a name="input_aws_privateca_issuer_acmca_arns"></a> [aws\_privateca\_issuer\_acmca\_arns](#input\_aws\_privateca\_issuer\_acmca\_arns) | List of ACM Private CA ARNs to issue certificates from | `list(string)` | <pre>[<br>  "arn:aws:acm-pca:*:*:certificate-authority/*"<br>]</pre> | no |
+| <a name="input_aws_node_termination_handler_sqs_queue_arns"></a> [aws\_node\_termination\_handler\_sqs\_queue\_arns](#input\_aws\_node\_termination\_handler\_sqs\_queue\_arns) | List of SQS ARNs that contain node termination events | `list(string)` | `[]` | no |
+| <a name="input_aws_privateca_issuer_acmca_arns"></a> [aws\_privateca\_issuer\_acmca\_arns](#input\_aws\_privateca\_issuer\_acmca\_arns) | List of ACM Private CA ARNs to issue certificates from | `list(string)` | `[]` | no |
 | <a name="input_aws_privateca_issuer_policy_name"></a> [aws\_privateca\_issuer\_policy\_name](#input\_aws\_privateca\_issuer\_policy\_name) | Custom name of the AWS Private CA Issuer IAM policy | `string` | `null` | no |
 | <a name="input_aws_vpc_cni_enable_ipv4"></a> [aws\_vpc\_cni\_enable\_ipv4](#input\_aws\_vpc\_cni\_enable\_ipv4) | Determines whether to enable IPv4 permissions for VPC CNI policy | `bool` | `false` | no |
 | <a name="input_aws_vpc_cni_enable_ipv6"></a> [aws\_vpc\_cni\_enable\_ipv6](#input\_aws\_vpc\_cni\_enable\_ipv6) | Determines whether to enable IPv6 permissions for VPC CNI policy | `bool` | `false` | no |
 | <a name="input_aws_vpc_cni_policy_name"></a> [aws\_vpc\_cni\_policy\_name](#input\_aws\_vpc\_cni\_policy\_name) | Custom name of the VPC CNI IAM policy | `string` | `null` | no |
-| <a name="input_cert_manager_hosted_zone_arns"></a> [cert\_manager\_hosted\_zone\_arns](#input\_cert\_manager\_hosted\_zone\_arns) | Route53 hosted zone ARNs to allow Cert manager to manage records | `list(string)` | <pre>[<br>  "arn:aws:route53:::hostedzone/*"<br>]</pre> | no |
+| <a name="input_cert_manager_hosted_zone_arns"></a> [cert\_manager\_hosted\_zone\_arns](#input\_cert\_manager\_hosted\_zone\_arns) | Route53 hosted zone ARNs to allow Cert manager to manage records | `list(string)` | `[]` | no |
 | <a name="input_cert_manager_policy_name"></a> [cert\_manager\_policy\_name](#input\_cert\_manager\_policy\_name) | Custom name of the Cert Manager IAM policy | `string` | `null` | no |
+| <a name="input_cluster_autoscaler_cluster_names"></a> [cluster\_autoscaler\_cluster\_names](#input\_cluster\_autoscaler\_cluster\_names) | List of cluster names to appropriately scope permissions within the Cluster Autoscaler IAM policy | `list(string)` | `[]` | no |
 | <a name="input_cluster_autoscaler_policy_name"></a> [cluster\_autoscaler\_policy\_name](#input\_cluster\_autoscaler\_policy\_name) | Custom name of the Cluster Autoscaler IAM policy | `string` | `null` | no |
 | <a name="input_create"></a> [create](#input\_create) | Determines whether resources will be created (affects all resources) | `bool` | `true` | no |
 | <a name="input_custom_policy_description"></a> [custom\_policy\_description](#input\_custom\_policy\_description) | Description of the custom IAM policy | `string` | `"Custom IAM Policy"` | no |
 | <a name="input_description"></a> [description](#input\_description) | IAM Role description | `string` | `null` | no |
-| <a name="input_external_dns_hosted_zone_arns"></a> [external\_dns\_hosted\_zone\_arns](#input\_external\_dns\_hosted\_zone\_arns) | Route53 hosted zone ARNs to allow External DNS to manage records | `list(string)` | <pre>[<br>  "arn:aws:route53:::hostedzone/*"<br>]</pre> | no |
+| <a name="input_external_dns_hosted_zone_arns"></a> [external\_dns\_hosted\_zone\_arns](#input\_external\_dns\_hosted\_zone\_arns) | Route53 hosted zone ARNs to allow External DNS to manage records | `list(string)` | `[]` | no |
 | <a name="input_external_dns_policy_name"></a> [external\_dns\_policy\_name](#input\_external\_dns\_policy\_name) | Custom name of the External DNS IAM policy | `string` | `null` | no |
 | <a name="input_external_secrets_create_permission"></a> [external\_secrets\_create\_permission](#input\_external\_secrets\_create\_permission) | Determines whether External Secrets has permission to create/delete secrets | `bool` | `false` | no |
-| <a name="input_external_secrets_kms_key_arns"></a> [external\_secrets\_kms\_key\_arns](#input\_external\_secrets\_kms\_key\_arns) | List of KMS Key ARNs that are used by Secrets Manager that contain secrets to mount using External Secrets | `list(string)` | <pre>[<br>  "arn:aws:kms:*:*:key/*"<br>]</pre> | no |
+| <a name="input_external_secrets_kms_key_arns"></a> [external\_secrets\_kms\_key\_arns](#input\_external\_secrets\_kms\_key\_arns) | List of KMS Key ARNs that are used by Secrets Manager that contain secrets to mount using External Secrets | `list(string)` | `[]` | no |
 | <a name="input_external_secrets_policy_name"></a> [external\_secrets\_policy\_name](#input\_external\_secrets\_policy\_name) | Custom name of the External Secrets IAM policy | `string` | `null` | no |
-| <a name="input_external_secrets_secrets_manager_arns"></a> [external\_secrets\_secrets\_manager\_arns](#input\_external\_secrets\_secrets\_manager\_arns) | List of Secrets Manager ARNs that contain secrets to mount using External Secrets | `list(string)` | <pre>[<br>  "arn:aws:secretsmanager:*:*:secret:*"<br>]</pre> | no |
-| <a name="input_external_secrets_ssm_parameter_arns"></a> [external\_secrets\_ssm\_parameter\_arns](#input\_external\_secrets\_ssm\_parameter\_arns) | List of Systems Manager Parameter ARNs that contain secrets to mount using External Secrets | `list(string)` | <pre>[<br>  "arn:aws:ssm:*:*:parameter/*"<br>]</pre> | no |
+| <a name="input_external_secrets_secrets_manager_arns"></a> [external\_secrets\_secrets\_manager\_arns](#input\_external\_secrets\_secrets\_manager\_arns) | List of Secrets Manager ARNs that contain secrets to mount using External Secrets | `list(string)` | `[]` | no |
+| <a name="input_external_secrets_ssm_parameter_arns"></a> [external\_secrets\_ssm\_parameter\_arns](#input\_external\_secrets\_ssm\_parameter\_arns) | List of Systems Manager Parameter ARNs that contain secrets to mount using External Secrets | `list(string)` | `[]` | no |
 | <a name="input_max_session_duration"></a> [max\_session\_duration](#input\_max\_session\_duration) | Maximum CLI/API session duration in seconds between 3600 and 43200 | `number` | `null` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name of IAM role | `string` | `""` | no |
 | <a name="input_override_policy_documents"></a> [override\_policy\_documents](#input\_override\_policy\_documents) | List of IAM policy documents that are merged together into the exported document | `list(string)` | `[]` | no |
@@ -488,7 +512,8 @@ No modules.
 | <a name="input_trust_policy_statements"></a> [trust\_policy\_statements](#input\_trust\_policy\_statements) | A list of IAM policy [statements](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document#statement) for the role trust policy | `any` | `[]` | no |
 | <a name="input_use_name_prefix"></a> [use\_name\_prefix](#input\_use\_name\_prefix) | Determines whether the role name and policy name(s) are used as a prefix | `string` | `true` | no |
 | <a name="input_velero_policy_name"></a> [velero\_policy\_name](#input\_velero\_policy\_name) | Custom name of the Velero IAM policy | `string` | `null` | no |
-| <a name="input_velero_s3_bucket_arns"></a> [velero\_s3\_bucket\_arns](#input\_velero\_s3\_bucket\_arns) | List of S3 Bucket ARNs that Velero needs access to in order to backup and restore cluster resources | `list(string)` | <pre>[<br>  "*"<br>]</pre> | no |
+| <a name="input_velero_s3_bucket_arns"></a> [velero\_s3\_bucket\_arns](#input\_velero\_s3\_bucket\_arns) | List of S3 Bucket ARNs that Velero needs access to list | `list(string)` | `[]` | no |
+| <a name="input_velero_s3_bucket_paths"></a> [velero\_s3\_bucket\_paths](#input\_velero\_s3\_bucket\_paths) | List of S3 Bucket paths that Velero needs access to in order to backup and restore cluster resources | `list(string)` | `[]` | no |
 
 ## Outputs
 

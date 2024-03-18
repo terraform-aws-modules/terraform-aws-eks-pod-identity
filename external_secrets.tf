@@ -10,43 +10,59 @@ data "aws_iam_policy_document" "external_secrets" {
   source_policy_documents   = [data.aws_iam_policy_document.base[0].json]
   override_policy_documents = var.override_policy_documents
 
-  statement {
-    actions   = ["ssm:DescribeParameters"]
-    resources = ["*"]
+  dynamic "statement" {
+    for_each = length(var.external_secrets_ssm_parameter_arns) > 0 ? [1] : []
+
+    content {
+      actions   = ["ssm:DescribeParameters"]
+      resources = ["*"]
+    }
   }
 
-  statement {
-    actions = [
-      "ssm:GetParameter",
-      "ssm:GetParameters",
-    ]
+  dynamic "statement" {
+    for_each = length(var.external_secrets_ssm_parameter_arns) > 0 ? [1] : []
 
-    resources = var.external_secrets_ssm_parameter_arns
+    content {
+      actions = [
+        "ssm:GetParameter",
+        "ssm:GetParameters",
+      ]
+
+      resources = var.external_secrets_ssm_parameter_arns
+    }
   }
 
-  statement {
-    actions   = ["secretsmanager:ListSecrets"]
-    resources = ["*"]
+  dynamic "statement" {
+    for_each = length(var.external_secrets_secrets_manager_arns) > 0 ? [1] : []
+
+    content {
+      actions   = ["secretsmanager:ListSecrets"]
+      resources = ["*"]
+    }
   }
 
-  statement {
-    actions = [
-      "secretsmanager:GetResourcePolicy",
-      "secretsmanager:GetSecretValue",
-      "secretsmanager:DescribeSecret",
-      "secretsmanager:ListSecretVersionIds",
-    ]
+  dynamic "statement" {
+    for_each = length(var.external_secrets_secrets_manager_arns) > 0 ? [1] : []
 
-    resources = var.external_secrets_secrets_manager_arns
+    content {
+      actions = [
+        "secretsmanager:GetResourcePolicy",
+        "secretsmanager:GetSecretValue",
+        "secretsmanager:DescribeSecret",
+        "secretsmanager:ListSecretVersionIds",
+      ]
+
+      resources = var.external_secrets_secrets_manager_arns
+    }
   }
 
   statement {
     actions   = ["kms:Decrypt"]
-    resources = var.external_secrets_kms_key_arns
+    resources = coalescelist(var.external_secrets_kms_key_arns, ["arn:${local.partition}:kms:*:*:key/*"])
   }
 
   dynamic "statement" {
-    for_each = var.external_secrets_create_permission ? [1] : []
+    for_each = length(var.external_secrets_secrets_manager_arns) > 0 && var.external_secrets_create_permission ? [1] : []
 
     content {
       actions = [
@@ -60,7 +76,7 @@ data "aws_iam_policy_document" "external_secrets" {
   }
 
   dynamic "statement" {
-    for_each = var.external_secrets_create_permission ? [1] : []
+    for_each = length(var.external_secrets_secrets_manager_arns) > 0 && var.external_secrets_create_permission ? [1] : []
 
     content {
       actions   = ["secretsmanager:DeleteSecret"]

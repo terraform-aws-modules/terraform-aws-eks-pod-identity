@@ -2,7 +2,7 @@
 # FSx for Lustre CSI Driver Policy
 ################################################################################
 
-# https://github.com/kubernetes-sigs/aws-fsx-csi-driver/blob/master/docs/README.md
+# https://github.com/kubernetes-sigs/aws-fsx-csi-driver/blob/master/docs/install.md
 
 data "aws_iam_policy_document" "fsx_lustre_csi" {
   count = var.create && var.attach_aws_fsx_lustre_csi_policy ? 1 : 0
@@ -16,7 +16,7 @@ data "aws_iam_policy_document" "fsx_lustre_csi" {
       "iam:AttachRolePolicy",
       "iam:PutRolePolicy"
     ]
-    resources = var.aws_fsx_lustre_csi_service_role_arns
+    resources = coalescelist(var.aws_fsx_lustre_csi_service_role_arns, ["arn:${local.partition}:iam::*:role/aws-service-role/s3.data-source.lustre.fsx.amazonaws.com/*"])
   }
 
   statement {
