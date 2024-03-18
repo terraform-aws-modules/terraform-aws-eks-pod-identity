@@ -55,6 +55,16 @@ module "cert_manager_pod_identity" {
   tags = local.tags
 }
 
+module "aws_cloudwatch_observability_pod_identity" {
+  source = "../../"
+
+  name = "aws-cloudwatch-observability"
+
+  attach_aws_cloudwatch_observability_policy = true
+
+  tags = local.tags
+}
+
 module "cluster_autoscaler_pod_identity" {
   source = "../../"
 

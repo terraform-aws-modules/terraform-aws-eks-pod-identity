@@ -35,6 +35,7 @@ Note that this example may create resources which will incur monetary charges on
 | <a name="module_amazon_managed_service_prometheus_pod_identity"></a> [amazon\_managed\_service\_prometheus\_pod\_identity](#module\_amazon\_managed\_service\_prometheus\_pod\_identity) | ../../ | n/a |
 | <a name="module_aws_appmesh_controller_pod_identity"></a> [aws\_appmesh\_controller\_pod\_identity](#module\_aws\_appmesh\_controller\_pod\_identity) | ../../ | n/a |
 | <a name="module_aws_appmesh_envoy_proxy_pod_identity"></a> [aws\_appmesh\_envoy\_proxy\_pod\_identity](#module\_aws\_appmesh\_envoy\_proxy\_pod\_identity) | ../../ | n/a |
+| <a name="module_aws_cloudwatch_observability_pod_identity"></a> [aws\_cloudwatch\_observability\_pod\_identity](#module\_aws\_cloudwatch\_observability\_pod\_identity) | ../../ | n/a |
 | <a name="module_aws_ebs_csi_pod_identity"></a> [aws\_ebs\_csi\_pod\_identity](#module\_aws\_ebs\_csi\_pod\_identity) | ../../ | n/a |
 | <a name="module_aws_efs_csi_pod_identity"></a> [aws\_efs\_csi\_pod\_identity](#module\_aws\_efs\_csi\_pod\_identity) | ../../ | n/a |
 | <a name="module_aws_fsx_lustre_csi_pod_identity"></a> [aws\_fsx\_lustre\_csi\_pod\_identity](#module\_aws\_fsx\_lustre\_csi\_pod\_identity) | ../../ | n/a |

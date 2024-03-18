@@ -83,6 +83,23 @@ module "cert_manager_pod_identity" {
 }
 ```
 
+### [AWS CloudWatch Observability](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Observability-EKS-addon.html)
+
+```hcl
+module "aws_cloudwatch_observability_pod_identity" {
+  source = "terraform-aws-modules/eks-pod-identity/aws"
+
+  name = "aws-cloudwatch-observability"
+
+  attach_aws_cloudwatch_observability_policy = true
+
+  tags = {
+    Environment = "dev"
+  }
+}
+```
+
+
 ### [Cluster Autoscaler](https://github.com/kubernetes/autoscaler)
 
 ```hcl
