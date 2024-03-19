@@ -1,9 +1,6 @@
 # AWS EKS Pod Identity Terraform module
 
-Terraform module which creates AWS EKS Pod Identity roles.
-
-## :warning: Still under development and not recommended for production use :warning:
-
+Terraform module which creates [Amazon EKS Pod Identity roles](https://docs.aws.amazon.com/eks/latest/userguide/pod-identities.html).
 
 ## Usage
 
@@ -559,6 +556,9 @@ No modules.
 
 | Name | Description |
 |------|-------------|
+| <a name="output_iam_policy_arn"></a> [iam\_policy\_arn](#output\_iam\_policy\_arn) | The ARN assigned by AWS to this policy |
+| <a name="output_iam_policy_id"></a> [iam\_policy\_id](#output\_iam\_policy\_id) | The policy's ID |
+| <a name="output_iam_policy_name"></a> [iam\_policy\_name](#output\_iam\_policy\_name) | Name of IAM policy |
 | <a name="output_iam_role_arn"></a> [iam\_role\_arn](#output\_iam\_role\_arn) | ARN of IAM role |
 | <a name="output_iam_role_name"></a> [iam\_role\_name](#output\_iam\_role\_name) | Name of IAM role |
 | <a name="output_iam_role_path"></a> [iam\_role\_path](#output\_iam\_role\_path) | Path of IAM role |

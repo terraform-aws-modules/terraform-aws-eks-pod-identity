@@ -29,7 +29,7 @@ data "aws_iam_policy_document" "mountpoint_s3_csi" {
 }
 
 locals {
-  mountpoint_s3_csi_policy_name = coalesce(var.mountpoint_s3_csi_policy_name, "${var.policy_name_prefix}MountpointS3CSI")
+  mountpoint_s3_csi_policy_name = coalesce(var.mountpoint_s3_csi_policy_name, "${var.policy_name_prefix}MountpointS3_CSI")
 }
 
 resource "aws_iam_policy" "mountpoint_s3_csi" {

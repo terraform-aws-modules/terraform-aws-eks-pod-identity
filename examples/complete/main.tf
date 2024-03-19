@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 locals {
-  region = "us-east-1"
+  region = "eu-west-1"
   name   = "eks-pod-identity-ex-${basename(path.cwd)}"
 
   tags = {
