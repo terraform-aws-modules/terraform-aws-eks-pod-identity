@@ -185,6 +185,18 @@ module "amazon_managed_service_prometheus_pod_identity" {
   tags = local.tags
 }
 
+module "mountpoint_s3_csi_pod_identity" {
+  source = "../../"
+
+  name = "mountpoint-s3-csi"
+
+  attach_mountpoint_s3_csi_policy    = true
+  mountpoint_s3_csi_bucket_arns      = ["arn:aws:s3:::mountpoint-s3"]
+  mountpoint_s3_csi_bucket_path_arns = ["arn:aws:s3:::mountpoint-s3/example/*"]
+
+  tags = local.tags
+}
+
 module "aws_node_termination_handler_pod_identity" {
   source = "../../"
 
@@ -212,9 +224,9 @@ module "velero_pod_identity" {
 
   name = "velero"
 
-  attach_velero_policy   = true
-  velero_s3_bucket_arns  = ["arn:aws:s3:::velero-backups"]
-  velero_s3_bucket_paths = ["arn:aws:s3:::velero-backups/example/*"]
+  attach_velero_policy       = true
+  velero_s3_bucket_arns      = ["arn:aws:s3:::velero-backups"]
+  velero_s3_bucket_path_arns = ["arn:aws:s3:::velero-backups/example/*"]
 
   tags = local.tags
 }

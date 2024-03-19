@@ -33,7 +33,7 @@ data "aws_iam_policy_document" "velero" {
       "s3:AbortMultipartUpload",
       "s3:ListMultipartUploadParts",
     ]
-    resources = var.velero_s3_bucket_paths
+    resources = var.velero_s3_bucket_path_arns
   }
 
   statement {

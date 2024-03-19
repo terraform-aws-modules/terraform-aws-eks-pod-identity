@@ -412,6 +412,31 @@ variable "external_secrets_create_permission" {
   default     = false
 }
 
+# Mountpoint S3 CSI
+variable "attach_mountpoint_s3_csi_policy" {
+  description = "Determines whether to attach the Mountpoint S3 CSI IAM policy to the role"
+  type        = bool
+  default     = false
+}
+
+variable "mountpoint_s3_csi_policy_name" {
+  description = "Custom name of the Mountpoint S3 CSI IAM policy"
+  type        = string
+  default     = null
+}
+
+variable "mountpoint_s3_csi_bucket_arns" {
+  description = "List of S3 Bucket ARNs that Mountpoint S3 CSI needs access to list"
+  type        = list(string)
+  default     = []
+}
+
+variable "mountpoint_s3_csi_bucket_path_arns" {
+  description = "S3 path ARNs to allow Mountpoint S3 CSI driver to manage items at the provided path(s). This is required if `attach_mountpoint_s3_csi_policy = true`"
+  type        = list(string)
+  default     = []
+}
+
 # Velero
 variable "attach_velero_policy" {
   description = "Determines whether to attach the Velero IAM policy to the role"
@@ -431,8 +456,8 @@ variable "velero_s3_bucket_arns" {
   default     = []
 }
 
-variable "velero_s3_bucket_paths" {
-  description = "List of S3 Bucket paths that Velero needs access to in order to backup and restore cluster resources"
+variable "velero_s3_bucket_path_arns" {
+  description = "S3 path ARNs to allow Velero to manage items at the provided path(s). This is required if `attach_mountpoint_s3_csi_policy = true`"
   type        = list(string)
   default     = []
 }
