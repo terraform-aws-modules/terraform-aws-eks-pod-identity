@@ -220,4 +220,4 @@ No inputs.
 | <a name="output_velero_pod_identity_iam_role_unique_id"></a> [velero\_pod\_identity\_iam\_role\_unique\_id](#output\_velero\_pod\_identity\_iam\_role\_unique\_id) | Unique ID of IAM role |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
-Apache-2.0 Licensed. See [LICENSE](https://github.com/clowdhaus/terraform-aws-eks-pod-identity/blob/main/LICENSE).
+Apache-2.0 Licensed. See [LICENSE](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/blob/master/LICENSE).

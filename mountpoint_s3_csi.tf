@@ -2,7 +2,7 @@
 # Mountpoint S3 CSI Driver Policy
 ################################################################################
 
-#https://github.com/awslabs/mountpoint-s3/blob/main/doc/CONFIGURATION.md#iam-permissions
+# https://github.com/awslabs/mountpoint-s3/blob/main/doc/CONFIGURATION.md#iam-permissions
 
 data "aws_iam_policy_document" "mountpoint_s3_csi" {
   count = var.create && var.attach_mountpoint_s3_csi_policy ? 1 : 0
