@@ -67,6 +67,22 @@ variable "additional_policy_arns" {
 }
 
 ################################################################################
+# Pod Identity Association
+################################################################################
+
+variable "association_defaults" {
+  description = "Default values used across all Pod Identity associations created unless a more specific value is provided"
+  type        = map(string)
+  default     = {}
+}
+
+variable "associations" {
+  description = "Map of Pod Identity associations to be created (map of maps)"
+  type        = any
+  default     = {}
+}
+
+################################################################################
 # Policies
 ################################################################################
 

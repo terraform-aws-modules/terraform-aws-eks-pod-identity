@@ -169,3 +169,18 @@ resource "aws_iam_role_policy_attachment" "custom" {
   role       = aws_iam_role.this[0].name
   policy_arn = aws_iam_policy.custom[0].arn
 }
+
+################################################################################
+# Pod Identity Association
+################################################################################
+
+resource "aws_eks_pod_identity_association" "this" {
+  for_each = { for k, v in var.associations : k => v if var.create }
+
+  cluster_name    = try(each.value.cluster_name, var.association_defaults.cluster_name)
+  namespace       = try(each.value.namespace, var.association_defaults.namespace)
+  service_account = try(each.value.service_account, var.association_defaults.service_account)
+  role_arn        = aws_iam_role.this[0].arn
+
+  tags = merge(var.tags, try(each.value.tags, var.association_defaults.tags, {}))
+}

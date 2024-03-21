@@ -37,6 +37,11 @@ output "custom_pod_identity_iam_policy_id" {
   value       = module.custom_pod_identity.iam_policy_id
 }
 
+output "custom_pod_identity_associations" {
+  description = "Map of Pod Identity associations created"
+  value       = module.custom_pod_identity.associations
+}
+
 ################################################################################
 # AWS Gateway Controller
 ################################################################################
@@ -74,6 +79,11 @@ output "aws_gateway_controller_pod_identity_iam_policy_name" {
 output "aws_gateway_controller_pod_identity_iam_policy_id" {
   description = "ID of IAM policy"
   value       = module.aws_gateway_controller_pod_identity.iam_policy_id
+}
+
+output "aws_gateway_controller_pod_identity_associations" {
+  description = "Map of Pod Identity associations created"
+  value       = module.aws_gateway_controller_pod_identity.associations
 }
 
 ################################################################################
@@ -115,6 +125,11 @@ output "cert_manager_pod_identity_iam_policy_id" {
   value       = module.cert_manager_pod_identity.iam_policy_id
 }
 
+output "cert_manager_pod_identity_associations" {
+  description = "Map of Pod Identity associations created"
+  value       = module.cert_manager_pod_identity.associations
+}
+
 ################################################################################
 # AWS CloudWatch Observability
 ################################################################################
@@ -152,6 +167,11 @@ output "aws_cloudwatch_observability_pod_identity_iam_policy_name" {
 output "aws_cloudwatch_observability_pod_identity_iam_policy_id" {
   description = "ID of IAM policy"
   value       = module.aws_cloudwatch_observability_pod_identity.iam_policy_id
+}
+
+output "aws_cloudwatch_observability_pod_identity_associations" {
+  description = "Map of Pod Identity associations created"
+  value       = module.aws_cloudwatch_observability_pod_identity.associations
 }
 
 ################################################################################
@@ -193,6 +213,11 @@ output "cluster_autoscaler_pod_identity_iam_policy_id" {
   value       = module.cluster_autoscaler_pod_identity.iam_policy_id
 }
 
+output "cluster_autoscaler_pod_identity_associations" {
+  description = "Map of Pod Identity associations created"
+  value       = module.cluster_autoscaler_pod_identity.associations
+}
+
 ################################################################################
 # AWS EBS CSI Driver
 ################################################################################
@@ -230,6 +255,11 @@ output "aws_ebs_csi_pod_identity_iam_policy_name" {
 output "aws_ebs_csi_pod_identity_iam_policy_id" {
   description = "ID of IAM policy"
   value       = module.aws_ebs_csi_pod_identity.iam_policy_id
+}
+
+output "aws_ebs_csi_pod_identity_associations" {
+  description = "Map of Pod Identity associations created"
+  value       = module.aws_ebs_csi_pod_identity.associations
 }
 
 ################################################################################
@@ -271,6 +301,11 @@ output "aws_efs_csi_pod_identity_iam_policy_id" {
   value       = module.aws_efs_csi_pod_identity.iam_policy_id
 }
 
+output "aws_efs_csi_pod_identity_associations" {
+  description = "Map of Pod Identity associations created"
+  value       = module.aws_efs_csi_pod_identity.associations
+}
+
 ################################################################################
 # External-DNS
 ################################################################################
@@ -308,6 +343,11 @@ output "external_dns_pod_identity_iam_policy_name" {
 output "external_dns_pod_identity_iam_policy_id" {
   description = "ID of IAM policy"
   value       = module.external_dns_pod_identity.iam_policy_id
+}
+
+output "external_dns_pod_identity_associations" {
+  description = "Map of Pod Identity associations created"
+  value       = module.external_dns_pod_identity.associations
 }
 
 ################################################################################
@@ -349,6 +389,11 @@ output "external_secrets_pod_identity_iam_policy_id" {
   value       = module.external_secrets_pod_identity.iam_policy_id
 }
 
+output "external_secrets_pod_identity_associations" {
+  description = "Map of Pod Identity associations created"
+  value       = module.external_secrets_pod_identity.associations
+}
+
 ################################################################################
 # AWS FSx for Lustre CSI Driver
 ################################################################################
@@ -386,6 +431,11 @@ output "aws_fsx_lustre_csi_pod_identity_iam_policy_name" {
 output "aws_fsx_lustre_csi_pod_identity_iam_policy_id" {
   description = "ID of IAM policy"
   value       = module.aws_fsx_lustre_csi_pod_identity.iam_policy_id
+}
+
+output "aws_fsx_lustre_csi_pod_identity_associations" {
+  description = "Map of Pod Identity associations created"
+  value       = module.aws_fsx_lustre_csi_pod_identity.associations
 }
 
 ################################################################################
@@ -427,6 +477,11 @@ output "aws_lb_controller_pod_identity_iam_policy_id" {
   value       = module.aws_lb_controller_pod_identity.iam_policy_id
 }
 
+output "aws_lb_controller_pod_identity_associations" {
+  description = "Map of Pod Identity associations created"
+  value       = module.aws_lb_controller_pod_identity.associations
+}
+
 ################################################################################
 # AWS Load Balancer Controller TargetGroup Binding Only
 ################################################################################
@@ -464,6 +519,11 @@ output "aws_lb_controller_targetgroup_binding_only_pod_identity_iam_policy_name"
 output "aws_lb_controller_targetgroup_binding_only_pod_identity_iam_policy_id" {
   description = "ID of IAM policy"
   value       = module.aws_lb_controller_targetgroup_binding_only_pod_identity.iam_policy_id
+}
+
+output "aws_lb_controller_targetgroup_binding_only_pod_identity_associations" {
+  description = "Map of Pod Identity associations created"
+  value       = module.aws_lb_controller_targetgroup_binding_only_pod_identity.associations
 }
 
 ################################################################################
@@ -505,6 +565,11 @@ output "aws_appmesh_controller_pod_identity_iam_policy_id" {
   value       = module.aws_appmesh_controller_pod_identity.iam_policy_id
 }
 
+output "aws_appmesh_controller_pod_identity_associations" {
+  description = "Map of Pod Identity associations created"
+  value       = module.aws_appmesh_controller_pod_identity.associations
+}
+
 ################################################################################
 # AWS AppMesh Envoy Proxy
 ################################################################################
@@ -542,6 +607,11 @@ output "aws_appmesh_envoy_proxy_pod_identity_iam_policy_name" {
 output "aws_appmesh_envoy_proxy_pod_identity_iam_policy_id" {
   description = "ID of IAM policy"
   value       = module.aws_appmesh_envoy_proxy_pod_identity.iam_policy_id
+}
+
+output "aws_appmesh_envoy_proxy_pod_identity_associations" {
+  description = "Map of Pod Identity associations created"
+  value       = module.aws_appmesh_envoy_proxy_pod_identity.associations
 }
 
 ################################################################################
@@ -583,6 +653,11 @@ output "amazon_managed_service_prometheus_pod_identity_iam_policy_id" {
   value       = module.amazon_managed_service_prometheus_pod_identity.iam_policy_id
 }
 
+output "amazon_managed_service_prometheus_pod_identity_associations" {
+  description = "Map of Pod Identity associations created"
+  value       = module.amazon_managed_service_prometheus_pod_identity.associations
+}
+
 ################################################################################
 # Mountpoint S3 CSI Driver
 ################################################################################
@@ -620,6 +695,11 @@ output "mountpoint_s3_csi_pod_identity_iam_policy_name" {
 output "mountpoint_s3_csi_pod_identity_iam_policy_id" {
   description = "ID of IAM policy"
   value       = module.mountpoint_s3_csi_pod_identity.iam_policy_id
+}
+
+output "mountpoint_s3_csi_pod_identity_associations" {
+  description = "Map of Pod Identity associations created"
+  value       = module.mountpoint_s3_csi_pod_identity.associations
 }
 
 ################################################################################
@@ -661,6 +741,11 @@ output "aws_node_termination_handler_pod_identity_iam_policy_id" {
   value       = module.aws_node_termination_handler_pod_identity.iam_policy_id
 }
 
+output "aws_node_termination_handler_pod_identity_associations" {
+  description = "Map of Pod Identity associations created"
+  value       = module.aws_node_termination_handler_pod_identity.associations
+}
+
 ################################################################################
 # AWS Private CA Issuer
 ################################################################################
@@ -698,6 +783,11 @@ output "aws_privateca_issuer_pod_identity_iam_policy_name" {
 output "aws_privateca_issuer_pod_identity_iam_policy_id" {
   description = "ID of IAM policy"
   value       = module.aws_privateca_issuer_pod_identity.iam_policy_id
+}
+
+output "aws_privateca_issuer_pod_identity_associations" {
+  description = "Map of Pod Identity associations created"
+  value       = module.aws_privateca_issuer_pod_identity.associations
 }
 
 ################################################################################
@@ -739,6 +829,11 @@ output "velero_pod_identity_iam_policy_id" {
   value       = module.velero_pod_identity.iam_policy_id
 }
 
+output "velero_pod_identity_associations" {
+  description = "Map of Pod Identity associations created"
+  value       = module.velero_pod_identity.associations
+}
+
 ################################################################################
 # AWS VPC CNI IPv4
 ################################################################################
@@ -778,6 +873,11 @@ output "aws_vpc_cni_ipv4_pod_identity_iam_policy_id" {
   value       = module.aws_vpc_cni_ipv4_pod_identity.iam_policy_id
 }
 
+output "aws_vpc_cni_ipv4_pod_identity_associations" {
+  description = "Map of Pod Identity associations created"
+  value       = module.aws_vpc_cni_ipv4_pod_identity.associations
+}
+
 ################################################################################
 # AWS VPC CNI IPv6
 ################################################################################
@@ -815,4 +915,9 @@ output "aws_vpc_cni_ipv6_pod_identity_iam_policy_name" {
 output "aws_vpc_cni_ipv6_pod_identity_iam_policy_id" {
   description = "ID of IAM policy"
   value       = module.aws_vpc_cni_ipv6_pod_identity.iam_policy_id
+}
+
+output "aws_vpc_cni_ipv6_pod_identity_associations" {
+  description = "Map of Pod Identity associations created"
+  value       = module.aws_vpc_cni_ipv6_pod_identity.associations
 }

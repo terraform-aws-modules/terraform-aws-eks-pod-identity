@@ -81,7 +81,7 @@ output "iam_policy_name" {
 }
 
 output "iam_policy_id" {
-  description = " The policy's ID"
+  description = "The policy's ID"
   value = try(
     aws_iam_policy.amazon_managed_service_prometheus[0].policy_id,
     aws_iam_policy.appmesh_controller[0].policy_id,
@@ -104,4 +104,13 @@ output "iam_policy_id" {
     aws_iam_policy.custom[0].policy_id,
     null,
   )
+}
+
+################################################################################
+# Pod Identity Association
+################################################################################
+
+output "associations" {
+  description = "Map of Pod Identity associations created"
+  value       = aws_eks_pod_identity_association.this
 }
