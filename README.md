@@ -399,7 +399,7 @@ Examples codified under the [`examples`](https://github.com/terraform-aws-module
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.2 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.30 |
 
 ## Providers
@@ -416,6 +416,7 @@ No modules.
 
 | Name | Type |
 |------|------|
+| [aws_eks_pod_identity_association.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_pod_identity_association) | resource |
 | [aws_iam_policy.amazon_managed_service_prometheus](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.appmesh_controller](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.appmesh_envoy_proxy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
@@ -488,6 +489,8 @@ No modules.
 | <a name="input_amazon_managed_service_prometheus_workspace_arns"></a> [amazon\_managed\_service\_prometheus\_workspace\_arns](#input\_amazon\_managed\_service\_prometheus\_workspace\_arns) | List of AMP Workspace ARNs to read and write metrics | `list(string)` | `[]` | no |
 | <a name="input_appmesh_controller_policy_name"></a> [appmesh\_controller\_policy\_name](#input\_appmesh\_controller\_policy\_name) | Custom name of the AppMesh Controller IAM policy | `string` | `null` | no |
 | <a name="input_appmesh_envoy_proxy_policy_name"></a> [appmesh\_envoy\_proxy\_policy\_name](#input\_appmesh\_envoy\_proxy\_policy\_name) | Custom name of the AppMesh Envoy Proxy IAM policy | `string` | `null` | no |
+| <a name="input_association_defaults"></a> [association\_defaults](#input\_association\_defaults) | Default values used across all Pod Identity associations created unless a more specific value is provided | `map(string)` | `{}` | no |
+| <a name="input_associations"></a> [associations](#input\_associations) | Map of Pod Identity associations to be created (map of maps) | `any` | `{}` | no |
 | <a name="input_attach_amazon_managed_service_prometheus_policy"></a> [attach\_amazon\_managed\_service\_prometheus\_policy](#input\_attach\_amazon\_managed\_service\_prometheus\_policy) | Determines whether to attach the Amazon Managed Service for Prometheus IAM policy to the role | `bool` | `false` | no |
 | <a name="input_attach_aws_appmesh_controller_policy"></a> [attach\_aws\_appmesh\_controller\_policy](#input\_attach\_aws\_appmesh\_controller\_policy) | Determines whether to attach the AppMesh Controller policy to the role | `bool` | `false` | no |
 | <a name="input_attach_aws_appmesh_envoy_proxy_policy"></a> [attach\_aws\_appmesh\_envoy\_proxy\_policy](#input\_attach\_aws\_appmesh\_envoy\_proxy\_policy) | Determines whether to attach the AppMesh Envoy Proxy policy to the role | `bool` | `false` | no |
@@ -560,6 +563,7 @@ No modules.
 
 | Name | Description |
 |------|-------------|
+| <a name="output_associations"></a> [associations](#output\_associations) | Map of Pod Identity associations created |
 | <a name="output_iam_policy_arn"></a> [iam\_policy\_arn](#output\_iam\_policy\_arn) | The ARN assigned by AWS to this policy |
 | <a name="output_iam_policy_id"></a> [iam\_policy\_id](#output\_iam\_policy\_id) | The policy's ID |
 | <a name="output_iam_policy_name"></a> [iam\_policy\_name](#output\_iam\_policy\_name) | Name of IAM policy |

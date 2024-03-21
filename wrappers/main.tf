@@ -8,6 +8,8 @@ module "wrapper" {
   amazon_managed_service_prometheus_workspace_arns         = try(each.value.amazon_managed_service_prometheus_workspace_arns, var.defaults.amazon_managed_service_prometheus_workspace_arns, [])
   appmesh_controller_policy_name                           = try(each.value.appmesh_controller_policy_name, var.defaults.appmesh_controller_policy_name, null)
   appmesh_envoy_proxy_policy_name                          = try(each.value.appmesh_envoy_proxy_policy_name, var.defaults.appmesh_envoy_proxy_policy_name, null)
+  association_defaults                                     = try(each.value.association_defaults, var.defaults.association_defaults, {})
+  associations                                             = try(each.value.associations, var.defaults.associations, {})
   attach_amazon_managed_service_prometheus_policy          = try(each.value.attach_amazon_managed_service_prometheus_policy, var.defaults.attach_amazon_managed_service_prometheus_policy, false)
   attach_aws_appmesh_controller_policy                     = try(each.value.attach_aws_appmesh_controller_policy, var.defaults.attach_aws_appmesh_controller_policy, false)
   attach_aws_appmesh_envoy_proxy_policy                    = try(each.value.attach_aws_appmesh_envoy_proxy_policy, var.defaults.attach_aws_appmesh_envoy_proxy_policy, false)
