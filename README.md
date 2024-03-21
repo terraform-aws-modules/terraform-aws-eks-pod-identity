@@ -287,6 +287,7 @@ module "amazon_managed_service_prometheus_pod_identity" {
 
 ### [Mountpoint S3 CSI Driver](https://github.com/awslabs/mountpoint-s3)
 
+```hcl
 module "mountpoint_s3_csi_pod_identity" {
   source = "terraform-aws-modules/eks-pod-identity/aws"
 
@@ -300,6 +301,7 @@ module "mountpoint_s3_csi_pod_identity" {
     Environment = "dev"
   }
 }
+```
 
 ### [AWS Node Termination Handler](https://github.com/aws/aws-node-termination-handler)
 
