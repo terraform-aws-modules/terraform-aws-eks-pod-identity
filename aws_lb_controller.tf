@@ -302,6 +302,8 @@ data "aws_iam_policy_document" "lb_controller_targetgroup_only" {
       "ec2:DescribeVpcs",
       "ec2:DescribeSecurityGroups",
       "ec2:DescribeInstances",
+      "ec2:AuthorizeSecurityGroupIngress",
+      "ec2:RevokeSecurityGroupIngress",
       "elasticloadbalancing:DescribeTargetGroups",
       "elasticloadbalancing:DescribeTargetHealth",
     ]
