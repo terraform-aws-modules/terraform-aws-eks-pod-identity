@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.0](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v1.2.1...v1.3.0) (2024-07-21)
+
+
+### Features
+
+* Add support for specifying assume role conditions ([#12](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/issues/12)) ([5249afc](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/commit/5249afcf2c5c8f7347c48d4bc8caab193dcf5e20))
+
 ## [1.2.1](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v1.2.0...v1.2.1) (2024-05-30)
 
 
