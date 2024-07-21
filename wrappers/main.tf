@@ -72,6 +72,7 @@ module "wrapper" {
   policy_statements                                        = try(each.value.policy_statements, var.defaults.policy_statements, [])
   source_policy_documents                                  = try(each.value.source_policy_documents, var.defaults.source_policy_documents, [])
   tags                                                     = try(each.value.tags, var.defaults.tags, {})
+  trust_policy_conditions                                  = try(each.value.trust_policy_conditions, var.defaults.trust_policy_conditions, [])
   trust_policy_statements                                  = try(each.value.trust_policy_statements, var.defaults.trust_policy_statements, [])
   use_name_prefix                                          = try(each.value.use_name_prefix, var.defaults.use_name_prefix, true)
   velero_policy_name                                       = try(each.value.velero_policy_name, var.defaults.velero_policy_name, null)

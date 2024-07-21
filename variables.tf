@@ -14,6 +14,12 @@ variable "tags" {
 # IAM Role Trust Policy
 ################################################################################
 
+variable "trust_policy_conditions" {
+  description = "A list of conditions to add to the role trust policy"
+  type        = any
+  default     = []
+}
+
 variable "trust_policy_statements" {
   description = "A list of IAM policy [statements](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document#statement) for the role trust policy"
   type        = any

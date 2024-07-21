@@ -22,6 +22,16 @@ data "aws_iam_policy_document" "assume" {
       type        = "Service"
       identifiers = ["pods.eks.amazonaws.com"]
     }
+
+    dynamic "condition" {
+      for_each = var.trust_policy_conditions
+
+      content {
+        test     = condition.value.test
+        values   = condition.value.values
+        variable = condition.value.variable
+      }
+    }
   }
 
   dynamic "statement" {
