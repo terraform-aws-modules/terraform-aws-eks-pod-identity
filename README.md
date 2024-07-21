@@ -18,6 +18,14 @@ module "custom_pod_identity" {
 
   name = "custom"
 
+  trust_policy_conditions = [
+    {
+      test     = "StringEquals"
+      variable = "aws:PrincipalOrgID"
+      values   = ["o-1234567890"]
+    }
+  ]
+
   trust_policy_statements = [
     {
       sid       = "Test"
@@ -553,6 +561,7 @@ No modules.
 | <a name="input_policy_statements"></a> [policy\_statements](#input\_policy\_statements) | A list of IAM policy [statements](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document#statement) for custom permission usage | `any` | `[]` | no |
 | <a name="input_source_policy_documents"></a> [source\_policy\_documents](#input\_source\_policy\_documents) | List of IAM policy documents that are merged together into the exported document | `list(string)` | `[]` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to add to all resources | `map(string)` | `{}` | no |
+| <a name="input_trust_policy_conditions"></a> [trust\_policy\_conditions](#input\_trust\_policy\_conditions) | A list of conditions to add to the role trust policy | `any` | `[]` | no |
 | <a name="input_trust_policy_statements"></a> [trust\_policy\_statements](#input\_trust\_policy\_statements) | A list of IAM policy [statements](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document#statement) for the role trust policy | `any` | `[]` | no |
 | <a name="input_use_name_prefix"></a> [use\_name\_prefix](#input\_use\_name\_prefix) | Determines whether the role name and policy name(s) are used as a prefix | `string` | `true` | no |
 | <a name="input_velero_policy_name"></a> [velero\_policy\_name](#input\_velero\_policy\_name) | Custom name of the Velero IAM policy | `string` | `null` | no |

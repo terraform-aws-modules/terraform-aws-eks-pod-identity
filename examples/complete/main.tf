@@ -36,6 +36,14 @@ module "custom_pod_identity" {
     additional           = aws_iam_policy.additional.arn
   }
 
+  trust_policy_conditions = [
+    {
+      test     = "StringEquals"
+      variable = "aws:PrincipalOrgID"
+      values   = ["o-1234567890"]
+    }
+  ]
+
   associations = {
     ex-one = {
       cluster_name    = module.eks_one.cluster_name
