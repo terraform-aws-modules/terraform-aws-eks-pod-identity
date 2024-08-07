@@ -9,6 +9,21 @@ data "aws_iam_policy_document" "vpc_cni" {
   source_policy_documents   = [data.aws_iam_policy_document.base[0].json]
   override_policy_documents = var.override_policy_documents
 
+  # https://docs.aws.amazon.com/eks/latest/userguide/cni-network-policy.html#cni-network-policy-setup
+  dynamic "statement" {
+    for_each = var.aws_vpc_cni_enable_cloudwatch_logs ? [1] : []
+    content {
+      sid = "CloudWatchLogs"
+      actions = [
+        "logs:DescribeLogGroups",
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents",
+      ]
+      resources = ["*"]
+    }
+  }
+
   statement {
     actions   = ["ec2:CreateTags"]
     resources = ["arn:${local.partition}:ec2:*:*:network-interface/*"]
