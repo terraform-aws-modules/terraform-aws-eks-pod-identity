@@ -43,6 +43,7 @@ module "wrapper" {
   aws_node_termination_handler_sqs_queue_arns              = try(each.value.aws_node_termination_handler_sqs_queue_arns, var.defaults.aws_node_termination_handler_sqs_queue_arns, [])
   aws_privateca_issuer_acmca_arns                          = try(each.value.aws_privateca_issuer_acmca_arns, var.defaults.aws_privateca_issuer_acmca_arns, [])
   aws_privateca_issuer_policy_name                         = try(each.value.aws_privateca_issuer_policy_name, var.defaults.aws_privateca_issuer_policy_name, null)
+  aws_vpc_cni_enable_cloudwatch_logs                       = try(each.value.aws_vpc_cni_enable_cloudwatch_logs, var.defaults.aws_vpc_cni_enable_cloudwatch_logs, false)
   aws_vpc_cni_enable_ipv4                                  = try(each.value.aws_vpc_cni_enable_ipv4, var.defaults.aws_vpc_cni_enable_ipv4, false)
   aws_vpc_cni_enable_ipv6                                  = try(each.value.aws_vpc_cni_enable_ipv6, var.defaults.aws_vpc_cni_enable_ipv6, false)
   aws_vpc_cni_policy_name                                  = try(each.value.aws_vpc_cni_policy_name, var.defaults.aws_vpc_cni_policy_name, null)
