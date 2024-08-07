@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.4.0](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v1.3.0...v1.4.0) (2024-08-07)
+
+
+### Features
+
+* Add cloudwatch logs policy to vpc-cni for networkpolicy logging ([#13](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/issues/13)) ([a5da73e](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/commit/a5da73e26a8d4ca46f76ea5e4e0c57479a451837))
+
 ## [1.3.0](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v1.2.1...v1.3.0) (2024-07-21)
 
 
