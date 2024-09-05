@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.4.1](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v1.4.0...v1.4.1) (2024-09-05)
+
+
+### Bug Fixes
+
+* Change `association_defaults` type from `map(string)` to `any` to support tags ([#15](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/issues/15)) ([85f2516](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/commit/85f25165c7a115738d053ff93fa24b3d3701fb4b))
+
 ## [1.4.0](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v1.3.0...v1.4.0) (2024-08-07)
 
 
