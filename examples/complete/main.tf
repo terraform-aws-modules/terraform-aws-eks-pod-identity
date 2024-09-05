@@ -71,6 +71,7 @@ module "aws_gateway_controller_pod_identity" {
   association_defaults = {
     namespace       = "aws-application-networking-system"
     service_account = "gateway-api-controller"
+    tags            = { App = "Example" }
   }
 
   associations = {

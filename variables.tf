@@ -78,7 +78,7 @@ variable "additional_policy_arns" {
 
 variable "association_defaults" {
   description = "Default values used across all Pod Identity associations created unless a more specific value is provided"
-  type        = map(string)
+  type        = any
   default     = {}
 }
 
