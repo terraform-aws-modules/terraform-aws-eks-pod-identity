@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.4.2](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v1.4.1...v1.4.2) (2024-09-25)
+
+
+### Bug Fixes
+
+* Ensure FSX IAM Policy Permits Updating File Systems ([#16](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/issues/16)) ([c9d93c3](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/commit/c9d93c3ad016697d8b97e3d9c46f17e7b3e57b84))
+
 ## [1.4.1](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v1.4.0...v1.4.1) (2024-09-05)
 
 
