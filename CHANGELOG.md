@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.4.3](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v1.4.2...v1.4.3) (2024-10-01)
+
+
+### Bug Fixes
+
+* Add required S3 PutObjectTagging permission to IAM policy ([#17](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/issues/17)) ([def5c02](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/commit/def5c02bf0c662d8a52cd4da1c671b3060231296))
+
 ## [1.4.2](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v1.4.1...v1.4.2) (2024-09-25)
 
 
