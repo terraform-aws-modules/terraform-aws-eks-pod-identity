@@ -14,7 +14,7 @@ $ terraform apply
 
 Note that this example may create resources which will incur monetary charges on your AWS bill. Run `terraform destroy` when you no longer need these resources.
 
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -243,6 +243,6 @@ No inputs.
 | <a name="output_velero_pod_identity_iam_role_name"></a> [velero\_pod\_identity\_iam\_role\_name](#output\_velero\_pod\_identity\_iam\_role\_name) | Name of IAM role |
 | <a name="output_velero_pod_identity_iam_role_path"></a> [velero\_pod\_identity\_iam\_role\_path](#output\_velero\_pod\_identity\_iam\_role\_path) | Path of IAM role |
 | <a name="output_velero_pod_identity_iam_role_unique_id"></a> [velero\_pod\_identity\_iam\_role\_unique\_id](#output\_velero\_pod\_identity\_iam\_role\_unique\_id) | Unique ID of IAM role |
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- END_TF_DOCS -->
 
 Apache-2.0 Licensed. See [LICENSE](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/blob/master/LICENSE).
