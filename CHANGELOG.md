@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.5.0](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v1.4.3...v1.5.0) (2024-10-05)
+
+
+### Features
+
+* Update IAM policy for AWS Load Balancer Controller to support Listener Attributes ([#19](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/issues/19)) ([ef9c1d7](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/commit/ef9c1d76f49484a3c71cbd66ccd25b68078dc278))
+
 ## [1.4.3](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v1.4.2...v1.4.3) (2024-10-01)
 
 
