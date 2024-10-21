@@ -57,7 +57,7 @@ data "aws_iam_policy_document" "ebs_csi" {
 
   statement {
     actions   = ["ec2:CreateVolume"]
-    resources = ["*"]
+    resources = ["arn:aws:ec2:*:*:volume/*"]
 
     condition {
       test     = "StringLike"
@@ -68,13 +68,18 @@ data "aws_iam_policy_document" "ebs_csi" {
 
   statement {
     actions   = ["ec2:CreateVolume"]
-    resources = ["*"]
+    resources = ["arn:aws:ec2:*:*:volume/*"]
 
     condition {
       test     = "StringLike"
       variable = "aws:RequestTag/CSIVolumeName"
       values   = ["*"]
     }
+  }
+
+  statement {
+    actions   = ["ec2:CreateVolume"]
+    resources = ["arn:aws:ec2:*:*:snapshot/*"]
   }
 
   statement {
