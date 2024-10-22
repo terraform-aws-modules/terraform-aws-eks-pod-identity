@@ -57,7 +57,7 @@ data "aws_iam_policy_document" "ebs_csi" {
 
   statement {
     actions   = ["ec2:CreateVolume"]
-    resources = ["arn:aws:ec2:*:*:volume/*"]
+    resources = ["arn:${local.partition}:ec2:*:*:volume/*"]
 
     condition {
       test     = "StringLike"
@@ -68,7 +68,7 @@ data "aws_iam_policy_document" "ebs_csi" {
 
   statement {
     actions   = ["ec2:CreateVolume"]
-    resources = ["arn:aws:ec2:*:*:volume/*"]
+    resources = ["arn:${local.partition}:ec2:*:*:volume/*"]
 
     condition {
       test     = "StringLike"
@@ -79,7 +79,7 @@ data "aws_iam_policy_document" "ebs_csi" {
 
   statement {
     actions   = ["ec2:CreateVolume"]
-    resources = ["arn:aws:ec2:*:*:snapshot/*"]
+    resources = ["arn:${local.partition}:ec2:*:*:snapshot/*"]
   }
 
   statement {
