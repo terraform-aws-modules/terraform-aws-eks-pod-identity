@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.6.1](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v1.6.0...v1.6.1) (2024-10-22)
+
+
+### Bug Fixes
+
+* Use dynamic partition value ([#23](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/issues/23)) ([85f71d9](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/commit/85f71d9c3a1d590407c0c358a012818e8efee66f))
+
 ## [1.6.0](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v1.5.0...v1.6.0) (2024-10-21)
 
 
