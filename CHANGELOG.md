@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.7.0](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v1.6.1...v1.7.0) (2024-11-11)
+
+
+### Features
+
+* Add `ec2:GetSecurityGroupsForVpc` for AWS LB Controller `v2.10.0` ([#25](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/issues/25)) ([dfef351](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/commit/dfef351722163fc20212291db5025dc62a2d2ec0))
+
 ## [1.6.1](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v1.6.0...v1.6.1) (2024-10-22)
 
 
