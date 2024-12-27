@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.9.0](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v1.8.0...v1.9.0) (2024-12-27)
+
+
+### Features
+
+* Update policies for AWS LBC v2.11.0 ([#27](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/issues/27)) ([f5c4932](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/commit/f5c4932da8586d90ed57179aa1c9270394b0ac81))
+
 ## [1.8.0](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v1.7.0...v1.8.0) (2024-12-27)
 
 
