@@ -49,6 +49,7 @@ data "aws_iam_policy_document" "lb_controller" {
       "elasticloadbalancing:DescribeTags",
       "elasticloadbalancing:DescribeTrustStores",
       "elasticloadbalancing:DescribeListenerAttributes",
+      "elasticloadbalancing:DescribeCapacityReservation",
     ]
     resources = ["*"]
   }
@@ -209,6 +210,7 @@ data "aws_iam_policy_document" "lb_controller" {
       "elasticloadbalancing:ModifyTargetGroupAttributes",
       "elasticloadbalancing:DeleteTargetGroup",
       "elasticloadbalancing:ModifyListenerAttributes",
+      "elasticloadbalancing:ModifyCapacityReservation",
     ]
     resources = ["*"]
 
