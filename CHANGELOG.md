@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.10.0](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v1.9.1...v1.10.0) (2025-01-29)
+
+
+### Features
+
+* Add `ec2:DescribeSubnets` policy to `aws-vpc-cni` ([#29](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/issues/29)) ([2f1907b](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/commit/2f1907baf15677a0efe1afc4ba7075b7525acb9e))
+
 ## [1.9.1](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v1.9.0...v1.9.1) (2025-01-09)
 
 
