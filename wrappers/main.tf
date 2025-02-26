@@ -32,6 +32,7 @@ module "wrapper" {
   attach_velero_policy                                     = try(each.value.attach_velero_policy, var.defaults.attach_velero_policy, false)
   aws_ebs_csi_kms_arns                                     = try(each.value.aws_ebs_csi_kms_arns, var.defaults.aws_ebs_csi_kms_arns, [])
   aws_ebs_csi_policy_name                                  = try(each.value.aws_ebs_csi_policy_name, var.defaults.aws_ebs_csi_policy_name, null)
+  custom_policy_name                                       = try(each.value.custom_policy_name, var.defaults.custom_policy_name, null)
   aws_efs_csi_policy_name                                  = try(each.value.aws_efs_csi_policy_name, var.defaults.aws_efs_csi_policy_name, null)
   aws_fsx_lustre_csi_policy_name                           = try(each.value.aws_fsx_lustre_csi_policy_name, var.defaults.aws_fsx_lustre_csi_policy_name, null)
   aws_fsx_lustre_csi_service_role_arns                     = try(each.value.aws_fsx_lustre_csi_service_role_arns, var.defaults.aws_fsx_lustre_csi_service_role_arns, [])
