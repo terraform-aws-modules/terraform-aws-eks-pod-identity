@@ -129,6 +129,12 @@ variable "custom_policy_description" {
   default     = "Custom IAM Policy"
 }
 
+variable "custom_policy_name" {
+  description = "Custom name of the custom IAM policy"
+  type        = string
+  default     = null
+}
+
 # Amazon Managed Service for Prometheus
 variable "attach_amazon_managed_service_prometheus_policy" {
   description = "Determines whether to attach the Amazon Managed Service for Prometheus IAM policy to the role"
