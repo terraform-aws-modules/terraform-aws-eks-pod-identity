@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.11.0](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v1.10.0...v1.11.0) (2025-03-12)
+
+
+### Features
+
+* Update IAM permissions for load balancer controller v2.12.0 ([#33](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/issues/33)) ([36379bc](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/commit/36379bcb3b5b62038e7936936d1bbedf28936157))
+
 ## [1.10.0](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v1.9.1...v1.10.0) (2025-01-29)
 
 
