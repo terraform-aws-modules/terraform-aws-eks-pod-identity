@@ -211,6 +211,7 @@ data "aws_iam_policy_document" "lb_controller" {
       "elasticloadbalancing:DeleteTargetGroup",
       "elasticloadbalancing:ModifyListenerAttributes",
       "elasticloadbalancing:ModifyCapacityReservation",
+      "elasticloadbalancing:ModifyIpPools"
     ]
     resources = ["*"]
 
@@ -262,6 +263,7 @@ data "aws_iam_policy_document" "lb_controller" {
       "elasticloadbalancing:AddListenerCertificates",
       "elasticloadbalancing:RemoveListenerCertificates",
       "elasticloadbalancing:ModifyRule",
+      "elasticloadbalancing:SetRulePriorities"
     ]
     resources = ["*"]
   }
