@@ -37,6 +37,8 @@ data "aws_iam_policy_document" "lb_controller" {
       "ec2:GetCoipPoolUsage",
       "ec2:DescribeCoipPools",
       "ec2:GetSecurityGroupsForVpc",
+      "ec2:DescribeIpamPools",
+      "ec2:DescribeRouteTables",
       "elasticloadbalancing:DescribeLoadBalancers",
       "elasticloadbalancing:DescribeLoadBalancerAttributes",
       "elasticloadbalancing:DescribeListeners",
@@ -81,6 +83,12 @@ data "aws_iam_policy_document" "lb_controller" {
     actions = [
       "ec2:AuthorizeSecurityGroupIngress",
       "ec2:RevokeSecurityGroupIngress",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    actions = [
       "ec2:CreateSecurityGroup",
     ]
     resources = ["*"]
