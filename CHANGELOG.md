@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.12.0](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v1.11.0...v1.12.0) (2025-06-03)
+
+
+### Features
+
+* Update AWS Load Balancer controller policy to match v2.13 of the upstream project ([#36](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/issues/36)) ([b1898a2](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/commit/b1898a2709a1cb56fea5d609038fff61bba7dd78))
+
 ## [1.11.0](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v1.10.0...v1.11.0) (2025-03-12)
 
 
