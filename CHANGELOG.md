@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.12.1](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v1.12.0...v1.12.1) (2025-07-05)
+
+
+### Bug Fixes
+
+* Update IAM policy for External Secrets  ([#38](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/issues/38)) ([8083c02](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/commit/8083c02f7337c1a827118b5fed8d63745a8507bd))
+
 ## [1.12.0](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v1.11.0...v1.12.0) (2025-06-03)
 
 
