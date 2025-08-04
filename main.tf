@@ -187,6 +187,8 @@ resource "aws_iam_role_policy_attachment" "custom" {
 resource "aws_eks_pod_identity_association" "this" {
   for_each = { for k, v in var.associations : k => v if var.create }
 
+  region = var.region
+
   cluster_name    = try(each.value.cluster_name, var.association_defaults.cluster_name)
   namespace       = try(each.value.namespace, var.association_defaults.namespace)
   service_account = try(each.value.service_account, var.association_defaults.service_account)

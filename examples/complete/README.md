@@ -19,14 +19,14 @@ Note that this example may create resources which will incur monetary charges on
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.2 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.30 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.7 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.30 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.0 |
 
 ## Modules
 
@@ -50,13 +50,13 @@ Note that this example may create resources which will incur monetary charges on
 | <a name="module_cluster_autoscaler_pod_identity"></a> [cluster\_autoscaler\_pod\_identity](#module\_cluster\_autoscaler\_pod\_identity) | ../../ | n/a |
 | <a name="module_custom_pod_identity"></a> [custom\_pod\_identity](#module\_custom\_pod\_identity) | ../../ | n/a |
 | <a name="module_disabled"></a> [disabled](#module\_disabled) | ../../ | n/a |
-| <a name="module_eks_one"></a> [eks\_one](#module\_eks\_one) | terraform-aws-modules/eks/aws | ~> 20.0 |
-| <a name="module_eks_two"></a> [eks\_two](#module\_eks\_two) | terraform-aws-modules/eks/aws | ~> 20.0 |
+| <a name="module_eks_one"></a> [eks\_one](#module\_eks\_one) | terraform-aws-modules/eks/aws | ~> 21.0 |
+| <a name="module_eks_two"></a> [eks\_two](#module\_eks\_two) | terraform-aws-modules/eks/aws | ~> 21.0 |
 | <a name="module_external_dns_pod_identity"></a> [external\_dns\_pod\_identity](#module\_external\_dns\_pod\_identity) | ../../ | n/a |
 | <a name="module_external_secrets_pod_identity"></a> [external\_secrets\_pod\_identity](#module\_external\_secrets\_pod\_identity) | ../../ | n/a |
 | <a name="module_mountpoint_s3_csi_pod_identity"></a> [mountpoint\_s3\_csi\_pod\_identity](#module\_mountpoint\_s3\_csi\_pod\_identity) | ../../ | n/a |
 | <a name="module_velero_pod_identity"></a> [velero\_pod\_identity](#module\_velero\_pod\_identity) | ../../ | n/a |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-aws-modules/vpc/aws | ~> 5.0 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-aws-modules/vpc/aws | ~> 6.0 |
 
 ## Resources
 

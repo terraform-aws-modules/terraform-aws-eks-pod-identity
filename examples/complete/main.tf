@@ -628,9 +628,9 @@ data "aws_iam_policy_document" "override" {
 
 module "eks_one" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "~> 20.0"
+  version = "~> 21.0"
 
-  cluster_name = "${local.name}-one"
+  name = "${local.name}-one"
 
   vpc_id     = module.vpc.vpc_id
   subnet_ids = module.vpc.private_subnets
@@ -640,9 +640,9 @@ module "eks_one" {
 
 module "eks_two" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "~> 20.0"
+  version = "~> 21.0"
 
-  cluster_name = "${local.name}-two"
+  name = "${local.name}-two"
 
   vpc_id     = module.vpc.vpc_id
   subnet_ids = module.vpc.private_subnets
@@ -652,7 +652,7 @@ module "eks_two" {
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "~> 5.0"
+  version = "~> 6.0"
 
   name = local.name
   cidr = local.vpc_cidr

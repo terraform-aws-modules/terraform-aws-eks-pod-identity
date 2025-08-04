@@ -71,6 +71,7 @@ module "wrapper" {
   permissions_boundary_arn                                 = try(each.value.permissions_boundary_arn, var.defaults.permissions_boundary_arn, null)
   policy_name_prefix                                       = try(each.value.policy_name_prefix, var.defaults.policy_name_prefix, "AmazonEKS_")
   policy_statements                                        = try(each.value.policy_statements, var.defaults.policy_statements, [])
+  region                                                   = try(each.value.region, var.defaults.region, null)
   source_policy_documents                                  = try(each.value.source_policy_documents, var.defaults.source_policy_documents, [])
   tags                                                     = try(each.value.tags, var.defaults.tags, {})
   trust_policy_conditions                                  = try(each.value.trust_policy_conditions, var.defaults.trust_policy_conditions, [])
