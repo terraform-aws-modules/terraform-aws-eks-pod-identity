@@ -35,18 +35,18 @@ data "aws_iam_policy_document" "assume" {
   }
 
   dynamic "statement" {
-    for_each = var.trust_policy_statements
+    for_each = var.trust_policy_statements != null ? var.trust_policy_statements : []
 
     content {
-      sid           = try(statement.value.sid, null)
-      actions       = try(statement.value.actions, null)
-      not_actions   = try(statement.value.not_actions, null)
-      effect        = try(statement.value.effect, null)
-      resources     = try(statement.value.resources, null)
-      not_resources = try(statement.value.not_resources, null)
+      sid           = statement.value.sid
+      actions       = statement.value.actions
+      not_actions   = statement.value.not_actions
+      effect        = statement.value.effect
+      resources     = statement.value.resources
+      not_resources = statement.value.not_resources
 
       dynamic "principals" {
-        for_each = try(statement.value.principals, [])
+        for_each = statement.value.principals != null ? statement.value.principals : []
 
         content {
           type        = principals.value.type
@@ -55,7 +55,7 @@ data "aws_iam_policy_document" "assume" {
       }
 
       dynamic "not_principals" {
-        for_each = try(statement.value.not_principals, [])
+        for_each = statement.value.not_principals != null ? statement.value.not_principals : []
 
         content {
           type        = not_principals.value.type
@@ -64,7 +64,7 @@ data "aws_iam_policy_document" "assume" {
       }
 
       dynamic "condition" {
-        for_each = try(statement.value.conditions, [])
+        for_each = statement.value.condition != null ? statement.value.condition : []
 
         content {
           test     = condition.value.test
@@ -116,18 +116,18 @@ data "aws_iam_policy_document" "base" {
   override_policy_documents = var.attach_custom_policy ? var.override_policy_documents : []
 
   dynamic "statement" {
-    for_each = var.policy_statements
+    for_each = var.policy_statements != null ? var.policy_statements : []
 
     content {
-      sid           = try(statement.value.sid, null)
-      actions       = try(statement.value.actions, null)
-      not_actions   = try(statement.value.not_actions, null)
-      effect        = try(statement.value.effect, null)
-      resources     = try(statement.value.resources, null)
-      not_resources = try(statement.value.not_resources, null)
+      sid           = statement.value.sid
+      actions       = statement.value.actions
+      not_actions   = statement.value.not_actions
+      effect        = statement.value.effect
+      resources     = statement.value.resources
+      not_resources = statement.value.not_resources
 
       dynamic "principals" {
-        for_each = try(statement.value.principals, [])
+        for_each = statement.value.principals != null ? statement.value.principals : []
 
         content {
           type        = principals.value.type
@@ -136,7 +136,7 @@ data "aws_iam_policy_document" "base" {
       }
 
       dynamic "not_principals" {
-        for_each = try(statement.value.not_principals, [])
+        for_each = statement.value.not_principals != null ? statement.value.not_principals : []
 
         content {
           type        = not_principals.value.type
@@ -145,7 +145,7 @@ data "aws_iam_policy_document" "base" {
       }
 
       dynamic "condition" {
-        for_each = try(statement.value.conditions, [])
+        for_each = statement.value.condition != null ? statement.value.condition : []
 
         content {
           test     = condition.value.test
@@ -187,10 +187,18 @@ resource "aws_iam_role_policy_attachment" "custom" {
 resource "aws_eks_pod_identity_association" "this" {
   for_each = { for k, v in var.associations : k => v if var.create }
 
-  cluster_name    = try(each.value.cluster_name, var.association_defaults.cluster_name)
-  namespace       = try(each.value.namespace, var.association_defaults.namespace)
-  service_account = try(each.value.service_account, var.association_defaults.service_account)
-  role_arn        = aws_iam_role.this[0].arn
+  region = var.region
 
-  tags = merge(var.tags, try(each.value.tags, var.association_defaults.tags, {}))
+  cluster_name         = try(coalesce(each.value.cluster_name, var.association_defaults.cluster_name))
+  disable_session_tags = try(coalesce(each.value.disable_session_tags, var.association_defaults.disable_session_tags), null)
+  namespace            = try(coalesce(each.value.namespace, var.association_defaults.namespace))
+  role_arn             = aws_iam_role.this[0].arn
+  service_account      = try(coalesce(each.value.service_account, var.association_defaults.service_account))
+  target_role_arn      = try(coalesce(each.value.target_role_arn, var.association_defaults.target_role_arn), null)
+
+  tags = merge(
+    var.tags,
+    each.value.tags,
+    var.association_defaults.tags,
+  )
 }
