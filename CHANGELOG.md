@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.0](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v1.12.1...v2.0.0) (2025-08-05)
+
+
+### ⚠ BREAKING CHANGES
+
+* Update Terraform and AWS provider versions to `1.5.7` and `6.2` respectively (#40)
+
+### Features
+
+* Update Terraform and AWS provider versions to `1.5.7` and `6.2` respectively ([#40](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/issues/40)) ([df2656b](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/commit/df2656b80afbb64c08e68765be144f732d98aa81))
+
 ## [1.12.1](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v1.12.0...v1.12.1) (2025-07-05)
 
 
