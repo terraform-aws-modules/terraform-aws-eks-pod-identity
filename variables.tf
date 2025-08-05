@@ -22,14 +22,38 @@ variable "tags" {
 
 variable "trust_policy_conditions" {
   description = "A list of conditions to add to the role trust policy"
-  type        = any
-  default     = []
+  type = list(object({
+    test     = string
+    values   = list(string)
+    variable = string
+  }))
+  default = []
 }
 
 variable "trust_policy_statements" {
   description = "A list of IAM policy [statements](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document#statement) for the role trust policy"
-  type        = any
-  default     = []
+  type = list(object({
+    sid           = optional(string)
+    actions       = optional(list(string))
+    not_actions   = optional(list(string))
+    effect        = optional(string)
+    resources     = optional(list(string))
+    not_resources = optional(list(string))
+    principals = optional(list(object({
+      type        = string
+      identifiers = list(string)
+    })))
+    not_principals = optional(list(object({
+      type        = string
+      identifiers = list(string)
+    })))
+    condition = optional(list(object({
+      test     = string
+      values   = list(string)
+      variable = string
+    })))
+  }))
+  default = null
 }
 
 ################################################################################
@@ -84,14 +108,30 @@ variable "additional_policy_arns" {
 
 variable "association_defaults" {
   description = "Default values used across all Pod Identity associations created unless a more specific value is provided"
-  type        = any
-  default     = {}
+  type = object({
+    cluster_name         = optional(string)
+    disable_session_tags = optional(bool)
+    namespace            = optional(string)
+    service_account      = optional(string)
+    role_arn             = optional(string)
+    target_role_arn      = optional(string)
+    tags                 = optional(map(string), {})
+  })
+  default = {}
 }
 
 variable "associations" {
   description = "Map of Pod Identity associations to be created (map of maps)"
-  type        = any
-  default     = {}
+  type = map(object({
+    cluster_name         = optional(string)
+    disable_session_tags = optional(bool)
+    namespace            = optional(string)
+    service_account      = optional(string)
+    role_arn             = optional(string)
+    target_role_arn      = optional(string)
+    tags                 = optional(map(string), {})
+  }))
+  default = {}
 }
 
 ################################################################################
@@ -112,8 +152,28 @@ variable "override_policy_documents" {
 
 variable "policy_statements" {
   description = "A list of IAM policy [statements](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document#statement) for custom permission usage"
-  type        = any
-  default     = []
+  type = list(object({
+    sid           = optional(string)
+    actions       = optional(list(string))
+    not_actions   = optional(list(string))
+    effect        = optional(string)
+    resources     = optional(list(string))
+    not_resources = optional(list(string))
+    principals = optional(list(object({
+      type        = string
+      identifiers = list(string)
+    })))
+    not_principals = optional(list(object({
+      type        = string
+      identifiers = list(string)
+    })))
+    condition = optional(list(object({
+      test     = string
+      values   = list(string)
+      variable = string
+    })))
+  }))
+  default = null
 }
 
 variable "policy_name_prefix" {
