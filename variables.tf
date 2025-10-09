@@ -555,3 +555,9 @@ variable "velero_s3_bucket_path_arns" {
   type        = list(string)
   default     = []
 }
+
+variable "velero_kms_arns" {
+  description = "KMS key ARNs to allow Velero to manage encrypted s3 buckets"
+  type        = list(string)
+  default     = []
+}
