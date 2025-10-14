@@ -44,6 +44,22 @@ data "aws_iam_policy_document" "velero" {
     ]
     resources = coalescelist(var.velero_s3_bucket_arns, ["arn:${local.partition}:s3:::*"])
   }
+
+  dynamic "statement" {
+    for_each = length(var.velero_kms_arns) > 0 ? [1] : []
+
+    content {
+      actions = [
+        "kms:Encrypt",
+        "kms:Decrypt",
+        "kms:ReEncrypt*",
+        "kms:GenerateDataKey*",
+        "kms:DescribeKey",
+      ]
+
+      resources = var.velero_kms_arns
+    }
+  }
 }
 
 locals {

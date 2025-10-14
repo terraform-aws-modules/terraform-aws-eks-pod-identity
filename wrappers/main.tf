@@ -77,6 +77,7 @@ module "wrapper" {
   trust_policy_conditions                                  = try(each.value.trust_policy_conditions, var.defaults.trust_policy_conditions, [])
   trust_policy_statements                                  = try(each.value.trust_policy_statements, var.defaults.trust_policy_statements, null)
   use_name_prefix                                          = try(each.value.use_name_prefix, var.defaults.use_name_prefix, true)
+  velero_kms_arns                                          = try(each.value.velero_kms_arns, var.defaults.velero_kms_arns, [])
   velero_policy_name                                       = try(each.value.velero_policy_name, var.defaults.velero_policy_name, null)
   velero_s3_bucket_arns                                    = try(each.value.velero_s3_bucket_arns, var.defaults.velero_s3_bucket_arns, [])
   velero_s3_bucket_path_arns                               = try(each.value.velero_s3_bucket_path_arns, var.defaults.velero_s3_bucket_path_arns, [])

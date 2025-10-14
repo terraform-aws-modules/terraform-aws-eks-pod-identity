@@ -509,6 +509,7 @@ module "velero_pod_identity" {
   attach_velero_policy       = true
   velero_s3_bucket_arns      = ["arn:aws:s3:::velero-backups"]
   velero_s3_bucket_path_arns = ["arn:aws:s3:::velero-backups/example/*"]
+  velero_kms_arns            = ["arn:aws:kms:*:*:key/1234abcd-12ab-34cd-56ef-1234567890ab"]
 
   # Pod Identity Associations
   association_defaults = {
