@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.1.0](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v2.0.0...v2.1.0) (2025-10-14)
+
+
+### Features
+
+* Add Velero kms keys policy ([#44](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/issues/44)) ([f60f7b3](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/commit/f60f7b3c188aba5c6f10edefaedab3a077b37569))
+
 ## [2.0.0](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v1.12.1...v2.0.0) (2025-08-05)
 
 
