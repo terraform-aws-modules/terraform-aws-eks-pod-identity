@@ -29,6 +29,11 @@ data "aws_iam_policy_document" "ebs_csi" {
   }
 
   statement {
+    actions   = ["ec2:CopyVolumes"]
+    resources = ["arn:${local.partition}:ec2:*:*:volume/vol-*"]
+  }
+
+  statement {
     actions = ["ec2:CreateTags"]
 
     resources = [
@@ -42,6 +47,7 @@ data "aws_iam_policy_document" "ebs_csi" {
       values = [
         "CreateVolume",
         "CreateSnapshot",
+        "CopyVolumes",
       ]
     }
   }
@@ -56,7 +62,10 @@ data "aws_iam_policy_document" "ebs_csi" {
   }
 
   statement {
-    actions   = ["ec2:CreateVolume"]
+    actions = [
+      "ec2:CreateVolume",
+      "ec2:CopyVolumes",
+    ]
     resources = ["arn:${local.partition}:ec2:*:*:volume/*"]
 
     condition {
@@ -67,7 +76,10 @@ data "aws_iam_policy_document" "ebs_csi" {
   }
 
   statement {
-    actions   = ["ec2:CreateVolume"]
+    actions = [
+      "ec2:CreateVolume",
+      "ec2:CopyVolumes",
+    ]
     resources = ["arn:${local.partition}:ec2:*:*:volume/*"]
 
     condition {
