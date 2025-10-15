@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.2.0](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v2.1.0...v2.2.0) (2025-10-15)
+
+
+### Features
+
+* Add support to `ebs-csi` policy for volume clones ([#45](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/issues/45)) ([4ec0d54](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/commit/4ec0d543b7a2a50c3dd5bb58f5eb5ca7f74b86b3))
+
 ## [2.1.0](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v2.0.0...v2.1.0) (2025-10-14)
 
 
