@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.2.1](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v2.2.0...v2.2.1) (2025-10-21)
+
+### Bug Fixes
+
+* Update CI workflow versions to latest ([#46](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/issues/46)) ([1501e7f](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/commit/1501e7fc7087e05ba257da7a487bcdc9631ab3ea))
+
 ## [2.2.0](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v2.1.0...v2.2.0) (2025-10-15)
 
 
