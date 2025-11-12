@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.3.0](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v2.2.1...v2.3.0) (2025-11-12)
+
+### Features
+
+* Add `wafv2:ListWebACLs` permission for ALB controller ([#47](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/issues/47)) ([9117ea6](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/commit/9117ea6624979f75366c3c46ae6de5f8e5803837))
+
 ## [2.2.1](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v2.2.0...v2.2.1) (2025-10-21)
 
 ### Bug Fixes
