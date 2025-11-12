@@ -71,6 +71,7 @@ data "aws_iam_policy_document" "lb_controller" {
       "wafv2:GetWebACLForResource",
       "wafv2:AssociateWebACL",
       "wafv2:DisassociateWebACL",
+      "wafv2:ListWebACLs",
       "shield:GetSubscriptionState",
       "shield:DescribeProtection",
       "shield:CreateProtection",
