@@ -15,7 +15,7 @@ data "aws_region" "current" {
 locals {
   partition  = try(data.aws_partition.current[0].partition, null)
   account_id = try(data.aws_caller_identity.current[0].account_id, null)
-  region     = try(data.aws_region.current[0].name, null)
+  region     = try(data.aws_region.current[0].region, null)
 }
 
 ################################################################################
