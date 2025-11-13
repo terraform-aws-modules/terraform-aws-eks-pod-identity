@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.4.1](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v2.4.0...v2.4.1) (2025-11-13)
+
+### Bug Fixes
+
+* Replace deprecated `name` attribute with current `region` attribute to remove warning ([#49](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/issues/49)) ([8c41dcc](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/commit/8c41dcc03331ae5059002de37d9c10848aa1f101))
+
 ## [2.4.0](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v2.3.0...v2.4.0) (2025-11-13)
 
 ### Features
