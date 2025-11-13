@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.4.0](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v2.3.0...v2.4.0) (2025-11-13)
+
+### Features
+
+* Add support for `pganalyze` ([#48](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/issues/48)) ([1cdb405](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/commit/1cdb4053a408068a5267dfee36221d332e1ae9d7))
+
 ## [2.3.0](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v2.2.1...v2.3.0) (2025-11-12)
 
 ### Features
