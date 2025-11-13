@@ -531,6 +531,20 @@ variable "mountpoint_s3_csi_bucket_path_arns" {
   default     = []
 }
 
+# PGAnalyze
+
+variable "attach_pganalyze_policy" {
+  description = "Determines whether to attach the PGAnalyze IAM policy to the role"
+  type        = bool
+  default     = false
+}
+
+variable "pganalyze_policy_name" {
+  description = "Custom name of the PGAnalyze IAM policy"
+  type        = string
+  default     = null
+}
+
 # Velero
 variable "attach_velero_policy" {
   description = "Determines whether to attach the Velero IAM policy to the role"

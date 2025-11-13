@@ -55,6 +55,7 @@ Note that this example may create resources which will incur monetary charges on
 | <a name="module_external_dns_pod_identity"></a> [external\_dns\_pod\_identity](#module\_external\_dns\_pod\_identity) | ../../ | n/a |
 | <a name="module_external_secrets_pod_identity"></a> [external\_secrets\_pod\_identity](#module\_external\_secrets\_pod\_identity) | ../../ | n/a |
 | <a name="module_mountpoint_s3_csi_pod_identity"></a> [mountpoint\_s3\_csi\_pod\_identity](#module\_mountpoint\_s3\_csi\_pod\_identity) | ../../ | n/a |
+| <a name="module_pganalyze_pod_identity"></a> [pganalyze\_pod\_identity](#module\_pganalyze\_pod\_identity) | ../../ | n/a |
 | <a name="module_velero_pod_identity"></a> [velero\_pod\_identity](#module\_velero\_pod\_identity) | ../../ | n/a |
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-aws-modules/vpc/aws | ~> 6.0 |
 

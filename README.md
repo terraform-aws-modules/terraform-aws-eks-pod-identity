@@ -51,6 +51,14 @@ module "custom_pod_identity" {
     additional           = aws_iam_policy.additional.arn
   }
 
+  associations = {
+    custom-association = {
+      cluster_name    = "custom-cluster"
+      namespace       = "custom-namespace"
+      service_account = "custom-service-account"
+    }
+  }
+
   tags = {
     Environment = "dev"
   }
@@ -66,6 +74,14 @@ module "aws_gateway_controller_pod_identity" {
   name = "aws-gateway-controller"
 
   attach_aws_gateway_controller_policy = true
+
+  associations = {
+    this = {
+      cluster_name    = "example"
+      namespace       = "aws-application-networking-system"
+      service_account = "gateway-api-controller"
+    }
+  }
 
   tags = {
     Environment = "dev"
@@ -84,6 +100,14 @@ module "cert_manager_pod_identity" {
   attach_cert_manager_policy    = true
   cert_manager_hosted_zone_arns = ["arn:aws:route53:::hostedzone/IClearlyMadeThisUp"]
 
+  associations = {
+    this = {
+      cluster_name    = "example"
+      namespace       = "cert-manager"
+      service_account = "cert-manager"
+    }
+  }
+
   tags = {
     Environment = "dev"
   }
@@ -100,12 +124,19 @@ module "aws_cloudwatch_observability_pod_identity" {
 
   attach_aws_cloudwatch_observability_policy = true
 
+  associations = {
+    this = {
+      cluster_name    = "example"
+      namespace       = "amazon-cloudwatch"
+      service_account = "cloudwatch-agent"
+    }
+  }
+
   tags = {
     Environment = "dev"
   }
 }
 ```
-
 
 ### [Cluster Autoscaler](https://github.com/kubernetes/autoscaler)
 
@@ -117,6 +148,14 @@ module "cluster_autoscaler_pod_identity" {
 
   attach_cluster_autoscaler_policy = true
   cluster_autoscaler_cluster_names = ["foo"]
+
+  associations = {
+    this = {
+      cluster_name    = "example"
+      namespace       = "kube-system"
+      service_account = "cluster-autoscaler-sa"
+    }
+  }
 
   tags = {
     Environment = "dev"
@@ -135,6 +174,14 @@ module "aws_ebs_csi_pod_identity" {
   attach_aws_ebs_csi_policy = true
   aws_ebs_csi_kms_arns      = ["arn:aws:kms:*:*:key/1234abcd-12ab-34cd-56ef-1234567890ab"]
 
+  associations = {
+    this = {
+      cluster_name    = "example"
+      namespace       = "kube-system"
+      service_account = "ebs-csi-controller-sa"
+    }
+  }
+
   tags = {
     Environment = "dev"
   }
@@ -150,6 +197,14 @@ module "aws_efs_csi_pod_identity" {
   name = "aws-efs-csi"
 
   attach_aws_efs_csi_policy = true
+
+  associations = {
+    this = {
+      cluster_name    = "example"
+      namespace       = "kube-system"
+      service_account = "efs-csi-controller-sa"
+    }
+  }
 
   tags = {
     Environment = "dev"
@@ -167,6 +222,14 @@ module "external_dns_pod_identity" {
 
   attach_external_dns_policy    = true
   external_dns_hosted_zone_arns = ["arn:aws:route53:::hostedzone/IClearlyMadeThisUp"]
+
+  associations = {
+    this = {
+      cluster_name    = "example"
+      namespace       = "external-dns"
+      service_account = "external-dns-sa"
+    }
+  }
 
   tags = {
     Environment = "dev"
@@ -188,6 +251,14 @@ module "external_secrets_pod_identity" {
   external_secrets_kms_key_arns         = ["arn:aws:kms:*:*:key/1234abcd-12ab-34cd-56ef-1234567890ab"]
   external_secrets_create_permission    = true
 
+  associations = {
+    this = {
+      cluster_name    = "example"
+      namespace       = "external-secrets"
+      service_account = "external-secrets-sa"
+    }
+  }
+
   tags = {
     Environment = "dev"
   }
@@ -205,6 +276,14 @@ module "aws_fsx_lustre_csi_pod_identity" {
   attach_aws_fsx_lustre_csi_policy     = true
   aws_fsx_lustre_csi_service_role_arns = ["arn:aws:iam::*:role/aws-service-role/s3.data-source.lustre.fsx.amazonaws.com/*"]
 
+  associations = {
+    this = {
+      cluster_name    = "example"
+      namespace       = "kube-system"
+      service_account = "fsx-csi-controller-sa"
+    }
+  }
+
   tags = {
     Environment = "dev"
   }
@@ -220,6 +299,14 @@ module "aws_lb_controller_pod_identity" {
   name = "aws-lbc"
 
   attach_aws_lb_controller_policy = true
+
+  associations = {
+    this = {
+      cluster_name    = "example"
+      namespace       = "kube-system"
+      service_account = "aws-load-balancer-controller-sa"
+    }
+  }
 
   tags = {
     Environment = "dev"
@@ -238,6 +325,14 @@ module "aws_lb_controller_targetgroup_binding_only_pod_identity" {
   attach_aws_lb_controller_targetgroup_binding_only_policy = true
   aws_lb_controller_targetgroup_arns                       = ["arn:aws:elasticloadbalancing:*:*:targetgroup/foo/bar"]
 
+  associations = {
+    this = {
+      cluster_name    = "example"
+      namespace       = "kube-system"
+      service_account = "aws-load-balancer-controller-tgb-sa"
+    }
+  }
+
   tags = {
     Environment = "dev"
   }
@@ -253,6 +348,14 @@ module "aws_appmesh_controller_pod_identity" {
   name = "aws-appmesh-controller"
 
   attach_aws_appmesh_controller_policy = true
+
+  associations = {
+    this = {
+      cluster_name    = "example"
+      namespace       = "appmesh-system"
+      service_account = "appmesh-controller"
+    }
+  }
 
   tags = {
     Environment = "dev"
@@ -270,6 +373,14 @@ module "aws_appmesh_envoy_proxy_pod_identity" {
 
   attach_aws_appmesh_envoy_proxy_policy = true
 
+  associations = {
+    this = {
+      cluster_name    = "example"
+      namespace       = "appmesh-system"
+      service_account = "envoy-proxy"
+    }
+  }
+
   tags = {
     Environment = "dev"
   }
@@ -286,6 +397,14 @@ module "amazon_managed_service_prometheus_pod_identity" {
 
   attach_amazon_managed_service_prometheus_policy  = true
   amazon_managed_service_prometheus_workspace_arns = ["arn:aws:prometheus:*:*:workspace/foo"]
+
+  associations = {
+    this = {
+      cluster_name    = "example"
+      namespace       = "prometheus"
+      service_account = "prometheus"
+    }
+  }
 
   tags = {
     Environment = "dev"
@@ -305,6 +424,14 @@ module "mountpoint_s3_csi_pod_identity" {
   mountpoint_s3_csi_bucket_arns      = ["arn:aws:s3:::mountpoint-s3"]
   mountpoint_s3_csi_bucket_path_arns = ["arn:aws:s3:::mountpoint-s3/example/*"]
 
+  associations = {
+    this = {
+      cluster_name    = "example"
+      namespace       = "kube-system"
+      service_account = "s3-csi-driver-sa"
+    }
+  }
+
   tags = {
     Environment = "dev"
   }
@@ -322,11 +449,20 @@ module "aws_node_termination_handler_pod_identity" {
   attach_aws_node_termination_handler_policy  = true
   aws_node_termination_handler_sqs_queue_arns = ["arn:aws:sqs:*:*:eks-node-termination-handler"]
 
+  associations = {
+    this = {
+      cluster_name    = "example"
+      namespace       = "aws-node-termination-handler"
+      service_account = "aws-node-termination-handler-sa"
+    }
+  }
+
   tags = {
     Environment = "dev"
   }
 }
 ```
+
 ### [AWS Private CA Issuer](https://github.com/cert-manager/aws-privateca-issuer)
 
 ```hcl
@@ -337,6 +473,38 @@ module "aws_privateca_issuer_pod_identity" {
 
   attach_aws_privateca_issuer_policy = true
   aws_privateca_issuer_acmca_arns    = ["arn:aws:acm-pca:*:*:certificate-authority/foo"]
+
+  associations = {
+    this = {
+      cluster_name    = "example"
+      namespace       = "cert-manager"
+      service_account = "aws-privateca-issuer-sa"
+    }
+  }
+
+  tags = {
+    Environment = "dev"
+  }
+}
+```
+
+### [PGAnalyze](https://pganalyze.com/)
+
+```hcl
+module "pganalyze_pod_identity" {
+  source = "terraform-aws-modules/eks-pod-identity/aws"
+
+  name = "pganalyze"
+
+  attach_pganalyze_pod_identity_policy = true
+
+  associations = {
+    this = {
+      cluster_name    = "example"
+      namespace       = "default"
+      service_account = "pganalyze-service-account"
+    }
+  }
 
   tags = {
     Environment = "dev"
@@ -356,6 +524,14 @@ module "velero_pod_identity" {
   velero_s3_bucket_arns      = ["arn:aws:s3:::velero-backups"]
   velero_s3_bucket_path_arns = ["arn:aws:s3:::velero-backups/example/*"]
 
+  associations = {
+    this = {
+      cluster_name    = "example"
+      namespace       = "velero"
+      service_account = "velero-server"
+    }
+  }
+
   tags = {
     Environment = "dev"
   }
@@ -373,6 +549,14 @@ module "aws_vpc_cni_ipv4_pod_identity" {
   attach_aws_vpc_cni_policy = true
   aws_vpc_cni_enable_ipv4   = true
 
+  associations = {
+    this = {
+      cluster_name    = "example"
+      namespace       = "kube-system"
+      service_account = "aws-node"
+    }
+  }
+
   tags = {
     Environment = "dev"
   }
@@ -389,6 +573,14 @@ module "aws_vpc_cni_ipv6_pod_identity" {
 
   attach_aws_vpc_cni_policy = true
   aws_vpc_cni_enable_ipv6   = true
+
+  associations = {
+    this = {
+      cluster_name    = "example"
+      namespace       = "kube-system"
+      service_account = "aws-node"
+    }
+  }
 
   tags = {
     Environment = "dev"
@@ -442,6 +634,7 @@ No modules.
 | [aws_iam_policy.lb_controller_targetgroup_only](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.mountpoint_s3_csi](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.node_termination_handler](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
+| [aws_iam_policy.pganalyze](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.velero](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.vpc_cni](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_role.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
@@ -463,9 +656,11 @@ No modules.
 | [aws_iam_role_policy_attachment.lb_controller_targetgroup_only](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.mountpoint_s3_csi](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.node_termination_handler](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_role_policy_attachment.pganalyze](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.velero](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.vpc_cni](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_iam_policy_document.amazon_managed_service_prometheus](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.appmesh_controller](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.appmesh_envoy_proxy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
@@ -484,9 +679,11 @@ No modules.
 | [aws_iam_policy_document.lb_controller_targetgroup_only](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.mountpoint_s3_csi](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.node_termination_handler](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.pganalyze](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.velero](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.vpc_cni](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_partition.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) | data source |
+| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 
 ## Inputs
 
@@ -518,6 +715,7 @@ No modules.
 | <a name="input_attach_external_dns_policy"></a> [attach\_external\_dns\_policy](#input\_attach\_external\_dns\_policy) | Determines whether to attach the External DNS IAM policy to the role | `bool` | `false` | no |
 | <a name="input_attach_external_secrets_policy"></a> [attach\_external\_secrets\_policy](#input\_attach\_external\_secrets\_policy) | Determines whether to attach the External Secrets policy to the role | `bool` | `false` | no |
 | <a name="input_attach_mountpoint_s3_csi_policy"></a> [attach\_mountpoint\_s3\_csi\_policy](#input\_attach\_mountpoint\_s3\_csi\_policy) | Determines whether to attach the Mountpoint S3 CSI IAM policy to the role | `bool` | `false` | no |
+| <a name="input_attach_pganalyze_policy"></a> [attach\_pganalyze\_policy](#input\_attach\_pganalyze\_policy) | Determines whether to attach the PGAnalyze IAM policy to the role | `bool` | `false` | no |
 | <a name="input_attach_velero_policy"></a> [attach\_velero\_policy](#input\_attach\_velero\_policy) | Determines whether to attach the Velero IAM policy to the role | `bool` | `false` | no |
 | <a name="input_aws_ebs_csi_kms_arns"></a> [aws\_ebs\_csi\_kms\_arns](#input\_aws\_ebs\_csi\_kms\_arns) | KMS key ARNs to allow EBS CSI to manage encrypted volumes | `list(string)` | `[]` | no |
 | <a name="input_aws_ebs_csi_policy_name"></a> [aws\_ebs\_csi\_policy\_name](#input\_aws\_ebs\_csi\_policy\_name) | Custom name of the EBS CSI IAM policy | `string` | `null` | no |
@@ -558,6 +756,7 @@ No modules.
 | <a name="input_override_policy_documents"></a> [override\_policy\_documents](#input\_override\_policy\_documents) | List of IAM policy documents that are merged together into the exported document | `list(string)` | `[]` | no |
 | <a name="input_path"></a> [path](#input\_path) | Path of IAM role | `string` | `"/"` | no |
 | <a name="input_permissions_boundary_arn"></a> [permissions\_boundary\_arn](#input\_permissions\_boundary\_arn) | Permissions boundary ARN to use for IAM role | `string` | `null` | no |
+| <a name="input_pganalyze_policy_name"></a> [pganalyze\_policy\_name](#input\_pganalyze\_policy\_name) | Custom name of the PGAnalyze IAM policy | `string` | `null` | no |
 | <a name="input_policy_name_prefix"></a> [policy\_name\_prefix](#input\_policy\_name\_prefix) | IAM policy name prefix | `string` | `"AmazonEKS_"` | no |
 | <a name="input_policy_statements"></a> [policy\_statements](#input\_policy\_statements) | A list of IAM policy [statements](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document#statement) for custom permission usage | <pre>list(object({<br/>    sid           = optional(string)<br/>    actions       = optional(list(string))<br/>    not_actions   = optional(list(string))<br/>    effect        = optional(string)<br/>    resources     = optional(list(string))<br/>    not_resources = optional(list(string))<br/>    principals = optional(list(object({<br/>      type        = string<br/>      identifiers = list(string)<br/>    })))<br/>    not_principals = optional(list(object({<br/>      type        = string<br/>      identifiers = list(string)<br/>    })))<br/>    condition = optional(list(object({<br/>      test     = string<br/>      values   = list(string)<br/>      variable = string<br/>    })))<br/>  }))</pre> | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | Region where the resource(s) will be managed. Defaults to the Region set in the provider configuration | `string` | `null` | no |

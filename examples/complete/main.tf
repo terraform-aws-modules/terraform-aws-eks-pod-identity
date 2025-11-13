@@ -501,6 +501,31 @@ module "aws_privateca_issuer_pod_identity" {
   tags = local.tags
 }
 
+module "pganalyze_pod_identity" {
+  source = "../../"
+
+  name = "pganalyze"
+
+  attach_pganalyze_policy = true
+
+  # Pod Identity Associations
+  association_defaults = {
+    namespace       = "default"
+    service_account = "pganalyze-service-account"
+  }
+
+  associations = {
+    ex-one = {
+      cluster_name = module.eks_one.cluster_name
+    }
+    ex-two = {
+      cluster_name = module.eks_two.cluster_name
+    }
+  }
+
+  tags = local.tags
+}
+
 module "velero_pod_identity" {
   source = "../../"
 
