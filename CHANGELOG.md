@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.4.2](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v2.4.1...v2.4.2) (2025-11-17)
+
+### Bug Fixes
+
+* Use empty strings for metadata default values to avoid template errors ([#52](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/issues/52)) ([2096d87](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/commit/2096d87b65f5a2027ef018ac41852b32c8f23426))
+
 ## [2.4.1](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v2.4.0...v2.4.1) (2025-11-13)
 
 ### Bug Fixes
