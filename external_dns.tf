@@ -20,6 +20,7 @@ data "aws_iam_policy_document" "external_dns" {
       "route53:ListHostedZones",
       "route53:ListResourceRecordSets",
       "route53:ListTagsForResource",
+      "route53:ListTagsForResources",
     ]
 
     resources = ["*"]
