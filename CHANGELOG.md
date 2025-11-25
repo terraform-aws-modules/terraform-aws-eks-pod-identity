@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.5.0](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v2.4.2...v2.5.0) (2025-11-25)
+
+### Features
+
+* Add `ListTagsForResource` to `external-dns` policy ([#53](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/issues/53)) ([fc63f9f](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/commit/fc63f9fab7fb58b3e4ac53fb4404917dd603dd3a))
+
 ## [2.4.2](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v2.4.1...v2.4.2) (2025-11-17)
 
 ### Bug Fixes
