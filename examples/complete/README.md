@@ -42,6 +42,7 @@ Note that this example may create resources which will incur monetary charges on
 | <a name="module_aws_gateway_controller_pod_identity"></a> [aws\_gateway\_controller\_pod\_identity](#module\_aws\_gateway\_controller\_pod\_identity) | ../../ | n/a |
 | <a name="module_aws_lb_controller_pod_identity"></a> [aws\_lb\_controller\_pod\_identity](#module\_aws\_lb\_controller\_pod\_identity) | ../../ | n/a |
 | <a name="module_aws_lb_controller_targetgroup_binding_only_pod_identity"></a> [aws\_lb\_controller\_targetgroup\_binding\_only\_pod\_identity](#module\_aws\_lb\_controller\_targetgroup\_binding\_only\_pod\_identity) | ../../ | n/a |
+| <a name="module_aws_lb_controller_with_global_accelerator_pod_identity"></a> [aws\_lb\_controller\_with\_global\_accelerator\_pod\_identity](#module\_aws\_lb\_controller\_with\_global\_accelerator\_pod\_identity) | ../../ | n/a |
 | <a name="module_aws_node_termination_handler_pod_identity"></a> [aws\_node\_termination\_handler\_pod\_identity](#module\_aws\_node\_termination\_handler\_pod\_identity) | ../../ | n/a |
 | <a name="module_aws_privateca_issuer_pod_identity"></a> [aws\_privateca\_issuer\_pod\_identity](#module\_aws\_privateca\_issuer\_pod\_identity) | ../../ | n/a |
 | <a name="module_aws_vpc_cni_ipv4_pod_identity"></a> [aws\_vpc\_cni\_ipv4\_pod\_identity](#module\_aws\_vpc\_cni\_ipv4\_pod\_identity) | ../../ | n/a |

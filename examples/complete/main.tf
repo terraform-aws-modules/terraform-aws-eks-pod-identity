@@ -320,6 +320,32 @@ module "aws_lb_controller_pod_identity" {
   tags = local.tags
 }
 
+module "aws_lb_controller_with_global_accelerator_pod_identity" {
+  source = "../../"
+
+  name = "aws-lbc"
+
+  attach_aws_lb_controller_policy                 = true
+  attach_aws_global_accelerator_controller_policy = true
+
+  # Pod Identity Associations
+  association_defaults = {
+    namespace       = "kube-system"
+    service_account = "aws-load-balancer-controller-sa"
+  }
+
+  associations = {
+    ex-one = {
+      cluster_name = module.eks_one.cluster_name
+    }
+    ex-two = {
+      cluster_name = module.eks_two.cluster_name
+    }
+  }
+
+  tags = local.tags
+}
+
 module "aws_lb_controller_targetgroup_binding_only_pod_identity" {
   source = "../../"
 
