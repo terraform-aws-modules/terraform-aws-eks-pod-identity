@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.6.0](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v2.5.0...v2.6.0) (2025-12-22)
+
+### Features
+
+* Grant Velero permissions to restore encrypted EBS snapshots. ([#56](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/issues/56)) ([d5e7fe6](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/commit/d5e7fe6f81830e424f18027ca01a2b01fd4f8782))
+
 ## [2.5.0](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v2.4.2...v2.5.0) (2025-11-25)
 
 ### Features

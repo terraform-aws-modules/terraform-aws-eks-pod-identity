@@ -55,6 +55,11 @@ data "aws_iam_policy_document" "velero" {
         "kms:ReEncrypt*",
         "kms:GenerateDataKey*",
         "kms:DescribeKey",
+        "kms:CreateGrant",
+        "kms:ListGrants",
+        "kms:RevokeGrant",
+        "kms:RetireGrant",
+        "kms:ListRetirableGrants",
       ]
 
       resources = var.velero_kms_arns
