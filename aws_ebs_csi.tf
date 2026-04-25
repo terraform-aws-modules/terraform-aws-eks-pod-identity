@@ -18,10 +18,12 @@ data "aws_iam_policy_document" "ebs_csi" {
       "ec2:ModifyVolume",
       "ec2:DescribeAvailabilityZones",
       "ec2:DescribeInstances",
+      "ec2:DescribeInstanceTypes",
       "ec2:DescribeSnapshots",
       "ec2:DescribeTags",
       "ec2:DescribeVolumes",
       "ec2:DescribeVolumesModifications",
+      "ec2:DescribeVolumeStatus",
       "ec2:EnableFastSnapshotRestores",
     ]
 
@@ -128,7 +130,10 @@ data "aws_iam_policy_document" "ebs_csi" {
   }
 
   statement {
-    actions   = ["ec2:DeleteSnapshot"]
+    actions = [
+      "ec2:DeleteSnapshot",
+      "ec2:LockSnapshot",
+    ]
     resources = ["*"]
 
     condition {
@@ -139,7 +144,10 @@ data "aws_iam_policy_document" "ebs_csi" {
   }
 
   statement {
-    actions   = ["ec2:DeleteSnapshot"]
+    actions = [
+      "ec2:DeleteSnapshot",
+      "ec2:LockSnapshot",
+    ]
     resources = ["*"]
 
     condition {
