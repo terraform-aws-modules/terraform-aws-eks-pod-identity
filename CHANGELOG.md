@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.8.0](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v2.7.0...v2.8.0) (2026-04-25)
+
+### Features
+
+* Add missing EBS CSI driver IAM permissions ([#59](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/issues/59)) ([f97511f](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/commit/f97511f719e749b9964b3ba255f0ac816fdcfc26))
+
 ## [2.7.0](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v2.6.0...v2.7.0) (2026-01-08)
 
 ### Features
