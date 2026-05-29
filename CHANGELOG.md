@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.8.1](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v2.8.0...v2.8.1) (2026-05-29)
+
+### Bug Fixes
+
+* Add ec2:DescribeSecurityGroups to aws_vpc_cni policy ([#61](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/issues/61)) ([3aca641](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/commit/3aca641117a7df04332c5c05179bd9b8facd13d9))
+
 ## [2.8.0](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v2.7.0...v2.8.0) (2026-04-25)
 
 ### Features
