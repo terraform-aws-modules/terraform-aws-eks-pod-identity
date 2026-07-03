@@ -7,7 +7,7 @@
 data "aws_iam_policy_document" "cert_manager" {
   count = var.create && var.attach_cert_manager_policy ? 1 : 0
 
-  source_policy_documents   = [data.aws_iam_policy_document.base[0].json]
+  source_policy_documents   = var.source_policy_documents
   override_policy_documents = var.override_policy_documents
 
   statement {

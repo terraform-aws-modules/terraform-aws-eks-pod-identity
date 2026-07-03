@@ -60,6 +60,29 @@ module "custom_pod_identity" {
   tags = local.tags
 }
 
+# Custom `policy_statements` combined with a predefined policy in the same
+# invocation. The custom statements must land only on the custom policy and
+# must NOT be duplicated into the predefined (external secrets) policy.
+module "custom_and_predefined_pod_identity" {
+  source = "../../"
+
+  name = "${local.name}-custom-and-predefined"
+
+  attach_custom_policy = true
+  policy_statements = [
+    {
+      sid       = "S3"
+      actions   = ["s3:List*"]
+      resources = ["*"]
+    }
+  ]
+
+  attach_external_secrets_policy        = true
+  external_secrets_secrets_manager_arns = ["arn:aws:secretsmanager:*:*:secret:example"]
+
+  tags = local.tags
+}
+
 module "aws_gateway_controller_pod_identity" {
   source = "../../"
 

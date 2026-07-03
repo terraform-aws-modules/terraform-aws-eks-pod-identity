@@ -6,7 +6,7 @@
 data "aws_iam_policy_document" "vpc_cni" {
   count = var.create && var.attach_aws_vpc_cni_policy ? 1 : 0
 
-  source_policy_documents   = [data.aws_iam_policy_document.base[0].json]
+  source_policy_documents   = var.source_policy_documents
   override_policy_documents = var.override_policy_documents
 
   # https://docs.aws.amazon.com/eks/latest/userguide/cni-network-policy.html#cni-network-policy-setup
