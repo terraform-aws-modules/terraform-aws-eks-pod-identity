@@ -34,6 +34,35 @@ data "aws_iam_policy_document" "external_secrets" {
   }
 
   dynamic "statement" {
+    for_each = length(var.external_secrets_ssm_parameter_arns) > 0 && var.external_secrets_create_permission ? [1] : []
+
+    content {
+      actions = [
+        "ssm:PutParameter",
+        "ssm:AddTagsToResource",
+        "ssm:ListTagsForResource",
+      ]
+
+      resources = var.external_secrets_ssm_parameter_arns
+    }
+  }
+
+  dynamic "statement" {
+    for_each = length(var.external_secrets_ssm_parameter_arns) > 0 && var.external_secrets_create_permission ? [1] : []
+
+    content {
+      actions   = ["ssm:DeleteParameter"]
+      resources = var.external_secrets_ssm_parameter_arns
+
+      condition {
+        test     = "StringEquals"
+        variable = "ssm:resourceTag/managed-by"
+        values   = ["external-secrets"]
+      }
+    }
+  }
+
+  dynamic "statement" {
     for_each = length(var.external_secrets_secrets_manager_arns) > 0 ? [1] : []
 
     content {
