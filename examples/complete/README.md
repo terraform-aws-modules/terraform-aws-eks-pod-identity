@@ -18,20 +18,20 @@ Note that this example may create resources which will incur monetary charges on
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.7 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.28 |
 
 ## Providers
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.28 |
 
 ## Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_amazon_managed_service_prometheus_pod_identity"></a> [amazon\_managed\_service\_prometheus\_pod\_identity](#module\_amazon\_managed\_service\_prometheus\_pod\_identity) | ../../ | n/a |
 | <a name="module_aws_appmesh_controller_pod_identity"></a> [aws\_appmesh\_controller\_pod\_identity](#module\_aws\_appmesh\_controller\_pod\_identity) | ../../ | n/a |
 | <a name="module_aws_appmesh_envoy_proxy_pod_identity"></a> [aws\_appmesh\_envoy\_proxy\_pod\_identity](#module\_aws\_appmesh\_envoy\_proxy\_pod\_identity) | ../../ | n/a |
@@ -62,7 +62,7 @@ Note that this example may create resources which will incur monetary charges on
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [aws_iam_policy.additional](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_availability_zones.available](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zones) | data source |
 | [aws_iam_policy_document.override](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
@@ -75,7 +75,7 @@ No inputs.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_amazon_managed_service_prometheus_pod_identity_associations"></a> [amazon\_managed\_service\_prometheus\_pod\_identity\_associations](#output\_amazon\_managed\_service\_prometheus\_pod\_identity\_associations) | Map of Pod Identity associations created |
 | <a name="output_amazon_managed_service_prometheus_pod_identity_iam_policy_arn"></a> [amazon\_managed\_service\_prometheus\_pod\_identity\_iam\_policy\_arn](#output\_amazon\_managed\_service\_prometheus\_pod\_identity\_iam\_policy\_arn) | The ARN assigned by AWS to this policy |
 | <a name="output_amazon_managed_service_prometheus_pod_identity_iam_policy_id"></a> [amazon\_managed\_service\_prometheus\_pod\_identity\_iam\_policy\_id](#output\_amazon\_managed\_service\_prometheus\_pod\_identity\_iam\_policy\_id) | ID of IAM policy |
