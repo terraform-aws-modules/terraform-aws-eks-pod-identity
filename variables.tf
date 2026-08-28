@@ -324,6 +324,19 @@ variable "aws_lb_controller_policy_name" {
   default     = null
 }
 
+# AWS Load Balancer (AWS Global Accelerator controller)
+variable "attach_aws_global_accelerator_controller_policy" {
+  description = "Determines whether to attach the AWS Global Accelerator Controller policy to the role"
+  type        = bool
+  default     = false
+}
+
+variable "aws_global_accelerator_controller_policy_name" {
+  description = "Custom name of the AWS Global Accelerator Controller IAM policy"
+  type        = string
+  default     = null
+}
+
 # AWS Load Balancer Controller TargetGroup Binding Only
 variable "attach_aws_lb_controller_targetgroup_binding_only_policy" {
   description = "Determines whether to attach the AWS Load Balancer Controller policy for the TargetGroupBinding only"

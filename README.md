@@ -314,6 +314,31 @@ module "aws_lb_controller_pod_identity" {
 }
 ```
 
+### [AWS Load Balancer Controller with Global Accelerator](https://github.com/kubernetes-sigs/aws-load-balancer-controller-with-global-accelarator)
+
+```hcl
+module "aws_lb_controller_pod_identity" {
+  source = "terraform-aws-modules/eks-pod-identity/aws"
+
+  name = "aws-lbc"
+
+  attach_aws_lb_controller_policy                 = true
+  attach_aws_global_accelerator_controller_policy = true
+
+  associations = {
+    this = {
+      cluster_name    = "example"
+      namespace       = "kube-system"
+      service_account = "aws-load-balancer-controller-sa"
+    }
+  }
+
+  tags = {
+    Environment = "dev"
+  }
+}
+```
+
 ### [AWS Load Balancer Controller - Target Group Binding Only](https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.6/deploy/installation/#option-b-attach-iam-policies-to-nodes)
 
 ```hcl
@@ -630,6 +655,7 @@ No modules.
 | [aws_iam_policy.external_dns](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.external_secrets](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.fsx_lustre_csi](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
+| [aws_iam_policy.global_accelerator_controller](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.lb_controller](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.lb_controller_targetgroup_only](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.mountpoint_s3_csi](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
@@ -652,6 +678,7 @@ No modules.
 | [aws_iam_role_policy_attachment.external_dns](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.external_secrets](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.fsx_lustre_csi](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_role_policy_attachment.global_accelerator_controller](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.lb_controller](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.lb_controller_targetgroup_only](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.mountpoint_s3_csi](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
@@ -675,6 +702,7 @@ No modules.
 | [aws_iam_policy_document.external_dns](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.external_secrets](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.fsx_lustre_csi](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.global_accelerator_controller](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.lb_controller](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.lb_controller_targetgroup_only](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.mountpoint_s3_csi](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
@@ -704,6 +732,7 @@ No modules.
 | <a name="input_attach_aws_efs_csi_policy"></a> [attach\_aws\_efs\_csi\_policy](#input\_attach\_aws\_efs\_csi\_policy) | Determines whether to attach the EFS CSI IAM policy to the role | `bool` | `false` | no |
 | <a name="input_attach_aws_fsx_lustre_csi_policy"></a> [attach\_aws\_fsx\_lustre\_csi\_policy](#input\_attach\_aws\_fsx\_lustre\_csi\_policy) | Determines whether to attach the FSx for Lustre CSI Driver IAM policy to the role | `bool` | `false` | no |
 | <a name="input_attach_aws_gateway_controller_policy"></a> [attach\_aws\_gateway\_controller\_policy](#input\_attach\_aws\_gateway\_controller\_policy) | Determines whether to attach the AWS Gateway Controller IAM policy to the role | `bool` | `false` | no |
+| <a name="input_attach_aws_global_accelerator_controller_policy"></a> [attach\_aws\_global\_accelerator\_controller\_policy](#input\_attach\_aws\_global\_accelerator\_controller\_policy) | Determines whether to attach the AWS Global Accelerator Controller policy to the role | `bool` | `false` | no |
 | <a name="input_attach_aws_lb_controller_policy"></a> [attach\_aws\_lb\_controller\_policy](#input\_attach\_aws\_lb\_controller\_policy) | Determines whether to attach the AWS Load Balancer Controller policy to the role | `bool` | `false` | no |
 | <a name="input_attach_aws_lb_controller_targetgroup_binding_only_policy"></a> [attach\_aws\_lb\_controller\_targetgroup\_binding\_only\_policy](#input\_attach\_aws\_lb\_controller\_targetgroup\_binding\_only\_policy) | Determines whether to attach the AWS Load Balancer Controller policy for the TargetGroupBinding only | `bool` | `false` | no |
 | <a name="input_attach_aws_node_termination_handler_policy"></a> [attach\_aws\_node\_termination\_handler\_policy](#input\_attach\_aws\_node\_termination\_handler\_policy) | Determines whether to attach the Node Termination Handler policy to the role | `bool` | `false` | no |
@@ -723,6 +752,7 @@ No modules.
 | <a name="input_aws_fsx_lustre_csi_policy_name"></a> [aws\_fsx\_lustre\_csi\_policy\_name](#input\_aws\_fsx\_lustre\_csi\_policy\_name) | Custom name of the FSx for Lustre CSI Driver IAM policy | `string` | `null` | no |
 | <a name="input_aws_fsx_lustre_csi_service_role_arns"></a> [aws\_fsx\_lustre\_csi\_service\_role\_arns](#input\_aws\_fsx\_lustre\_csi\_service\_role\_arns) | Service role ARNs to allow FSx for Lustre CSI create and manage FSX for Lustre service linked roles | `list(string)` | `[]` | no |
 | <a name="input_aws_gateway_controller_policy_name"></a> [aws\_gateway\_controller\_policy\_name](#input\_aws\_gateway\_controller\_policy\_name) | Custom name of the AWS Gateway Controller IAM policy | `string` | `null` | no |
+| <a name="input_aws_global_accelerator_controller_policy_name"></a> [aws\_global\_accelerator\_controller\_policy\_name](#input\_aws\_global\_accelerator\_controller\_policy\_name) | Custom name of the AWS Global Accelerator Controller IAM policy | `string` | `null` | no |
 | <a name="input_aws_lb_controller_policy_name"></a> [aws\_lb\_controller\_policy\_name](#input\_aws\_lb\_controller\_policy\_name) | Custom name of the AWS Load Balancer Controller IAM policy | `string` | `null` | no |
 | <a name="input_aws_lb_controller_targetgroup_arns"></a> [aws\_lb\_controller\_targetgroup\_arns](#input\_aws\_lb\_controller\_targetgroup\_arns) | List of Target groups ARNs using Load Balancer Controller | `list(string)` | `[]` | no |
 | <a name="input_aws_lb_controller_targetgroup_only_policy_name"></a> [aws\_lb\_controller\_targetgroup\_only\_policy\_name](#input\_aws\_lb\_controller\_targetgroup\_only\_policy\_name) | Custom name of the AWS Load Balancer Controller IAM policy for the TargetGroupBinding only | `string` | `null` | no |
