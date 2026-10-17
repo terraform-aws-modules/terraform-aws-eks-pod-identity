@@ -26,6 +26,8 @@ data "aws_iam_policy_document" "aws_gateway_controller" {
       "logs:DeleteLogDelivery",
       "logs:ListLogDeliveries",
       "tag:GetResources",
+      "tag:TagResources",
+      "tag:UntagResources",
       "firehose:TagDeliveryStream",
       "s3:GetBucketPolicy",
       "s3:PutBucketPolicy",
