@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.10.0](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v2.9.0...v2.10.0) (2026-10-17)
+
+### Features
+
+* Add tagging and ACM permissions to `aws_gateway_controller` policy ([#70](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/issues/70)) ([15768fb](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/commit/15768fba4c575ca17777c439fbabf120319cb97a))
+
 ## [2.9.0](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v2.8.2...v2.9.0) (2026-08-28)
 
 ### Features
