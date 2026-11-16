@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.11.0](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v2.10.0...v2.11.0) (2026-11-16)
+
+### Features
+
+* Add S3 Files permissions to `aws_efs_csi` policy ([#71](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/issues/71)) ([b8bef9a](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/commit/b8bef9a0480759ecf1a512a87474fa8afad29a6b))
+
 ## [2.10.0](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/compare/v2.9.0...v2.10.0) (2026-10-17)
 
 ### Features
