@@ -4,12 +4,20 @@ provider "aws" {
 
 data "aws_availability_zones" "available" {}
 
+data "aws_availability_zones" "secondary" {
+  region = local.secondary_region
+}
+
 locals {
   region = "eu-west-1"
-  name   = "pod-id-ex-${basename(path.cwd)}"
+  # Region of the second cluster, to show one role associated with clusters in two regions
+  secondary_region = "eu-central-1"
+  name             = "pod-id-ex-${basename(path.cwd)}"
 
   vpc_cidr = "10.0.0.0/16"
   azs      = slice(data.aws_availability_zones.available.names, 0, 3)
+
+  secondary_azs = slice(data.aws_availability_zones.secondary.names, 0, 3)
 
   tags = {
     Name       = local.name
@@ -51,6 +59,8 @@ module "custom_pod_identity" {
       service_account = "custom"
     }
     ex-two = {
+      # the cluster is in another region than the provider's
+      region          = local.secondary_region
       cluster_name    = module.eks_two.cluster_name
       namespace       = "custom"
       service_account = "custom"
@@ -694,10 +704,12 @@ module "eks_two" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 21.0"
 
+  region = local.secondary_region
+
   name = "${local.name}-two"
 
-  vpc_id     = module.vpc.vpc_id
-  subnet_ids = module.vpc.private_subnets
+  vpc_id     = module.vpc_secondary.vpc_id
+  subnet_ids = module.vpc_secondary.private_subnets
 
   tags = local.tags
 }
@@ -711,6 +723,23 @@ module "vpc" {
 
   azs             = local.azs
   private_subnets = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 4, k)]
+
+  enable_nat_gateway = false
+
+  tags = local.tags
+}
+
+module "vpc_secondary" {
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "~> 6.0"
+
+  region = local.secondary_region
+
+  name = "${local.name}-secondary"
+  cidr = local.vpc_cidr
+
+  azs             = local.secondary_azs
+  private_subnets = [for k, v in local.secondary_azs : cidrsubnet(local.vpc_cidr, 4, k)]
 
   enable_nat_gateway = false
 
