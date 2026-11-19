@@ -314,7 +314,7 @@ module "aws_lb_controller_pod_identity" {
 }
 ```
 
-### [AWS Load Balancer Controller with Global Accelerator](https://github.com/kubernetes-sigs/aws-load-balancer-controller-with-global-accelarator)
+### [AWS Load Balancer Controller with Global Accelerator](https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/globalaccelerator/installation/)
 
 ```hcl
 module "aws_lb_controller_pod_identity" {
