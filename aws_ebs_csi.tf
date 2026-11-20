@@ -12,10 +12,6 @@ data "aws_iam_policy_document" "ebs_csi" {
 
   statement {
     actions = [
-      "ec2:CreateSnapshot",
-      "ec2:AttachVolume",
-      "ec2:DetachVolume",
-      "ec2:ModifyVolume",
       "ec2:DescribeAvailabilityZones",
       "ec2:DescribeInstances",
       "ec2:DescribeInstanceTypes",
@@ -24,10 +20,52 @@ data "aws_iam_policy_document" "ebs_csi" {
       "ec2:DescribeVolumes",
       "ec2:DescribeVolumesModifications",
       "ec2:DescribeVolumeStatus",
-      "ec2:EnableFastSnapshotRestores",
     ]
 
     resources = ["*"]
+  }
+
+  statement {
+    actions = [
+      "ec2:CreateSnapshot",
+      "ec2:ModifyVolume",
+    ]
+
+    resources = ["arn:${local.partition}:ec2:*:*:volume/*"]
+  }
+
+  statement {
+    actions = [
+      "ec2:AttachVolume",
+      "ec2:DetachVolume",
+    ]
+
+    resources = [
+      "arn:${local.partition}:ec2:*:*:volume/*",
+      "arn:${local.partition}:ec2:*:*:instance/*",
+    ]
+  }
+
+  statement {
+    actions   = ["ec2:CreateSnapshot"]
+    resources = ["arn:${local.partition}:ec2:*:*:snapshot/*"]
+
+    condition {
+      test     = "StringLike"
+      variable = "aws:RequestTag/CSIVolumeSnapshotName"
+      values   = ["*"]
+    }
+  }
+
+  statement {
+    actions   = ["ec2:CreateSnapshot"]
+    resources = ["arn:${local.partition}:ec2:*:*:snapshot/*"]
+
+    condition {
+      test     = "StringLike"
+      variable = "aws:RequestTag/ebs.csi.aws.com/cluster"
+      values   = ["true"]
+    }
   }
 
   statement {
@@ -92,7 +130,11 @@ data "aws_iam_policy_document" "ebs_csi" {
   }
 
   statement {
-    actions   = ["ec2:CreateVolume"]
+    actions = [
+      "ec2:CreateVolume",
+      "ec2:EnableFastSnapshotRestores",
+    ]
+
     resources = ["arn:${local.partition}:ec2:*:*:snapshot/*"]
   }
 
