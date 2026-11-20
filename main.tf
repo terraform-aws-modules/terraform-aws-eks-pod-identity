@@ -201,7 +201,7 @@ resource "aws_iam_role_policy_attachment" "custom" {
 resource "aws_eks_pod_identity_association" "this" {
   for_each = { for k, v in var.associations : k => v if var.create }
 
-  region = var.region
+  region = try(coalesce(each.value.region, var.association_defaults.region, var.region), null)
 
   cluster_name         = try(coalesce(each.value.cluster_name, var.association_defaults.cluster_name))
   disable_session_tags = try(coalesce(each.value.disable_session_tags, var.association_defaults.disable_session_tags), null)

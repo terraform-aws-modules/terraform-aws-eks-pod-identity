@@ -59,6 +59,7 @@ Note that this example may create resources which will incur monetary charges on
 | <a name="module_pganalyze_pod_identity"></a> [pganalyze\_pod\_identity](#module\_pganalyze\_pod\_identity) | ../../ | n/a |
 | <a name="module_velero_pod_identity"></a> [velero\_pod\_identity](#module\_velero\_pod\_identity) | ../../ | n/a |
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-aws-modules/vpc/aws | ~> 6.0 |
+| <a name="module_vpc_secondary"></a> [vpc\_secondary](#module\_vpc\_secondary) | terraform-aws-modules/vpc/aws | ~> 6.0 |
 
 ## Resources
 
@@ -66,6 +67,7 @@ Note that this example may create resources which will incur monetary charges on
 | ---- | ---- |
 | [aws_iam_policy.additional](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_availability_zones.available](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zones) | data source |
+| [aws_availability_zones.secondary](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zones) | data source |
 | [aws_iam_policy_document.override](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.source](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 
